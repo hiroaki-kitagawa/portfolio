@@ -15,7 +15,7 @@ class CreateInvestmentTable extends Migration
     {
         Schema::create('investment', function (Blueprint $table) {
             $table->increments('invest_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->integer('domestic_bonds');
             $table->integer('developed_bonds');
             $table->integer('emerging_bonds');
@@ -26,6 +26,11 @@ class CreateInvestmentTable extends Migration
             $table->integer('oversea_riet');
             $table->integer('other');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
         });
     }
 

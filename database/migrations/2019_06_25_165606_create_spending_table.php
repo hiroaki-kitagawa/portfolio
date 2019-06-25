@@ -15,7 +15,7 @@ class CreateSpendingTable extends Migration
     {
         Schema::create('spending', function (Blueprint $table) {
             $table->increments('spend_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->integer('fixed_rent');
             $table->integer('fixed_insurance');
             $table->integer('variable_utilities');
@@ -33,6 +33,11 @@ class CreateSpendingTable extends Migration
             $table->integer('variable_saving');
             $table->integer('variable_investment');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
         });
     }
 
