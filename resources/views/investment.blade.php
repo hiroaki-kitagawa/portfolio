@@ -4,7 +4,7 @@
 <div class="col-md-7">
     <div class="form-group form-inline">
       <label for="投資・貯蓄額" class="label-font-size">投資・貯蓄額</label>
-      <input type="number" class="form-control">
+      <input type="number" class="form-control"><label>円</label>
     </div>
 
     <h3>安全資産</h3>

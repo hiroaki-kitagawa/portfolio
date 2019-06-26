@@ -1,15 +1,15 @@
-<h2>◯◯さんの支出配分</h2>
+<h2>さんの支出配分</h2>
 
-<div class="col-md-8">
+<div class="col-md-7">
 
 <form action="{{ action('Admin\SpendingController@create') }}" method="post" enctype="multipart/form-data">
     <div class="form-group form-inline">
       <label for="手取収入" class="label-font-size">手取収入</label>
-      <input type="number" class="form-control"><label>円</label>
+      <input type="number" class="form-control" name="fixed_income"><label>円</label>
     </div>
     <div class="form-group form-inline">
       <label for="臨時収入" class="label-font-size">臨時収入</label>
-      <input type="number" class="form-control"><label>円</label>
+      <input type="number" class="form-control" name="extra_income"><label>円</label>
     </div>
 
     <h3>固定費</h3>
@@ -161,7 +161,7 @@
         </tr>
       </table>
     </div>
-
-    <button class="btn btn-success pull-right btn-user-style">保存</button>
+    {{ csrf_field() }}
+    <input type="submit" class="btn btn-success pull-right btn-user-style" value="保存">
   </form>
 </div>
