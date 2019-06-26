@@ -19,7 +19,7 @@
                         @include('spending')
                     </div>
                     <div class="tab-pane" id="investment-tab">
-                        <h2>◯◯さんの投資配分</h2>
+                        @include('investment')
                     </div>
                     <div class="tab-pane" id="money-sim">
                         <h2>資産運用シュミレーション</h2>

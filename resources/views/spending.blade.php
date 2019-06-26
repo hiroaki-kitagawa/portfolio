@@ -1,18 +1,16 @@
 <h2>◯◯さんの支出配分</h2>
 
-
 <div class="col-md-8">
 
+<form action="{{ action('Admin\SpendingController@create') }}" method="post" enctype="multipart/form-data">
     <div class="form-group form-inline">
-
-        <label for="手取収入" class="label-font-size">手取収入</label>
-        <input type="number" class="form-control">
-        <label for="臨時収入" class="label-font-size">臨時収入</label>
-        <input type="number" class="form-control">
-
+      <label for="手取収入" class="label-font-size">手取収入</label>
+      <input type="number" class="form-control"><label>円</label>
     </div>
-
-
+    <div class="form-group form-inline">
+      <label for="臨時収入" class="label-font-size">臨時収入</label>
+      <input type="number" class="form-control"><label>円</label>
+    </div>
 
     <h3>固定費</h3>
     <div>
@@ -21,19 +19,19 @@
           <th>項目</th><th>理想(25%)</th><th>実績(25%)</th><th>差額</th>
         </tr>
         <tr>
-          <th class="col-xs-2">住居費</th>
+          <th class="col-xs-3">住居費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">保険</th>
+          <th class="col-xs-3">保険</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">その他</th>
+          <th class="col-xs-3">その他</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
@@ -48,37 +46,37 @@
           <th>項目</th><th>理想(25%)</th><th>実績(25%)</th><th>差額</th>
         </tr>
         <tr>
-          <th class="col-xs-2">水道光熱費費</th>
+          <th class="col-xs-3">水道光熱費費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">食費</th>
+          <th class="col-xs-3">食費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">日用品</th>
+          <th class="col-xs-3">日用品</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">交通費</th>
+          <th class="col-xs-3">交通費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">自動車関連</th>
+          <th class="col-xs-3">自動車関連</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">その他</th>
+          <th class="col-xs-3">その他</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
@@ -93,43 +91,43 @@
           <th>項目</th><th>理想(25%)</th><th>実績(25%)</th><th>差額</th>
         </tr>
         <tr>
-          <th class="col-xs-2">通信費</th>
+          <th class="col-xs-3">通信費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">教育費</th>
+          <th class="col-xs-3">教育費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">医療費</th>
+          <th class="col-xs-3">医療費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">被服費</th>
+          <th class="col-xs-3">被服費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">交際費</th>
+          <th class="col-xs-3">交際費</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">小遣い</th>
+          <th class="col-xs-3">小遣い</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">その他</th>
+          <th class="col-xs-3">その他</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
@@ -144,19 +142,19 @@
           <th>項目</th><th>理想(25%)</th><th>実績(25%)</th><th>差額</th>
         </tr>
         <tr>
-          <th class="col-xs-2">預貯金</th>
+          <th class="col-xs-3">預貯金</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">投資</th>
+          <th class="col-xs-3">投資</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
         </tr>
         <tr>
-          <th class="col-xs-2">その他</th>
+          <th class="col-xs-3">その他</th>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
           <td><input type="number" class="form-control input-sm"></td>
@@ -164,5 +162,6 @@
       </table>
     </div>
 
-
+    <button class="btn btn-success pull-right btn-user-style">保存</button>
+  </form>
 </div>
