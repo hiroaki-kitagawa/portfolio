@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+  padding: 5px;  /* 5px の値を変更 */
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+  vertical-align: middle;
+}
+
+.input-sm {
+  height: 26px;
+}
+
+.label-font-size {
+  font-size: 18px;
+}
