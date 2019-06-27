@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('spending/create', 'Admin\SpendingController@add');
     Route::post('spending/create', 'Admin\SpendingController@create');
