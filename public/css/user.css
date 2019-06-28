@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+html, body, .tooltip, .opoover {
+  font-family: Quicksand, 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
 .table-condensed > tfoot > tr > th,
@@ -33,3 +38,5 @@
 .btn-user-style {
   padding: 6px 30px 6px 30px;
 }
+
+.

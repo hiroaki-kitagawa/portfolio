@@ -1,31 +1,32 @@
 <template>
-  <!-- 描画エリア -->
-  <div id="chart_div"></div>
+  <div id="chart_investment"></div>
 </template>
 
 <script>
   //グラフで使うデータを用意
     var orgdata = [
       ['種類', '割合'],
-      ['固定費', 25], ['変動費', 25], ['自己投資', 25], ['貯蓄・投資', 25]
+      ['安全資産', 12500], ['株式', 12500], ['債券', 12500], ['その他', 12500]
     ];
     google.charts.load('current', {
       packages: ['corechart']
     });
-    google.charts.setOnLoadCallback(drawBasic);
+    google.charts.setOnLoadCallback(drawInvestment);
 
-    function drawBasic() {
+    function drawInvestment() {
       //どのようなグラフを書くのか指定した関数を用意
       var data = google.visualization.arrayToDataTable(orgdata);
-      var options = { title: '支出配分', 'is3D': false };
-      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      var options = { title: '貯蓄・投資配分', 'is3D': false };
+      var chart = new google.visualization.PieChart(document.getElementById('chart_investment'));
       //グラフを表示する
       chart.draw(data, options);
     }
 
   export default {
-    data: {
-          dataArray: orgdata
-        },
+    data: function() {
+      return {
+        dataArray: orgdata
+      }
+    },
   };
 </script>

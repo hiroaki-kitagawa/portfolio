@@ -15,14 +15,13 @@
                 <div class="panel-body">
                     <div class="tab-content">
                     <div class="tab-pane active" id="spending-tab">
-
                         @include('spending')
                     </div>
                     <div class="tab-pane" id="investment-tab">
                         @include('investment')
                     </div>
                     <div class="tab-pane" id="money-sim">
-                        <h2>資産運用シュミレーション</h2>
+                        @include('sim')
                     </div>
                     </div>
                 </div>
