@@ -408,33 +408,6 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
 /* globals __VUE_SSR_CONTEXT__ */
 
 // IMPORTANT: Do NOT use ES2015 features in this file.
@@ -538,6 +511,33 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -1250,14 +1250,14 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports=function(modules){function __webpack_require__(moduleId){if(installedModules[moduleId])return installedModules[moduleId].exports;var module=installedModules[moduleId]={i:moduleId,l:!1,exports:{}};return modules[moduleId].call(module.exports,module,module.exports,__webpack_require__),module.l=!0,module.exports}var installedModules={};return __webpack_require__.m=modules,__webpack_require__.c=installedModules,__webpack_require__.i=function(value){return value},__webpack_require__.d=function(exports,name,getter){__webpack_require__.o(exports,name)||Object.defineProperty(exports,name,{configurable:!1,enumerable:!0,get:getter})},__webpack_require__.n=function(module){var getter=module&&module.__esModule?function(){return module.default}:function(){return module};return __webpack_require__.d(getter,"a",getter),getter},__webpack_require__.o=function(object,property){return Object.prototype.hasOwnProperty.call(object,property)},__webpack_require__.p="",__webpack_require__(__webpack_require__.s=3)}([function(module,__webpack_exports__,__webpack_require__){"use strict";function getChartsLoader(){return window.google&&window.google.charts?Promise.resolve(window.google.charts):(chartsLoaderPromise||(chartsLoaderPromise=new Promise(function(resolve){var script=document.createElement("script");script.type="text/javascript",script.onload=function(){return resolve(window.google.charts)},script.src=chartsScriptUrl,document.body.appendChild(script)})),chartsLoaderPromise)}function loadGoogleCharts(){var version=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"current",settings=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};return getChartsLoader().then(function(loader){if("object"!==(void 0===settings?"undefined":_typeof(settings)))throw new Error("Google Charts loader: settings must be an object");var settingsKey=version+"_"+JSON.stringify(settings,Object.keys(settings).sort());if(loadedPackages.has(settingsKey))return loadedPackages.get(settingsKey);var loaderPromise=new Promise(function(resolve){loader.load(version,settings),loader.setOnLoadCallback(function(){return resolve(window.google)})});return loadedPackages.set(settingsKey,loaderPromise),loaderPromise})}__webpack_exports__.a=loadGoogleCharts;var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(obj){return typeof obj}:function(obj){return obj&&"function"==typeof Symbol&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj},chartsScriptUrl="https://www.gstatic.com/charts/loader.js",chartsLoaderPromise=null,loadedPackages=new Map},function(module,exports,__webpack_require__){var Component=__webpack_require__(5)(__webpack_require__(4),__webpack_require__(6),null,null);module.exports=Component.exports},function(module,exports){module.exports=function(func,wait,immediate){function later(){var last=Date.now()-timestamp;last<wait&&last>=0?timeout=setTimeout(later,wait-last):(timeout=null,immediate||(result=func.apply(context,args),context=args=null))}var timeout,args,context,timestamp,result;null==wait&&(wait=100);var debounced=function(){context=this,args=arguments,timestamp=Date.now();var callNow=immediate&&!timeout;return timeout||(timeout=setTimeout(later,wait)),callNow&&(result=func.apply(context,args),context=args=null),result};return debounced.clear=function(){timeout&&(clearTimeout(timeout),timeout=null)},debounced.flush=function(){timeout&&(result=func.apply(context,args),context=args=null,clearTimeout(timeout),timeout=null)},debounced}},function(module,__webpack_exports__,__webpack_require__){"use strict";function install(Vue){Vue.component("GChart",__WEBPACK_IMPORTED_MODULE_1__components_GChart_vue___default.a)}Object.defineProperty(__webpack_exports__,"__esModule",{value:!0}),__webpack_exports__.install=install;var __WEBPACK_IMPORTED_MODULE_0__lib_google_charts_loader__=__webpack_require__(0),__WEBPACK_IMPORTED_MODULE_1__components_GChart_vue__=__webpack_require__(1),__WEBPACK_IMPORTED_MODULE_1__components_GChart_vue___default=__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_GChart_vue__);__webpack_require__.d(__webpack_exports__,"loadGoogleCharts",function(){return __WEBPACK_IMPORTED_MODULE_0__lib_google_charts_loader__.a}),__webpack_require__.d(__webpack_exports__,"GChart",function(){return __WEBPACK_IMPORTED_MODULE_1__components_GChart_vue___default.a});var plugin={version:"0.3.2",install:install};__webpack_exports__.default=plugin;var GlobalVue=null;"undefined"!=typeof window?GlobalVue=window.Vue:"undefined"!=typeof global&&(GlobalVue=global.Vue),GlobalVue&&GlobalVue.use(plugin)},function(module,__webpack_exports__,__webpack_require__){"use strict";Object.defineProperty(__webpack_exports__,"__esModule",{value:!0});var __WEBPACK_IMPORTED_MODULE_0__lib_google_charts_loader__=__webpack_require__(0),__WEBPACK_IMPORTED_MODULE_1_debounce__=__webpack_require__(2),__WEBPACK_IMPORTED_MODULE_1_debounce___default=__webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_debounce__),_slicedToArray=function(){function sliceIterator(arr,i){var _arr=[],_n=!0,_d=!1,_e=void 0;try{for(var _s,_i=arr[Symbol.iterator]();!(_n=(_s=_i.next()).done)&&(_arr.push(_s.value),!i||_arr.length!==i);_n=!0);}catch(err){_d=!0,_e=err}finally{try{!_n&&_i.return&&_i.return()}finally{if(_d)throw _e}}return _arr}return function(arr,i){if(Array.isArray(arr))return arr;if(Symbol.iterator in Object(arr))return sliceIterator(arr,i);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(obj){return typeof obj}:function(obj){return obj&&"function"==typeof Symbol&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj},chartsLib=null;__webpack_exports__.default={name:"GChart",props:{type:{type:String},data:{type:[Array,Object],default:function(){return[]}},options:{type:Object,default:function(){return{}}},version:{type:String,default:"current"},settings:{type:Object,default:function(){return{packages:["corechart","table"]}}},events:{type:Object},createChart:{type:Function},resizeDebounce:{type:Number,default:200}},data:function(){return{chartObject:null}},watch:{data:{deep:!0,handler:function(){this.drawChart()}},options:{deep:!0,handler:function(){this.drawChart()}},type:function(value){this.createChartObject(),this.drawChart()}},mounted:function(){var _this=this;__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib_google_charts_loader__.a)(this.version,this.settings).then(function(api){chartsLib=api;var chart=_this.createChartObject();_this.$emit("ready",chart,api),_this.drawChart()}),this.resizeDebounce>0&&window.addEventListener("resize",__WEBPACK_IMPORTED_MODULE_1_debounce___default()(this.drawChart,this.resizeDebounce))},beforeDestroy:function(){this.chartObject&&this.chartObject.clearChart()},methods:{drawChart:function(){if(chartsLib&&this.chartObject){var data=this.getValidChartData();data&&this.chartObject.draw(data,this.options)}},getValidChartData:function(){return this.data instanceof chartsLib.visualization.DataTable?this.data:this.data instanceof chartsLib.visualization.DataView?this.data:Array.isArray(this.data)?chartsLib.visualization.arrayToDataTable(this.data):null!==this.data&&"object"===_typeof(this.data)?new chartsLib.visualization.DataTable(this.data):null},createChartObject:function(){var createChart=function(el,google,type){if(!type)throw new Error("please, provide chart type property");return new google.visualization[type](el)},fn=this.createChart||createChart;return this.chartObject=fn(this.$refs.chart,chartsLib,this.type),this.attachListeners(),this.chartObject},attachListeners:function(){var _this2=this;this.events&&Object.entries(this.events).forEach(function(_ref){var _ref2=_slicedToArray(_ref,2),event=_ref2[0],listener=_ref2[1];chartsLib.visualization.events.addListener(_this2.chartObject,event,listener)})}}}},function(module,exports){module.exports=function(rawScriptExports,compiledTemplate,scopeId,cssModules){var esModule,scriptExports=rawScriptExports=rawScriptExports||{},type=typeof rawScriptExports.default;"object"!==type&&"function"!==type||(esModule=rawScriptExports,scriptExports=rawScriptExports.default);var options="function"==typeof scriptExports?scriptExports.options:scriptExports;if(compiledTemplate&&(options.render=compiledTemplate.render,options.staticRenderFns=compiledTemplate.staticRenderFns),scopeId&&(options._scopeId=scopeId),cssModules){var computed=options.computed||(options.computed={});Object.keys(cssModules).forEach(function(key){var module=cssModules[key];computed[key]=function(){return module}})}return{esModule:esModule,exports:scriptExports,options:options}}},function(module,exports){module.exports={render:function(){var _vm=this,_h=_vm.$createElement;return(_vm._self._c||_h)("div",{ref:"chart"})},staticRenderFns:[]}}]);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(57);
+module.exports = __webpack_require__(60);
 
 
 /***/ }),
@@ -1294,6 +1294,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('spending-chart', __webpac
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('investment-chart', __webpack_require__(48));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-future', __webpack_require__(51));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-monthly', __webpack_require__(54));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-period', __webpack_require__(57));
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
   el: '#app'
@@ -18472,7 +18473,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(18)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(18)(module)))
 
 /***/ }),
 /* 18 */
@@ -44427,7 +44428,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(39).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(39).setImmediate))
 
 /***/ }),
 /* 39 */
@@ -44497,7 +44498,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 40 */
@@ -44690,7 +44691,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(7)))
 
 /***/ }),
 /* 41 */
@@ -44711,7 +44712,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(43)
 /* template */
@@ -44830,7 +44831,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(46)
 /* template */
@@ -44932,7 +44933,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(49)
 /* template */
@@ -45034,7 +45035,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(52)
 /* template */
@@ -45150,11 +45151,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -45181,16 +45177,22 @@ var staticRenderFns = [
       "div",
       { staticClass: "tab-pane fade in active", attrs: { id: "sim-future" } },
       [
-        _c("div", { staticClass: "col-sm-9" }, [
-          _c("h3", [_vm._v("将来の積立予測")]),
-          _vm._v(" "),
+        _c("div", { staticClass: "col-md-6 col-sm-6" }, [
           _c("form", { staticClass: "form-horizontal" }, [
+            _c("p", [
+              _vm._v("毎月の積立金額、運用利回り、積立期間をそれぞれ入力し、"),
+              _c("br"),
+              _vm._v("「計算」ボタンをクリックしてください。")
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { staticClass: "col-sm-3 control-label" }, [
-                _vm._v("毎月積立金額")
-              ]),
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("毎月の積立金額")]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "col-sm-4" }, [
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
                 _c("input", {
                   staticClass: "form-control",
                   attrs: {
@@ -45202,17 +45204,17 @@ var staticRenderFns = [
                 })
               ]),
               _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("円")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("form", { staticClass: "form-horizontal" }, [
+              _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { staticClass: "col-sm-3 control-label" }, [
-                _vm._v("想定年利")
-              ]),
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("運用利回り(年)")]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "col-sm-3" }, [
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
                 _c("input", {
                   staticClass: "form-control",
                   attrs: {
@@ -45225,99 +45227,115 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("label", { staticClass: "control-label" }, [_vm._v("％")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("form", { staticClass: "form-horizontal" }, [
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { staticClass: "col-sm-3 control-label" }, [
-                _vm._v("毎月積立期間")
-              ]),
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("積立期間")]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "col-sm-3" }, [
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
                 _c(
                   "select",
                   { staticClass: "form-control", attrs: { name: "" } },
                   [
                     _c("option", { attrs: { value: "" } }, [_vm._v("▼")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "1" } }, [_vm._v("1年")]),
+                    _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [_vm._v("2年")]),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [_vm._v("3年")]),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "4" } }, [_vm._v("4年")]),
+                    _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "5" } }, [_vm._v("5年")]),
+                    _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "6" } }, [_vm._v("6年")]),
+                    _c("option", { attrs: { value: "6" } }, [_vm._v("6")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "7" } }, [_vm._v("7年")]),
+                    _c("option", { attrs: { value: "7" } }, [_vm._v("7")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "8" } }, [_vm._v("8年")]),
+                    _c("option", { attrs: { value: "8" } }, [_vm._v("8")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "9" } }, [_vm._v("9年")]),
+                    _c("option", { attrs: { value: "9" } }, [_vm._v("9")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "10" } }, [_vm._v("10年")]),
+                    _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "11" } }, [_vm._v("11年")]),
+                    _c("option", { attrs: { value: "11" } }, [_vm._v("11")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "12" } }, [_vm._v("12年")]),
+                    _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "13" } }, [_vm._v("13年")]),
+                    _c("option", { attrs: { value: "13" } }, [_vm._v("13")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "14" } }, [_vm._v("14年")]),
+                    _c("option", { attrs: { value: "14" } }, [_vm._v("14")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "15" } }, [_vm._v("15年")]),
+                    _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "16" } }, [_vm._v("16年")]),
+                    _c("option", { attrs: { value: "16" } }, [_vm._v("16")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "17" } }, [_vm._v("17年")]),
+                    _c("option", { attrs: { value: "17" } }, [_vm._v("17")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "18" } }, [_vm._v("18年")]),
+                    _c("option", { attrs: { value: "18" } }, [_vm._v("18")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "19" } }, [_vm._v("19年")]),
+                    _c("option", { attrs: { value: "19" } }, [_vm._v("19")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "20" } }, [_vm._v("20年")]),
+                    _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "21" } }, [_vm._v("21年")]),
+                    _c("option", { attrs: { value: "21" } }, [_vm._v("21")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "22" } }, [_vm._v("22年")]),
+                    _c("option", { attrs: { value: "22" } }, [_vm._v("22")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "23" } }, [_vm._v("23年")]),
+                    _c("option", { attrs: { value: "23" } }, [_vm._v("23")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "24" } }, [_vm._v("24年")]),
+                    _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "25" } }, [_vm._v("25年")]),
+                    _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "26" } }, [_vm._v("26年")]),
+                    _c("option", { attrs: { value: "26" } }, [_vm._v("26")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "27" } }, [_vm._v("27年")]),
+                    _c("option", { attrs: { value: "27" } }, [_vm._v("27")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "28" } }, [_vm._v("28年")]),
+                    _c("option", { attrs: { value: "28" } }, [_vm._v("28")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "29" } }, [_vm._v("29年")]),
+                    _c("option", { attrs: { value: "29" } }, [_vm._v("29")]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "30" } }, [_vm._v("30年")])
+                    _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
                   ]
                 )
               ]),
               _vm._v(" "),
               _c("label", { staticClass: "control-label" }, [_vm._v("年")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("button", { staticClass: "btn btn-success btn-user-style" }, [
-            _vm._v("計算")
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-block-75",
+                attrs: { id: "calculate-future" }
+              },
+              [_vm._v("計算")]
+            )
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-3" }, [
-          _c("h3", [_vm._v("最終積立金額")]),
-          _vm._v(" "),
-          _c("label", [_vm._v("{2000万円}")])
-        ])
+        _c(
+          "div",
+          { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
+          [
+            _c("h3", [_vm._v("最終積立金額")]),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "calculatedValue",
+                attrs: { id: "calculatedValue-future" }
+              },
+              [_vm._v("{2000万円}")]
+            )
+          ]
+        )
       ]
     )
   }
@@ -45336,7 +45354,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(55)
 /* template */
@@ -45403,6 +45421,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -45427,25 +45494,167 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "tab-pane fade", attrs: { id: "sim-monthly" } },
+      { staticClass: "tab-pane fade in active", attrs: { id: "sim-monthly" } },
       [
-        _c("dl", [
-          _c("dt", [_vm._v("名前：")]),
-          _vm._v(" "),
-          _c("dd", [_c("input", { attrs: { type: "text", name: "username" } })])
+        _c("div", { staticClass: "col-md-6 col-sm-6" }, [
+          _c("form", { staticClass: "form-horizontal" }, [
+            _c("p", [
+              _vm._v("目標金額、運用利回り、積立期間をそれぞれ入力し、"),
+              _c("br"),
+              _vm._v("「計算」ボタンをクリックしてください。")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("目標金額")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "number",
+                    min: "1",
+                    step: "any",
+                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("運用利回り(年)")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "number",
+                    min: "1",
+                    step: "any",
+                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("％")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("積立期間")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+                _c(
+                  "select",
+                  { staticClass: "form-control", attrs: { name: "" } },
+                  [
+                    _c("option", { attrs: { value: "" } }, [_vm._v("▼")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "6" } }, [_vm._v("6")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "7" } }, [_vm._v("7")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "8" } }, [_vm._v("8")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "9" } }, [_vm._v("9")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "11" } }, [_vm._v("11")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "13" } }, [_vm._v("13")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "14" } }, [_vm._v("14")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "16" } }, [_vm._v("16")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "17" } }, [_vm._v("17")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "18" } }, [_vm._v("18")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "19" } }, [_vm._v("19")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "21" } }, [_vm._v("21")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "22" } }, [_vm._v("22")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "23" } }, [_vm._v("23")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "26" } }, [_vm._v("26")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "27" } }, [_vm._v("27")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "28" } }, [_vm._v("28")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "29" } }, [_vm._v("29")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("年")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-block-75",
+                attrs: { id: "calculate-monthly" }
+              },
+              [_vm._v("計算")]
+            )
+          ])
         ]),
         _vm._v(" "),
-        _c("dl", [
-          _c("dt", [_vm._v("Email：")]),
-          _vm._v(" "),
-          _c("dd", [_c("input", { attrs: { type: "text", name: "mail" } })])
-        ]),
-        _vm._v(" "),
-        _c("dl", [
-          _c("dt", [_vm._v("年齢：")]),
-          _vm._v(" "),
-          _c("dd", [_c("input", { attrs: { type: "text", name: "age" } })])
-        ])
+        _c(
+          "div",
+          { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
+          [
+            _c("h3", [_vm._v("毎月積立金額")]),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "calculatedValue",
+                attrs: { id: "calculatedValue-monthly" }
+              },
+              [_vm._v("{4.3万円}")]
+            )
+          ]
+        )
       ]
     )
   }
@@ -45461,6 +45670,235 @@ if (false) {
 
 /***/ }),
 /* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(58)
+/* template */
+var __vue_template__ = __webpack_require__(59)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/SimPeriod.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ee35b55e", Component.options)
+  } else {
+    hotAPI.reload("data-v-ee35b55e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    }
+});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "tab-pane fade in active", attrs: { id: "sim-period" } },
+      [
+        _c("div", { staticClass: "col-md-6 col-sm-6" }, [
+          _c("form", { staticClass: "form-horizontal" }, [
+            _c("p", [
+              _vm._v("毎月の積立金額、運用利回り、目標金額をそれぞれ入力し、"),
+              _c("br"),
+              _vm._v("「計算」ボタンをクリックしてください。")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("毎月の積立金額")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "number",
+                    min: "1",
+                    step: "any",
+                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("運用利回り(年)")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "number",
+                    min: "1",
+                    step: "any",
+                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("％")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+                [_vm._v("目標金額")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "number",
+                    min: "1",
+                    step: "any",
+                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-block-75",
+                attrs: { id: "calculate-period" }
+              },
+              [_vm._v("計算")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
+          [
+            _c("h3", [_vm._v("積立期間")]),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "calculatedValue",
+                attrs: { id: "calculatedValue-period" }
+              },
+              [_vm._v("{19.8}年")]
+            )
+          ]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-ee35b55e", module.exports)
+  }
+}
+
+/***/ }),
+/* 60 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

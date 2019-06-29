@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <ul class="nav nav-pills nav-justified">
+                    <ul class="nav nav-tabs nav-justified">
                         <li class="active"><a href="#spending-tab" data-toggle="tab">支出</a></li>
                         <li><a href="#investment-tab" data-toggle="tab">貯蓄・投資</a></li>
                         <li><a href="#money-sim" data-toggle="tab">資産運用シュミレーション</a></li>

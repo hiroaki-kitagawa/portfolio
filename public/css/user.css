@@ -4,7 +4,6 @@ html, body, .tooltip, .opoover {
   font-family: Quicksand, 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 
-
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
 .table-condensed > tfoot > tr > th,
@@ -23,6 +22,11 @@ html, body, .tooltip, .opoover {
   vertical-align: middle;
 }
 
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus  {
+    color: #fff;
+    background-color: #3097D1;
+}
+
 .input-sm {
   height: 26px;
 }
@@ -39,4 +43,15 @@ html, body, .tooltip, .opoover {
   padding: 6px 30px 6px 30px;
 }
 
-.
+.btn-block-75 {
+  display: block;
+  width: 75%;
+}
+
+ .calculatedValue {
+    border-bottom: 1px solid #7da6d6;
+    font-size: 30px;
+    font-weight: 700;
+    color: #ea0000;
+
+}

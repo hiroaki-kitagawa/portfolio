@@ -1,16 +1,15 @@
 <h2>◯◯さんの支出配分</h2>
 
 <form action="{{ action('Admin\SpendingController@create') }}" method="post" enctype="multipart/form-data">
-    <div class="col-md-12 clearfix" style="margin-top:10px">
+  <div class="col-md-8 clearfix" style="margin-top:10px">
     <div class="form-group form-inline">
-      <div class="col-md-5">
+      <div class="col-md-5 col-sm-5">
         <label for="投資・貯蓄額" class="label-font-size">投資・貯蓄額</label>
         <input type="number" class="form-control" name="fixed_income"><label class="label-font-size">円</label>
       </div>
     </div>
   </div>
   <div class="col-md-7 clearfix" style="margin-bottom:20px">
-
     <h3>安全資産</h3>
     <div>
       <table class="table table-condensed">
@@ -101,13 +100,44 @@
         </tr>
       </table>
     </div>
-
-    <button class="btn btn-success pull-right btn-user-style">保存</button>
+    {{ csrf_field() }}
+    <button class="btn btn-success pull-right btn-block">保存</button>
   </form>
 </div>
 
 <div class="col-xs-12 col-md-5 top-buffer pull-right">
 <h3>支出合計 {50,000} 円</h3>
+  {{-- <div>
+    <table class="table">
+      <tr>
+        <th>項目</th><th>割合</th><th>合計</th>
+      <tr>
+        <th class="col-xs-3">固定費</th>
+        <td>25%</td>
+        <td>12,500</td>
+      </tr>
+      <tr>
+        <th class="col-xs-3">変動費</th>
+        <td>25%</td>
+        <td>12,500</td>
+      </tr>
+      <tr>
+        <th class="col-xs-3">自己投資</th>
+        <td>25%</td>
+        <td>12,500</td>
+      </tr>
+      <tr>
+        <th class="col-xs-3">貯蓄・投資</th>
+        <td>25%</td>
+        <td>12,500</td>
+      </tr>
+      <tr>
+        <th class="col-xs-3">合計</th>
+        <td></td>
+        <td>50,000</td>
+      </tr>
+    </table>
+  </div> --}}
   <div>
     <table class="table">
       <tr>
