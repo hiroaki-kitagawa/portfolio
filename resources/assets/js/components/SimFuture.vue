@@ -8,7 +8,7 @@
                     <div class="col-md-4 col-sm-4 col-xs-10">
                         <input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control">
                     </div>
-                    <label class="control-label">万円</label>
+                    <label class="control-label">円</label>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 col-sm-4 col-xs-12 control-label">運用利回り(年)</label>
@@ -56,12 +56,12 @@
                     </div>
                     <label class="control-label">年</label>
                 </div>
-                <button class="btn btn-success btn-block-75" id="calculate-future">計算</button>
+                <!-- <button class="btn btn-success btn-block-75" id="calculate-future">計算</button> -->
             </form>
         </div>
         <div class="col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1">
             <h3>最終積立金額</h3>
-            <label class="calculatedValue"  id="calculatedValue-future">{2000万円}</label>
+            <label class="calculatedValue">{2,000}万円</label>
         </div>
     </div>
 </template>
@@ -72,4 +72,27 @@
             console.log('Component mounted.')
         }
     }
+    // import SimFuture from './components/SimFuture.vue'
+
+    // export default {
+    //     name: 'sim-future',
+    //     components: { SimFuture },
+    //     computed: {
+    //         calculated_FV: function ()
+    //         {
+    //             const pv = simfuture_pv;
+    //             const rate = simfuture_rate;
+    //             const nper = simfuture_nper;
+    //             const fv = 0;
+
+    //             for ( i = 1; i <= nper; i++ )
+    //             {
+    //                 fv=( fv + pv ) * ( 1 + rate );
+    //             }
+    //             return fv
+    //         }
+
+    //     }
+
+    // }
 </script>

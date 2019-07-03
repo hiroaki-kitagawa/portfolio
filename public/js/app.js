@@ -45157,6 +45157,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log('Component mounted.');
     }
 });
+// import SimFuture from './components/SimFuture.vue'
+
+// export default {
+//     name: 'sim-future',
+//     components: { SimFuture },
+//     computed: {
+//         calculated_FV: function ()
+//         {
+//             const pv = simfuture_pv;
+//             const rate = simfuture_rate;
+//             const nper = simfuture_nper;
+//             const fv = 0;
+
+//             for ( i = 1; i <= nper; i++ )
+//             {
+//                 fv=( fv + pv ) * ( 1 + rate );
+//             }
+//             return fv
+//         }
+
+//     }
+
+// }
 
 /***/ }),
 /* 53 */
@@ -45204,7 +45227,7 @@ var staticRenderFns = [
                 })
               ]),
               _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+              _c("label", { staticClass: "control-label" }, [_vm._v("円")])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -45307,16 +45330,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("label", { staticClass: "control-label" }, [_vm._v("年")])
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success btn-block-75",
-                attrs: { id: "calculate-future" }
-              },
-              [_vm._v("計算")]
-            )
+            ])
           ])
         ]),
         _vm._v(" "),
@@ -45326,14 +45340,9 @@ var staticRenderFns = [
           [
             _c("h3", [_vm._v("最終積立金額")]),
             _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "calculatedValue",
-                attrs: { id: "calculatedValue-future" }
-              },
-              [_vm._v("{2000万円}")]
-            )
+            _c("label", { staticClass: "calculatedValue" }, [
+              _vm._v("{2,000}万円")
+            ])
           ]
         )
       ]
@@ -45494,7 +45503,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "tab-pane fade in active", attrs: { id: "sim-monthly" } },
+      { staticClass: "tab-pane fade", attrs: { id: "sim-monthly" } },
       [
         _c("div", { staticClass: "col-md-6 col-sm-6" }, [
           _c("form", { staticClass: "form-horizontal" }, [
@@ -45626,16 +45635,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("label", { staticClass: "control-label" }, [_vm._v("年")])
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success btn-block-75",
-                attrs: { id: "calculate-monthly" }
-              },
-              [_vm._v("計算")]
-            )
+            ])
           ])
         ]),
         _vm._v(" "),
@@ -45781,7 +45781,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "tab-pane fade in active", attrs: { id: "sim-period" } },
+      { staticClass: "tab-pane fade", attrs: { id: "sim-period" } },
       [
         _c("div", { staticClass: "col-md-6 col-sm-6" }, [
           _c("form", { staticClass: "form-horizontal" }, [
@@ -45855,16 +45855,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success btn-block-75",
-                attrs: { id: "calculate-period" }
-              },
-              [_vm._v("計算")]
-            )
+            ])
           ])
         ]),
         _vm._v(" "),

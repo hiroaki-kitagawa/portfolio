@@ -17,6 +17,7 @@ window.Vue = require('vue');
 import Vue from 'vue'
 import VueGoogleCharts from 'vue-google-charts'
 
+
 Vue.use(VueGoogleCharts)
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('spending-chart', require('./components/SpendingChart.vue'));
@@ -27,13 +28,4 @@ Vue.component('sim-period', require('./components/SimPeriod.vue'));
 
 const app = new Vue({
     el: '#app'
-});
-const app = new Vue({
-    el: '#spending-chart'
-});
-const app = new Vue({
-    el: '#investment-chart',
-    components: {
-        'investment-chart', require('./components/InvestmentChart.vue')
-    }
 });

@@ -7,12 +7,10 @@
         <li><a href="#sim-monthly" data-toggle="tab">毎月の積立金額</a></li>
         <li><a href="#sim-period" data-toggle="tab">必要な積立期間</a></li>
     </ul>
-    <!-- </div> -->
 </div>
 
 
 <div class="tab-content">
-
   <sim-future></sim-future>
   <sim-monthly></sim-monthly>
   <sim-period></sim-period>

@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-pane fade in active" id="sim-monthly">
+    <div class="tab-pane fade" id="sim-monthly">
         <div class="col-md-6 col-sm-6">
             <form class="form-horizontal">
                 <p>目標金額、運用利回り、積立期間をそれぞれ入力し、<br>「計算」ボタンをクリックしてください。</p>
@@ -56,7 +56,7 @@
                     </div>
                     <label class="control-label">年</label>
                 </div>
-                <button class="btn btn-success btn-block-75" id="calculate-monthly">計算</button>
+                <!-- <button class="btn btn-success btn-block-75" id="calculate-monthly">計算</button> -->
             </form>
         </div>
         <div class="col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1">
