@@ -15,17 +15,25 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import Vue from 'vue'
-import VueGoogleCharts from 'vue-google-charts'
+import GChart from 'vue-google-charts'
+Vue.use(GChart)
 
-
-Vue.use(VueGoogleCharts)
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component( 'example-component', require( './components/ExampleComponent.vue' ) );
+Vue.component('spending', require('./components/Spending.vue'));
+Vue.component( 'investment', require( './components/Investment.vue' ) );
 Vue.component('spending-chart', require('./components/SpendingChart.vue'));
+Vue.component('spending-calc', require('./components/SpendingCalc.vue'));
 Vue.component('investment-chart', require('./components/InvestmentChart.vue'));
 Vue.component('sim-future', require('./components/SimFuture.vue'));
 Vue.component('sim-monthly', require('./components/SimMonthly.vue'));
-Vue.component('sim-period', require('./components/SimPeriod.vue'));
+Vue.component( 'sim-period', require( './components/SimPeriod.vue' ) );
+// 数値をカンマ区切りで表示
+Vue.filter( 'localeNum', function ( val )
+{
+    return Number(val).toLocaleString();
+} );
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    
 });

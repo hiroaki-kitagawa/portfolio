@@ -1,32 +1,86 @@
 <template>
-  <div id="chart_investment"></div>
+  <div class="col-xs-12 col-md-5 top-buffer pull-right">
+    <h3>貯蓄・投資割合</h3>
+    <div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>項目</th>
+            <th>割合</th>
+            <th>合計</th>
+          <tr>
+            <th class="col-xs-3">固定費</th>
+            <td>25%</td>
+            <td>{{chartDataRows[0][1]| localeNum}}</td>
+          </tr>
+          <tr>
+            <th class="col-xs-3">変動費</th>
+            <td>25%</td>
+            <td>{{chartDataRows[1][1] | localeNum}}</td>
+          </tr>
+          <tr>
+            <th class="col-xs-3">自己投資</th>
+            <td>25%</td>
+            <td>{{chartDataRows[2][1] | localeNum}}</td>
+          </tr>
+          <tr>
+            <th class="col-xs-3">貯蓄・投資</th>
+            <td>25%</td>
+            <td>{{chartDataRows[3][1] | localeNum}}</td>
+          </tr>
+          <tr>
+            <th class="col-xs-3">合計</th>
+            <td></td>
+            <td>{{ sumSpend | localeNum}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel panel-default" style="margin-bottom: 60px;">
+      <div class="panel-heading">
+        ポートフォリオ
+      </div>
+      <div id="investChart">
+        <GChart type="PieChart" :data="chartData" :options="chartOptions" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-  //グラフで使うデータを用意
-    var orgdata = [
-      ['種類', '割合'],
-      ['安全資産', 12500], ['株式', 12500], ['債券', 12500], ['その他', 12500]
-    ];
-    google.charts.load('current', {
-      packages: ['corechart']
-    });
-    google.charts.setOnLoadCallback(drawInvestment);
-
-    function drawInvestment() {
-      //どのようなグラフを書くのか指定した関数を用意
-      var data = google.visualization.arrayToDataTable(orgdata);
-      var options = { title: '貯蓄・投資配分', 'is3D': false };
-      var chart = new google.visualization.PieChart(document.getElementById('chart_investment'));
-      //グラフを表示する
-      chart.draw(data, options);
-    }
-
+  import { GChart } from 'vue-google-charts'
   export default {
-    data: function() {
+    name: 'investChart',
+    components: {
+      GChart
+    },
+    data() {
       return {
-        dataArray: orgdata
+        chartDataHeader: [ "種類", "小計" ],
+        chartDataRows: [
+          [ "安全資産", 25000 ],
+          [ "株式", 25000 ],
+          [ "債券", 25000 ],
+          [ "その他", 25000 ]
+        ],
+        chartOptions: {
+          chart: {
+            title: "支出配分"
+          }
+        }
       }
     },
-  };
+    computed: {
+      chartData() {
+        return [ this.chartDataHeader, ...this.chartDataRows ];
+      },
+      sumSpend() {
+        var sum = 0;
+        for ( var i = 0; i < 4; i++ ) {
+          sum += this.chartDataRows[ i ][ 1 ]
+        }
+        return sum;
+      }
+    }
+  }
 </script>
