@@ -285,14 +285,14 @@
         fixedCost: 0,
         chartDataHeader: ["種類", "小計"],
         chartDataRows: [
-          ["固定費", 50000],
-          ["変動費", 50000],
-          ["自己投資", 50000],
-          ["貯蓄・投資", 50000]
+          ['固定費', 50000],
+          ['変動費', 50000],
+          ['自己投資', 50000],
+          ['貯蓄・投資', 50000]
         ],
         chartOptions: {
           chart: {
-            title: "支出配分"
+            title: '支出配分'
           }
         },
         fixedIncome: '',
@@ -367,7 +367,8 @@
     },
     computed: {
       sumFixed: function() {
-        this.chartDataRows[1][0] = Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
+        // return Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
+        this.$set(this.chartDataRows, '固定費', 10000)
       },
       sumVar: function() {
         return Number(this.util.fixed) + Number(this.food.fixed) + Number(this.daily.fixed) + Number(this.transportation.fixed) + Number(this.automotive.fixed) + Number(this.otherVar.fixed)
