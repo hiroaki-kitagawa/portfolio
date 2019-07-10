@@ -65,7 +65,7 @@
         ],
         chartOptions: {
           chart: {
-            title: "支出配分"
+            title: "貯蓄・投資配分"
           }
         }
       }

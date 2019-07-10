@@ -1271,7 +1271,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(67);
+module.exports = __webpack_require__(66);
 
 
 /***/ }),
@@ -1307,11 +1307,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('example-component', __web
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('spending', __webpack_require__(45));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('investment', __webpack_require__(48));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('spending-chart', __webpack_require__(51));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('spending-calc', __webpack_require__(54));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('investment-chart', __webpack_require__(55));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-future', __webpack_require__(58));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-monthly', __webpack_require__(61));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-period', __webpack_require__(64));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('investment-chart', __webpack_require__(54));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-future', __webpack_require__(57));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-monthly', __webpack_require__(60));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-period', __webpack_require__(63));
 // 数値をカンマ区切りで表示
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('localeNum', function (val) {
   return Number(val).toLocaleString();
@@ -45165,7 +45164,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45173,22 +45171,13 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      fixedCost: 0,
       chartDataHeader: ["種類", "小計"],
       chartDataRows: [['固定費', 50000], ['変動費', 50000], ['自己投資', 50000], ['貯蓄・投資', 50000]],
       chartOptions: {
-        chart: {
-          title: '支出配分'
-        }
+        chart: { title: '支出配分' }
       },
       fixedIncome: '',
       extraIncome: '',
-      sumSpending: {
-        sumFixed: '',
-        sumVar: '',
-        sumSelfInvest: '',
-        sumSaveInvest: ''
-      },
       rent: {
         budget: '', fixed: '', diff: ''
       },
@@ -45254,26 +45243,42 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   computed: {
     sumFixed: function sumFixed() {
-      // return Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
-      this.$set(this.chartDataRows, '固定費', 10000);
+      var sum = Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
+      var item = ['固定費', sum];
+      this.chartDataRows.splice(0, 1, item);
+      return sum;
     },
     sumVar: function sumVar() {
-      return Number(this.util.fixed) + Number(this.food.fixed) + Number(this.daily.fixed) + Number(this.transportation.fixed) + Number(this.automotive.fixed) + Number(this.otherVar.fixed);
+      var sum = Number(this.util.fixed) + Number(this.food.fixed) + Number(this.daily.fixed) + Number(this.transportation.fixed) + Number(this.automotive.fixed) + Number(this.otherVar.fixed);
+      if (this.chartDataRows[1][1] != sum) {
+        var item = ['変動費', sum];
+        this.chartDataRows.splice(1, 1, item);
+      }
+      return sum;
     },
     sumSelfInvest: function sumSelfInvest() {
-      return Number(this.communication.fixed) + Number(this.education.fixed) + Number(this.medical.fixed) + Number(this.cloth.fixed) + Number(this.allowance.fixed) + Number(this.pocketmoney.fixed) + Number(this.favorite.fixed) + Number(this.otherSelfInvestment.fixed);
+      var sum = Number(this.communication.fixed) + Number(this.education.fixed) + Number(this.medical.fixed) + Number(this.cloth.fixed) + Number(this.allowance.fixed) + Number(this.pocketmoney.fixed) + Number(this.favorite.fixed) + Number(this.otherSelfInvestment.fixed);
+      if (this.chartDataRows[2][1] != sum) {
+        var item = ['自己投資', sum];
+        this.chartDataRows.splice(2, 1, item);
+      }
+      return sum;
     },
     sumSaveInvest: function sumSaveInvest() {
-      return Number(this.save.fixed) + Number(this.investment.fixed) + Number(this.otherInvestment.fixed);
+      var sum = Number(this.save.fixed) + Number(this.investment.fixed) + Number(this.otherInvestment.fixed);
+      if (this.chartDataRows[3][1] != sum) {
+        var item = ['貯蓄・投資', sum];
+        this.chartDataRows.splice(3, 1, item);
+      }
+      return sum;
     },
     chartData: function chartData() {
       return [this.chartDataHeader].concat(_toConsumableArray(this.chartDataRows));
     },
     sumSpend: function sumSpend() {
       var sum = 0;
-      for (var i = 0; i < 4; i++) {
-        sum += this.chartDataRows[i][1];
-      }return sum;
+      sum = this.sumFixed + this.sumVar + this.sumSelfInvest + this.sumSaveInvest;
+      return sum;
     }
   }
 });
@@ -46682,8 +46687,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.otherSelfInvestment.budget,
-                            expression: "otherSelfInvestment.budget"
+                            value: _vm.save.budget,
+                            expression: "save.budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46693,17 +46698,13 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.otherSelfInvestment.budget },
+                        domProps: { value: _vm.save.budget },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(
-                              _vm.otherSelfInvestment,
-                              "budget",
-                              $event.target.value
-                            )
+                            _vm.$set(_vm.save, "budget", $event.target.value)
                           }
                         }
                       })
@@ -46715,8 +46716,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.otherSelfInvestment.fixed,
-                            expression: "otherSelfInvestment.fixed"
+                            value: _vm.save.fixed,
+                            expression: "save.fixed"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46726,17 +46727,13 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.otherSelfInvestment.fixed },
+                        domProps: { value: _vm.save.fixed },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(
-                              _vm.otherSelfInvestment,
-                              "fixed",
-                              $event.target.value
-                            )
+                            _vm.$set(_vm.save, "fixed", $event.target.value)
                           }
                         }
                       })
@@ -46744,12 +46741,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(
-                          _vm._s(
-                            _vm.otherSelfInvestment.budget -
-                              _vm.otherSelfInvestment.fixed
-                          )
-                        )
+                        _vm._v(_vm._s(_vm.save.budget - _vm.save.fixed))
                       ])
                     ])
                   ]),
@@ -46942,9 +46934,7 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v("25%")]),
               _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(_vm._f("localeNum")(_vm.chartDataRows[0][1])))
-              ])
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumFixed)))])
             ]),
             _vm._v(" "),
             _c("tr", [
@@ -46952,9 +46942,7 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v("25%")]),
               _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(_vm._f("localeNum")(_vm.chartDataRows[1][1])))
-              ])
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumVar)))])
             ]),
             _vm._v(" "),
             _c("tr", [
@@ -46962,9 +46950,7 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v("25%")]),
               _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(_vm._f("localeNum")(_vm.chartDataRows[2][1])))
-              ])
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumSelfInvest)))])
             ]),
             _vm._v(" "),
             _c("tr", [
@@ -46972,9 +46958,7 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v("25%")]),
               _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(_vm._f("localeNum")(_vm.chartDataRows[3][1])))
-              ])
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumSaveInvest)))])
             ]),
             _vm._v(" "),
             _c("tr", [
@@ -47176,7 +47160,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__ = __webpack_require__(3);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 //
 //
@@ -47305,72 +47290,142 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'investment',
+  components: { GChart: __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__["GChart"] },
   data: function data() {
-    return _defineProperty({
+    return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      chartDataHeader: ["種類", "小計"],
+      chartDataRows: [['安全資産', 25000], ['株式', 25000], ['債券', 25000], ['その他', 25000]],
+      chartOptions: {
+        chart: { title: '貯蓄・投資配分' }
+      },
       saveInvestment: '',
       cash: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       bond: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       domesticStocks: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       developedStocks: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       emergingStocks: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       domesticBonds: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       developedBonds: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       emergingBonds: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       japanRiet: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       overseaRiet: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       },
       otherInvestment: {
-        rate: '', fixed: ''
-      },
-      medical: {
-        rate: '', fixed: ''
-      },
-      cloth: {
-        rate: '', fixed: ''
-      },
-      allowance: {
-        rate: '', fixed: ''
-      },
-      pocketmoney: {
-        rate: '', fixed: ''
-      },
-      favorite: {
-        rate: '', fixed: ''
-      },
-      otherSelfInvestment: {
-        rate: '', fixed: ''
-      },
-      save: {
-        rate: '', fixed: ''
-      },
-      investment: {
-        rate: '', fixed: ''
+        rate: '', cost: ''
       }
-    }, 'otherInvestment', {
-      rate: '', fixed: ''
-    });
+    };
+  },
+
+  computed: {
+    sumCach: function sumCach() {
+      var sum = Number(this.cash.cost) + Number(this.bond.cost);
+      var item = ['安全資産', sum];
+      this.chartDataRows.splice(0, 1, item);
+      return sum;
+    },
+    sumStocks: function sumStocks() {
+      var sum = Number(this.domesticStocks.cost) + Number(this.developedStocks.cost) + Number(this.emergingStocks.cost);
+      if (this.chartDataRows[1][1] != sum) {
+        var item = ['株式', sum];
+        this.chartDataRows.splice(1, 1, item);
+      }
+      return sum;
+    },
+    sumBonds: function sumBonds() {
+      var sum = Number(this.domesticBonds.cost) + Number(this.developedBonds.cost) + Number(this.emergingBonds.cost);
+      if (this.chartDataRows[2][1] != sum) {
+        var item = ['債券', sum];
+        this.chartDataRows.splice(2, 1, item);
+      }
+      return sum;
+    },
+    sumOther: function sumOther() {
+      var sum = Number(this.japanRiet.cost) + Number(this.overseaRiet.cost) + Number(this.otherInvestment.cost);
+      if (this.chartDataRows[3][1] != sum) {
+        var item = ['その他', sum];
+        this.chartDataRows.splice(3, 1, item);
+      }
+      return sum;
+    },
+    chartData: function chartData() {
+      return [this.chartDataHeader].concat(_toConsumableArray(this.chartDataRows));
+    },
+    sumSaveInvest: function sumSaveInvest() {
+      var sum = 0;
+      sum = this.sumCach + this.sumStocks + this.sumBonds + this.sumOther;
+      return sum;
+    }
   }
 });
 
@@ -47382,535 +47437,647 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "investment" } }, [
+  return _c("div", [
     _c(
-      "div",
+      "form",
       {
-        staticClass: "col-md-8 clearfix",
-        staticStyle: { "margin-top": "10px" }
+        attrs: {
+          action: "action('Admin\\SpendingController@create')",
+          method: "post",
+          enctype: "multipart/form-data"
+        }
       },
       [
-        _c("div", { staticClass: "form-group form-inline" }, [
-          _c("div", { staticClass: "col-md-5 col-sm-5" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("dd", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.saveInvestment,
-                    expression: "saveInvestment"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", name: "save_investment" },
-                domProps: { value: _vm.saveInvestment },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+        _c(
+          "div",
+          {
+            staticClass: "col-md-8 clearfix",
+            staticStyle: { "margin-top": "10px" }
+          },
+          [
+            _c("div", { staticClass: "form-group form-inline" }, [
+              _c("div", { staticClass: "col-md-5 col-sm-5" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("dd", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.saveInvestment,
+                        expression: "saveInvestment"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", name: "save_investment" },
+                    domProps: { value: _vm.saveInvestment },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.saveInvestment = $event.target.value
+                      }
                     }
-                    _vm.saveInvestment = $event.target.value
-                  }
-                }
-              }),
-              _c("label", { staticClass: "label-font-size" }, [_vm._v("円")])
+                  }),
+                  _c("label", { staticClass: "label-font-size" }, [
+                    _vm._v("円")
+                  ])
+                ])
+              ])
             ])
-          ])
-        ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7 clearfix",
+            staticStyle: { "margin-bottom": "20px" }
+          },
+          [
+            _c("h3", [_vm._v("安全資産")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _c("tbody", [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("現金")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.cash.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.cash.cost,
+                            expression: "cash.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.cash.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.cash, "cost", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("国債")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.bond.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.bond.cost,
+                            expression: "bond.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.bond.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.bond, "cost", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("株式")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _c("tbody", [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内株式")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.domesticStocks.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.domesticStocks.cost,
+                            expression: "domesticStocks.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.domesticStocks.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.domesticStocks,
+                              "cost",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [
+                      _vm._v("先進国株式")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.developedStocks.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.developedStocks.cost,
+                            expression: "developedStocks.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.developedStocks.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.developedStocks,
+                              "cost",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [
+                      _vm._v("新興国株式")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.emergingStocks.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.emergingStocks.cost,
+                            expression: "emergingStocks.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.emergingStocks.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.emergingStocks,
+                              "cost",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("債券")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _c("tbody", [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内債券")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.domesticBonds.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.domesticBonds.cost,
+                            expression: "domesticBonds.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.domesticBonds.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.domesticBonds,
+                              "cost",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [
+                      _vm._v("先進国債権")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.developedBonds.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.developedBonds.cost,
+                            expression: "developedBonds.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.developedBonds.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.developedBonds,
+                              "cost",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [
+                      _vm._v("新興国債権")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.emergingBonds.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.emergingBonds.cost,
+                            expression: "emergingBonds.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.emergingBonds.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.emergingBonds,
+                              "cost",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("その他")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _c("tbody", [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内RIET")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.japanRiet.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.japanRiet.cost,
+                            expression: "japanRiet.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.japanRiet.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.japanRiet, "cost", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("海外RIET")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.overseaRiet.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.overseaRiet.cost,
+                            expression: "overseaRiet.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.overseaRiet.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.overseaRiet,
+                              "cost",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-3" }, [
+                      _c("label", [_vm._v(_vm._s(_vm.otherInvestment.rate))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherInvestment.cost,
+                            expression: "otherInvestment.cost"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherInvestment.cost },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherInvestment,
+                              "cost",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { type: "hidden", name: "_token" },
+              domProps: { value: _vm.csrf }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "btn btn-success pull-right btn-block",
+              attrs: { type: "submit", value: "保存" }
+            })
+          ]
+        )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "col-md-7 clearfix",
-        staticStyle: { "margin-bottom": "20px" }
-      },
-      [
-        _c("h3", [_vm._v("安全資産")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table" }, [
-            _c("tbody", [
-              _vm._m(1),
+    _c("div", { staticClass: "col-xs-12 col-md-5 top-buffer pull-right" }, [
+      _c("h3", [_vm._v("貯蓄・投資割合")]),
+      _vm._v(" "),
+      _c("div", [
+        _c("table", { staticClass: "table" }, [
+          _c("tbody", [
+            _vm._m(5),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("安全資産")]),
               _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("現金")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.cash.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.cash.fixed,
-                        expression: "cash.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.cash.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.cash, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
+              _c("td", [_vm._v("25%")]),
               _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("国債")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.bond.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.bond.fixed,
-                        expression: "bond.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.bond.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.bond, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ])
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumCach)))])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("株式")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("25%")]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumStocks)))])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("債券")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("25%")]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumBonds)))])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("25%")]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumOther)))])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("合計")]),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(_vm._s(_vm._f("localeNum")(_vm.sumSaveInvest)) + " ")
               ])
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c("h3", [_vm._v("株式")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table" }, [
-            _c("tbody", [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内株式")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.domesticStocks.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.domesticStocks.fixed,
-                        expression: "domesticStocks.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.domesticStocks.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.domesticStocks,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("先進国株式")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.developedStocks.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.developedStocks.fixed,
-                        expression: "developedStocks.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.developedStocks.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.developedStocks,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("新興国株式")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.emergingStocks.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.emergingStocks.fixed,
-                        expression: "emergingStocks.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.emergingStocks.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.emergingStocks,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("h3", [_vm._v("債券")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table" }, [
-            _c("tbody", [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内債券")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.domesticBonds.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.domesticBonds.fixed,
-                        expression: "domesticBonds.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.domesticBonds.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.domesticBonds,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("先進国債権")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.developedBonds.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.developedBonds.fixed,
-                        expression: "developedBonds.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.developedBonds.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.developedBonds,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("新興国債権")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.emergingBonds.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.emergingBonds.fixed,
-                        expression: "emergingBonds.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.emergingBonds.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.emergingBonds,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("h3", [_vm._v("その他")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table" }, [
-            _c("tbody", [
-              _vm._m(4),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内RIET")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.japanRiet.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.japanRiet.fixed,
-                        expression: "japanRiet.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.japanRiet.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.japanRiet, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("海外RIET")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.overseaRiet.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.overseaRiet.fixed,
-                        expression: "overseaRiet.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.overseaRiet.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.overseaRiet, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [_vm._v(_vm._s(_vm.otherInvestment.rate))])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherInvestment.fixed,
-                        expression: "otherInvestment.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherInvestment.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.otherInvestment,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "btn btn-success pull-right btn-block",
-          attrs: { type: "submit", value: "保存" }
-        })
-      ]
-    )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "panel panel-default",
+          staticStyle: { "margin-bottom": "60px" }
+        },
+        [
+          _c("div", { staticClass: "panel-heading" }, [
+            _vm._v("\n        ポートフォリオ\n      ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { id: "investChart" } },
+            [
+              _c("GChart", {
+                attrs: {
+                  type: "PieChart",
+                  data: _vm.chartData,
+                  options: _vm.chartOptions
+                }
+              })
+            ],
+            1
+          )
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -47972,6 +48139,18 @@ var staticRenderFns = [
       _c("th", [_vm._v("割合")]),
       _vm._v(" "),
       _c("th", [_vm._v("金額")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("項目")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("割合")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("合計")])
     ])
   }
 ]
@@ -48040,7 +48219,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__ = __webpack_require__(3);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-//
 //
 //
 //
@@ -48254,42 +48432,12 @@ if (false) {
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = null
-/* template */
-var __vue_template__ = null
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/SpendingCalc.vue"
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(56)
+var __vue_script__ = __webpack_require__(55)
 /* template */
-var __vue_template__ = __webpack_require__(57)
+var __vue_template__ = __webpack_require__(56)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -48328,7 +48476,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48398,7 +48546,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       chartDataRows: [["安全資産", 25000], ["株式", 25000], ["債券", 25000], ["その他", 25000]],
       chartOptions: {
         chart: {
-          title: "支出配分"
+          title: "貯蓄・投資配分"
         }
       }
     };
@@ -48419,7 +48567,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 });
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -48543,15 +48691,15 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(59)
+var __vue_script__ = __webpack_require__(58)
 /* template */
-var __vue_template__ = __webpack_require__(60)
+var __vue_template__ = __webpack_require__(59)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -48590,7 +48738,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48694,7 +48842,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // }
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -48871,15 +49019,15 @@ if (false) {
 }
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(62)
+var __vue_script__ = __webpack_require__(61)
 /* template */
-var __vue_template__ = __webpack_require__(63)
+var __vue_template__ = __webpack_require__(62)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -48918,7 +49066,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48999,7 +49147,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49181,15 +49329,15 @@ if (false) {
 }
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(65)
+var __vue_script__ = __webpack_require__(64)
 /* template */
-var __vue_template__ = __webpack_require__(66)
+var __vue_template__ = __webpack_require__(65)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -49228,7 +49376,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49277,7 +49425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49401,7 +49549,7 @@ if (false) {
 }
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

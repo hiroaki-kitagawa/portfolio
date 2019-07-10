@@ -196,10 +196,10 @@
             </tr>
             <tr>
               <th class="col-xs-3">預貯金</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="otherSelfInvestment.budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="otherSelfInvestment.fixed"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="save.budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="save.fixed"></td>
               <td class="col-xs-2">
-                <label>{{ otherSelfInvestment.budget - otherSelfInvestment.fixed}}</label>
+                <label>{{ save.budget - save.fixed}}</label>
               </td>
             </tr>
             <tr>
@@ -237,23 +237,22 @@
           <tr>
             <th class="col-xs-3">固定費</th>
             <td>25%</td>
-            <td>{{chartDataRows[0][1]| localeNum}}</td>
-            <!-- <td>{{sumSpending.sumFixed | localeNum}}</td> -->
+            <td>{{ sumFixed | localeNum}}</td>
           </tr>
           <tr>
             <th class="col-xs-3">変動費</th>
             <td>25%</td>
-            <td>{{chartDataRows[1][1] | localeNum}}</td>
+            <td>{{ sumVar | localeNum}}</td>
           </tr>
           <tr>
             <th class="col-xs-3">自己投資</th>
             <td>25%</td>
-            <td>{{chartDataRows[2][1] | localeNum}}</td>
+            <td>{{ sumSelfInvest | localeNum}}</td>
           </tr>
           <tr>
             <th class="col-xs-3">貯蓄・投資</th>
             <td>25%</td>
-            <td>{{chartDataRows[3][1] | localeNum}}</td>
+            <td>{{ sumSaveInvest | localeNum}}</td>
           </tr>
           <tr>
             <th class="col-xs-3">合計</th>
@@ -282,7 +281,6 @@
     data() {
       return {
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-        fixedCost: 0,
         chartDataHeader: ["種類", "小計"],
         chartDataRows: [
           ['固定費', 50000],
@@ -291,18 +289,10 @@
           ['貯蓄・投資', 50000]
         ],
         chartOptions: {
-          chart: {
-            title: '支出配分'
-          }
+          chart: { title: '支出配分' }
         },
         fixedIncome: '',
         extraIncome: '',
-        sumSpending: {
-          sumFixed: '',
-          sumVar: '',
-          sumSelfInvest: '',
-          sumSaveInvest: ''
-        },
         rent: {
           budget: '', fixed: '', diff: ''
         },
@@ -367,24 +357,42 @@
     },
     computed: {
       sumFixed: function() {
-        // return Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
-        this.$set(this.chartDataRows, '固定費', 10000)
+        const sum = Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
+        const item = ['固定費', sum];
+        this.chartDataRows.splice(0, 1, item);
+        return sum;
       },
       sumVar: function() {
-        return Number(this.util.fixed) + Number(this.food.fixed) + Number(this.daily.fixed) + Number(this.transportation.fixed) + Number(this.automotive.fixed) + Number(this.otherVar.fixed)
+        const sum = Number(this.util.fixed) + Number(this.food.fixed) + Number(this.daily.fixed) + Number(this.transportation.fixed) + Number(this.automotive.fixed) + Number(this.otherVar.fixed);
+        if (this.chartDataRows[1][1] != sum) {
+          const item = ['変動費', sum];
+          this.chartDataRows.splice(1, 1, item);
+        }
+        return sum;
       },
       sumSelfInvest: function() {
-        return Number(this.communication.fixed) + Number(this.education.fixed) + Number(this.medical.fixed) + Number(this.cloth.fixed) + Number(this.allowance.fixed) + Number(this.pocketmoney.fixed) + Number(this.favorite.fixed) + Number(this.otherSelfInvestment.fixed)
+        const sum = Number(this.communication.fixed) + Number(this.education.fixed) + Number(this.medical.fixed) + Number(this.cloth.fixed) + Number(this.allowance.fixed) + Number(this.pocketmoney.fixed) + Number(this.favorite.fixed) + Number(this.otherSelfInvestment.fixed)
+        if (this.chartDataRows[2][1] != sum) {
+          const item = ['自己投資', sum];
+          this.chartDataRows.splice(2, 1, item);
+        }
+        return sum;
       },
       sumSaveInvest: function() {
-        return Number(this.save.fixed) + Number(this.investment.fixed) + Number(this.otherInvestment.fixed)
+        const sum =  Number(this.save.fixed) + Number(this.investment.fixed) + Number(this.otherInvestment.fixed)
+        if (this.chartDataRows[3][1] != sum) {
+          const item = ['貯蓄・投資', sum];
+          this.chartDataRows.splice(3, 1, item);
+        }
+        return sum;
       },
       chartData() {
         return [this.chartDataHeader, ...this.chartDataRows];
       },
       sumSpend() {
         var sum = 0;
-        for (var i = 0; i < 4; i++) { sum +=this.chartDataRows[i][1] } return sum;
+        sum = this.sumFixed + this.sumVar + this.sumSelfInvest +  this.sumSaveInvest;
+        return sum;
       },
     }
   }

@@ -22,7 +22,6 @@ Vue.component( 'example-component', require( './components/ExampleComponent.vue'
 Vue.component('spending', require('./components/Spending.vue'));
 Vue.component( 'investment', require( './components/Investment.vue' ) );
 Vue.component('spending-chart', require('./components/SpendingChart.vue'));
-Vue.component('spending-calc', require('./components/SpendingCalc.vue'));
 Vue.component('investment-chart', require('./components/InvestmentChart.vue'));
 Vue.component('sim-future', require('./components/SimFuture.vue'));
 Vue.component('sim-monthly', require('./components/SimMonthly.vue'));
@@ -36,4 +35,3 @@ Vue.filter( 'localeNum', function ( val )
 const app = new Vue({
     el: '#app',
 });
-
