@@ -1306,8 +1306,6 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('example-component', __webpack_require__(42));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('spending', __webpack_require__(45));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('investment', __webpack_require__(48));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('spending-chart', __webpack_require__(51));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('investment-chart', __webpack_require__(54));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-future', __webpack_require__(57));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-monthly', __webpack_require__(60));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-period', __webpack_require__(63));
@@ -48164,20 +48162,10 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/hirock/code/Laravel/resources/assets/js/components/SpendingChart.vue'");
-
-/***/ }),
+/* 51 */,
 /* 52 */,
 /* 53 */,
-/* 54 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/hirock/code/Laravel/resources/assets/js/components/InvestmentChart.vue'");
-
-/***/ }),
+/* 54 */,
 /* 55 */,
 /* 56 */,
 /* 57 */
@@ -48228,107 +48216,9 @@ module.exports = Component.exports
 
 /***/ }),
 /* 58 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-});
-// import SimFuture from './components/SimFuture.vue'
-
-// export default {
-//     name: 'sim-future',
-//     components: { SimFuture },
-//     computed: {
-//         calculated_FV: function ()
-//         {
-//             const pv = simfuture_pv;
-//             const rate = simfuture_rate;
-//             const nper = simfuture_nper;
-//             const fv = 0;
-
-//             for ( i = 1; i <= nper; i++ )
-//             {
-//                 fv=( fv + pv ) * ( 1 + rate );
-//             }
-//             return fv
-//         }
-
-//     }
-
-// }
+throw new Error("Module build failed: SyntaxError: Only one default export allowed per module. (77:0)\n\n\u001b[0m \u001b[90m 75 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mSimFuture\u001b[39m from \u001b[32m'./components/SimFuture.vue'\u001b[39m\n \u001b[90m 76 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 77 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m {\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 78 | \u001b[39m    name\u001b[33m:\u001b[39m \u001b[32m'sim-future'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 79 | \u001b[39m    components\u001b[33m:\u001b[39m { \u001b[33mSimFuture\u001b[39m }\u001b[33m,\u001b[39m\n \u001b[90m 80 | \u001b[39m    computed\u001b[33m:\u001b[39m {\u001b[0m\n");
 
 /***/ }),
 /* 59 */

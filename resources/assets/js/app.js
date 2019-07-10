@@ -21,8 +21,6 @@ Vue.use(GChart)
 Vue.component( 'example-component', require( './components/ExampleComponent.vue' ) );
 Vue.component('spending', require('./components/Spending.vue'));
 Vue.component( 'investment', require( './components/Investment.vue' ) );
-Vue.component('spending-chart', require('./components/SpendingChart.vue'));
-Vue.component('investment-chart', require('./components/InvestmentChart.vue'));
 Vue.component('sim-future', require('./components/SimFuture.vue'));
 Vue.component('sim-monthly', require('./components/SimMonthly.vue'));
 Vue.component( 'sim-period', require( './components/SimPeriod.vue' ) );
