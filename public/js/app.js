@@ -1319,7 +1319,6 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('localeNum', function (val) {
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
   el: '#app'
-
 });
 
 /***/ }),
@@ -44887,6 +44886,58 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__ = __webpack_require__(3);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -45116,12 +45167,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'spending',
+  components: { GChart: __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__["GChart"] },
   data: function data() {
     return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      fixedCost: 0,
+      chartDataHeader: ["種類", "小計"],
+      chartDataRows: [["固定費", 50000], ["変動費", 50000], ["自己投資", 50000], ["貯蓄・投資", 50000]],
+      chartOptions: {
+        chart: {
+          title: "支出配分"
+        }
+      },
       fixedIncome: '',
       extraIncome: '',
+      sumSpending: {
+        sumFixed: '',
+        sumVar: '',
+        sumSelfInvest: '',
+        sumSaveInvest: ''
+      },
       rent: {
         budget: '', fixed: '', diff: ''
       },
@@ -45182,8 +45249,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       otherInvestment: {
         budget: '', fixed: '', diff: ''
       }
-
     };
+  },
+
+  computed: {
+    sumFixed: function sumFixed() {
+      this.chartDataRows[1][0] = Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
+    },
+    sumVar: function sumVar() {
+      return Number(this.util.fixed) + Number(this.food.fixed) + Number(this.daily.fixed) + Number(this.transportation.fixed) + Number(this.automotive.fixed) + Number(this.otherVar.fixed);
+    },
+    sumSelfInvest: function sumSelfInvest() {
+      return Number(this.communication.fixed) + Number(this.education.fixed) + Number(this.medical.fixed) + Number(this.cloth.fixed) + Number(this.allowance.fixed) + Number(this.pocketmoney.fixed) + Number(this.favorite.fixed) + Number(this.otherSelfInvestment.fixed);
+    },
+    sumSaveInvest: function sumSaveInvest() {
+      return Number(this.save.fixed) + Number(this.investment.fixed) + Number(this.otherInvestment.fixed);
+    },
+    chartData: function chartData() {
+      return [this.chartDataHeader].concat(_toConsumableArray(this.chartDataRows));
+    },
+    sumSpend: function sumSpend() {
+      var sum = 0;
+      for (var i = 0; i < 4; i++) {
+        sum += this.chartDataRows[i][1];
+      }return sum;
+    }
   }
 });
 
@@ -45195,1551 +45285,1738 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "spending" } }, [
+  return _c("div", [
     _c(
-      "div",
+      "form",
       {
-        staticClass: "col-md-8 clearfix",
-        staticStyle: { "margin-top": "10px" }
+        attrs: {
+          action: "action('Admin\\SpendingController@create')",
+          method: "post",
+          enctype: "multipart/form-data"
+        }
       },
       [
-        _c("div", { staticClass: "form-group form-inline" }, [
-          _c("div", { staticClass: "col-md-5 col-sm-5" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("dd", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fixedIncome,
-                    expression: "fixedIncome"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", name: "fixed_income" },
-                domProps: { value: _vm.fixedIncome },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+        _c(
+          "div",
+          {
+            staticClass: "col-md-8 clearfix",
+            staticStyle: { "margin-top": "10px" }
+          },
+          [
+            _c("div", { staticClass: "form-group form-inline" }, [
+              _c("div", { staticClass: "col-md-5 col-sm-5" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("dd", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fixedIncome,
+                        expression: "fixedIncome"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", name: "fixed_income" },
+                    domProps: { value: _vm.fixedIncome },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.fixedIncome = $event.target.value
+                      }
                     }
-                    _vm.fixedIncome = $event.target.value
-                  }
-                }
-              }),
-              _c("label", { staticClass: "label-font-size" }, [_vm._v("円")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-5 col-sm-5" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("dd", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.extraIncome,
-                    expression: "extraIncome"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", name: "extra_income" },
-                domProps: { value: _vm.extraIncome },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                  }),
+                  _c("label", { staticClass: "label-font-size" }, [
+                    _vm._v("円")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-5 col-sm-5" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("dd", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.extraIncome,
+                        expression: "extraIncome"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", name: "extra_income" },
+                    domProps: { value: _vm.extraIncome },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.extraIncome = $event.target.value
+                      }
                     }
-                    _vm.extraIncome = $event.target.value
-                  }
-                }
-              }),
-              _c("label", { staticClass: "label-font-size" }, [_vm._v("円")])
+                  }),
+                  _c("label", { staticClass: "label-font-size" }, [
+                    _vm._v("円")
+                  ])
+                ])
+              ])
             ])
-          ])
-        ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7 clearfix",
+            staticStyle: { "margin-bottom": "20px" }
+          },
+          [
+            _c("h3", [_vm._v("固定費")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _c("tbody", [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("住居費")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.rent.budget,
+                            expression: "rent.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.rent.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.rent, "budget", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.rent.fixed,
+                            expression: "rent.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.rent.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.rent, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.rent.budget - _vm.rent.fixed))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("保険")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.insurance.budget,
+                            expression: "insurance.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.insurance.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.insurance,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.insurance.fixed,
+                            expression: "insurance.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.insurance.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.insurance,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(_vm.insurance.budget - _vm.insurance.fixed)
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherFix.budget,
+                            expression: "otherFix.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherFix.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherFix,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherFix.fixed,
+                            expression: "otherFix.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherFix.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.otherFix, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.otherFix.budget - _vm.otherFix.fixed))
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("変動費")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _c("tbody", [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [
+                      _vm._v("水道光熱費費")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.util.budget,
+                            expression: "util.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.util.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.util, "budget", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.util.fixed,
+                            expression: "util.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.util.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.util, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.util.budget - _vm.util.fixed))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("食費")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.food.budget,
+                            expression: "food.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.food.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.food, "budget", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.food.fixed,
+                            expression: "food.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.food.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.food, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.food.budget - _vm.food.fixed))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("日用品")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.daily.budget,
+                            expression: "daily.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.daily.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.daily, "budget", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.daily.fixed,
+                            expression: "daily.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.daily.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.daily, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.daily.budget - _vm.daily.fixed))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("交通費")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.transportation.budget,
+                            expression: "transportation.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.transportation.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.transportation,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.transportation.fixed,
+                            expression: "transportation.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.transportation.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.transportation,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.transportation.budget - _vm.transportation.fixed
+                          )
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [
+                      _vm._v("自動車関連")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.automotive.budget,
+                            expression: "automotive.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.automotive.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.automotive,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.automotive.fixed,
+                            expression: "automotive.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.automotive.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.automotive,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(_vm.automotive.budget - _vm.automotive.fixed)
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherVar.budget,
+                            expression: "otherVar.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherVar.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherVar,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherVar.fixed,
+                            expression: "otherVar.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherVar.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.otherVar, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.otherVar.budget - _vm.otherVar.fixed))
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("自己投資")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _c("tbody", [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("通信費")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.communication.budget,
+                            expression: "communication.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.communication.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.communication,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.communication.fixed,
+                            expression: "communication.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.communication.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.communication,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.communication.budget - _vm.communication.fixed
+                          )
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("教育費")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.education.budget,
+                            expression: "education.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.education.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.education,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.education.fixed,
+                            expression: "education.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.education.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.education,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(_vm.education.budget - _vm.education.fixed)
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("医療費")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.medical.budget,
+                            expression: "medical.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.medical.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.medical, "budget", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.medical.fixed,
+                            expression: "medical.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.medical.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.medical, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.medical.budget - _vm.medical.fixed))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("被服費")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.cloth.budget,
+                            expression: "cloth.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.cloth.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.cloth, "budget", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.cloth.fixed,
+                            expression: "cloth.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.cloth.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.cloth, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.cloth.budget - _vm.cloth.fixed))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("交際費")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.allowance.budget,
+                            expression: "allowance.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.allowance.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.allowance,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.allowance.fixed,
+                            expression: "allowance.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.allowance.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.allowance,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(_vm.allowance.budget - _vm.allowance.fixed)
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("小遣い")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.pocketmoney.budget,
+                            expression: "pocketmoney.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.pocketmoney.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.pocketmoney,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.pocketmoney.fixed,
+                            expression: "pocketmoney.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.pocketmoney.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.pocketmoney,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(_vm.pocketmoney.budget - _vm.pocketmoney.fixed)
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("嗜好品")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.favorite.budget,
+                            expression: "favorite.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.favorite.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.favorite,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.favorite.fixed,
+                            expression: "favorite.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.favorite.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.favorite, "fixed", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(_vm._s(_vm.favorite.budget - _vm.favorite.fixed))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherSelfInvestment.budget,
+                            expression: "otherSelfInvestment.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherSelfInvestment.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherSelfInvestment,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherSelfInvestment.fixed,
+                            expression: "otherSelfInvestment.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherSelfInvestment.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherSelfInvestment,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.otherSelfInvestment.budget -
+                              _vm.otherSelfInvestment.fixed
+                          )
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("貯蓄・投資")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("table", { staticClass: "table" }, [
+                _c("tbody", [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("預貯金")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherSelfInvestment.budget,
+                            expression: "otherSelfInvestment.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherSelfInvestment.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherSelfInvestment,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherSelfInvestment.fixed,
+                            expression: "otherSelfInvestment.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherSelfInvestment.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherSelfInvestment,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.otherSelfInvestment.budget -
+                              _vm.otherSelfInvestment.fixed
+                          )
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("投資")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.investment.budget,
+                            expression: "investment.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.investment.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.investment,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.investment.fixed,
+                            expression: "investment.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.investment.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.investment,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(_vm.investment.budget - _vm.investment.fixed)
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherInvestment.budget,
+                            expression: "otherInvestment.budget"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherInvestment.budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherInvestment,
+                              "budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.otherInvestment.fixed,
+                            expression: "otherInvestment.fixed"
+                          }
+                        ],
+                        staticClass: "form-control input-sm",
+                        attrs: {
+                          type: "number",
+                          min: "1",
+                          step: "any",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                        },
+                        domProps: { value: _vm.otherInvestment.fixed },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.otherInvestment,
+                              "fixed",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "col-xs-2" }, [
+                      _c("label", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.otherInvestment.budget -
+                              _vm.otherInvestment.fixed
+                          )
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { type: "hidden", name: "_token" },
+              domProps: { value: _vm.csrf }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "btn btn-success pull-right btn-block",
+              attrs: { type: "submit", value: "保存" }
+            })
+          ]
+        )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "col-md-7 clearfix",
-        staticStyle: { "margin-bottom": "20px" }
-      },
-      [
-        _c("h3", [_vm._v("固定費")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table" }, [
-            _c("tbody", [
-              _vm._m(2),
+    _c("div", { staticClass: "col-xs-12 col-md-5 top-buffer pull-right" }, [
+      _c("h3", [_vm._v("支出割合")]),
+      _vm._v(" "),
+      _c("div", [
+        _c("table", { staticClass: "table" }, [
+          _c("tbody", [
+            _vm._m(6),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("固定費")]),
               _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("住居費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.rent.budget,
-                        expression: "rent.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.rent.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.rent, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.rent.fixed,
-                        expression: "rent.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.rent.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.rent, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.rent.budget - _vm.rent.fixed))
-                  ])
-                ])
-              ]),
+              _c("td", [_vm._v("25%")]),
               _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("保険")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.insurance.budget,
-                        expression: "insurance.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.insurance.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.insurance, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.insurance.fixed,
-                        expression: "insurance.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.insurance.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.insurance, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.insurance.budget - _vm.insurance.fixed))
-                  ])
-                ])
-              ]),
+              _c("td", [
+                _vm._v(_vm._s(_vm._f("localeNum")(_vm.chartDataRows[0][1])))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("変動費")]),
               _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherFix.budget,
-                        expression: "otherFix.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherFix.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.otherFix, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherFix.fixed,
-                        expression: "otherFix.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherFix.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.otherFix, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.otherFix.budget - _vm.otherFix.fixed))
-                  ])
-                ])
+              _c("td", [_vm._v("25%")]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(_vm._s(_vm._f("localeNum")(_vm.chartDataRows[1][1])))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("自己投資")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("25%")]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(_vm._s(_vm._f("localeNum")(_vm.chartDataRows[2][1])))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("貯蓄・投資")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("25%")]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(_vm._s(_vm._f("localeNum")(_vm.chartDataRows[3][1])))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { staticClass: "col-xs-3" }, [_vm._v("合計")]),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(_vm._s(_vm._f("localeNum")(_vm.sumSpend)) + " ")
               ])
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c("h3", [_vm._v("変動費")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table" }, [
-            _c("tbody", [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("水道光熱費費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.util.budget,
-                        expression: "util.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.util.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.util, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.util.fixed,
-                        expression: "util.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.util.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.util, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.util.budget - _vm.util.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("食費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.food.budget,
-                        expression: "food.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.food.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.food, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.food.fixed,
-                        expression: "food.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.food.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.food, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.food.budget - _vm.food.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("日用品")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.daily.budget,
-                        expression: "daily.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.daily.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.daily, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.daily.fixed,
-                        expression: "daily.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.daily.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.daily, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.daily.budget - _vm.daily.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("交通費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.transportation.budget,
-                        expression: "transportation.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.transportation.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.transportation,
-                          "budget",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.transportation.fixed,
-                        expression: "transportation.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.transportation.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.transportation,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(
-                      _vm._s(
-                        _vm.transportation.budget - _vm.transportation.fixed
-                      )
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("自動車関連")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.automotive.budget,
-                        expression: "automotive.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.automotive.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.automotive, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.automotive.fixed,
-                        expression: "automotive.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.automotive.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.automotive, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.automotive.budget - _vm.automotive.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherVar.budget,
-                        expression: "otherVar.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherVar.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.otherVar, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherVar.fixed,
-                        expression: "otherVar.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherVar.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.otherVar, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.otherVar.budget - _vm.otherVar.fixed))
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("h3", [_vm._v("自己投資")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table" }, [
-            _c("tbody", [
-              _vm._m(4),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("通信費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.communication.budget,
-                        expression: "communication.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.communication.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.communication,
-                          "budget",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.communication.fixed,
-                        expression: "communication.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.communication.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.communication,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(
-                      _vm._s(_vm.communication.budget - _vm.communication.fixed)
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("教育費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.education.budget,
-                        expression: "education.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.education.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.education, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.education.fixed,
-                        expression: "education.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.education.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.education, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.education.budget - _vm.education.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("医療費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.medical.budget,
-                        expression: "medical.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.medical.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.medical, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.medical.fixed,
-                        expression: "medical.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.medical.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.medical, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.medical.budget - _vm.medical.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("被服費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.cloth.budget,
-                        expression: "cloth.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.cloth.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.cloth, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.cloth.fixed,
-                        expression: "cloth.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.cloth.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.cloth, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.cloth.budget - _vm.cloth.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("交際費")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.allowance.budget,
-                        expression: "allowance.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.allowance.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.allowance, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.allowance.fixed,
-                        expression: "allowance.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.allowance.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.allowance, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.allowance.budget - _vm.allowance.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("小遣い")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.pocketmoney.budget,
-                        expression: "pocketmoney.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.pocketmoney.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.pocketmoney, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.pocketmoney.fixed,
-                        expression: "pocketmoney.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.pocketmoney.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.pocketmoney, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(
-                      _vm._s(_vm.pocketmoney.budget - _vm.pocketmoney.fixed)
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("嗜好品")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.favorite.budget,
-                        expression: "favorite.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.favorite.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.favorite, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.favorite.fixed,
-                        expression: "favorite.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.favorite.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.favorite, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.favorite.budget - _vm.favorite.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherSelfInvestment.budget,
-                        expression: "otherSelfInvestment.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherSelfInvestment.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.otherSelfInvestment,
-                          "budget",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherSelfInvestment.fixed,
-                        expression: "otherSelfInvestment.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherSelfInvestment.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.otherSelfInvestment,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(
-                      _vm._s(
-                        _vm.otherSelfInvestment.budget -
-                          _vm.otherSelfInvestment.fixed
-                      )
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("h3", [_vm._v("貯蓄・投資")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table" }, [
-            _c("tbody", [
-              _vm._m(5),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("預貯金")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherSelfInvestment.budget,
-                        expression: "otherSelfInvestment.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherSelfInvestment.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.otherSelfInvestment,
-                          "budget",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherSelfInvestment.fixed,
-                        expression: "otherSelfInvestment.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherSelfInvestment.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.otherSelfInvestment,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(
-                      _vm._s(
-                        _vm.otherSelfInvestment.budget -
-                          _vm.otherSelfInvestment.fixed
-                      )
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("投資")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.investment.budget,
-                        expression: "investment.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.investment.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.investment, "budget", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.investment.fixed,
-                        expression: "investment.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.investment.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.investment, "fixed", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(_vm._s(_vm.investment.budget - _vm.investment.fixed))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherInvestment.budget,
-                        expression: "otherInvestment.budget"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherInvestment.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.otherInvestment,
-                          "budget",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.otherInvestment.fixed,
-                        expression: "otherInvestment.fixed"
-                      }
-                    ],
-                    staticClass: "form-control input-sm",
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      step: "any",
-                      pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                    },
-                    domProps: { value: _vm.otherInvestment.fixed },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.otherInvestment,
-                          "fixed",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "col-xs-2" }, [
-                  _c("label", [
-                    _vm._v(
-                      _vm._s(
-                        _vm.otherInvestment.budget - _vm.otherInvestment.fixed
-                      )
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "btn btn-success pull-right btn-block",
-          attrs: { type: "submit", value: "保存" }
-        })
-      ]
-    )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "panel panel-default",
+          staticStyle: { "margin-bottom": "60px" }
+        },
+        [
+          _c("div", { staticClass: "panel-heading" }, [
+            _vm._v("\n        ポートフォリオ\n      ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { id: "spendChart" } },
+            [
+              _c("GChart", {
+                attrs: {
+                  type: "PieChart",
+                  data: _vm.chartData,
+                  options: _vm.chartOptions
+                }
+              })
+            ],
+            1
+          )
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -46821,6 +47098,18 @@ var staticRenderFns = [
       _c("th", [_vm._v("実績")]),
       _vm._v(" "),
       _c("th", [_vm._v("差額")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("項目")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("割合")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("合計")])
     ])
   }
 ]
@@ -47799,6 +48088,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 
@@ -47807,6 +48097,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   components: {
     GChart: __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__["GChart"]
   },
+  props: ['sumSpending'],
   data: function data() {
     return {
       fixedCost: 0,

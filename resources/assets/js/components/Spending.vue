@@ -1,7 +1,8 @@
 <template>
-  <div id="spending">
+<div>
+  <form action="action('Admin\SpendingController@create')" method="post" enctype="multipart/form-data">
     <div class="col-md-8 clearfix" style="margin-top:10px">
-      <div class="form-group form-inline">
+        <div class="form-group form-inline">
         <div class="col-md-5 col-sm-5">
           <dt>
             <label for="手取収入" class="label-font-size">手取収入</label>
@@ -220,19 +221,88 @@
           </tbody>
         </table>
       </div>
-
+      <input type="hidden" name="_token" :value="csrf">
       <input type="submit" class="btn btn-success pull-right btn-block" value="保存">
     </div>
+  </form>
+  <div class="col-xs-12 col-md-5 top-buffer pull-right">
+    <h3>支出割合</h3>
+    <div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>項目</th>
+            <th>割合</th>
+            <th>合計</th>
+          <tr>
+            <th class="col-xs-3">固定費</th>
+            <td>25%</td>
+            <td>{{chartDataRows[0][1]| localeNum}}</td>
+            <!-- <td>{{sumSpending.sumFixed | localeNum}}</td> -->
+          </tr>
+          <tr>
+            <th class="col-xs-3">変動費</th>
+            <td>25%</td>
+            <td>{{chartDataRows[1][1] | localeNum}}</td>
+          </tr>
+          <tr>
+            <th class="col-xs-3">自己投資</th>
+            <td>25%</td>
+            <td>{{chartDataRows[2][1] | localeNum}}</td>
+          </tr>
+          <tr>
+            <th class="col-xs-3">貯蓄・投資</th>
+            <td>25%</td>
+            <td>{{chartDataRows[3][1] | localeNum}}</td>
+          </tr>
+          <tr>
+            <th class="col-xs-3">合計</th>
+            <td></td>
+            <td>{{ sumSpend | localeNum}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel panel-default" style="margin-bottom: 60px;">
+      <div class="panel-heading">
+        ポートフォリオ
+      </div>
+      <div id="spendChart">
+        <GChart type="PieChart" :data="chartData" :options="chartOptions" />
+      </div>
+    </div>
   </div>
+ </div>
 </template>
 
 <script>
+  import { GChart } from 'vue-google-charts'
   export default {
-    name: 'spending',
+    components: { GChart },
     data() {
       return {
+        csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        fixedCost: 0,
+        chartDataHeader: ["種類", "小計"],
+        chartDataRows: [
+          ["固定費", 50000],
+          ["変動費", 50000],
+          ["自己投資", 50000],
+          ["貯蓄・投資", 50000]
+        ],
+        chartOptions: {
+          chart: {
+            title: "支出配分"
+          }
+        },
         fixedIncome: '',
         extraIncome: '',
+        sumSpending: {
+          sumFixed: '',
+          sumVar: '',
+          sumSelfInvest: '',
+          sumSaveInvest: ''
+        },
         rent: {
           budget: '', fixed: '', diff: ''
         },
@@ -293,9 +363,28 @@
         otherInvestment: {
           budget: '', fixed: '', diff: ''
         },
-
-
      }
+    },
+    computed: {
+      sumFixed: function() {
+        this.chartDataRows[1][0] = Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
+      },
+      sumVar: function() {
+        return Number(this.util.fixed) + Number(this.food.fixed) + Number(this.daily.fixed) + Number(this.transportation.fixed) + Number(this.automotive.fixed) + Number(this.otherVar.fixed)
+      },
+      sumSelfInvest: function() {
+        return Number(this.communication.fixed) + Number(this.education.fixed) + Number(this.medical.fixed) + Number(this.cloth.fixed) + Number(this.allowance.fixed) + Number(this.pocketmoney.fixed) + Number(this.favorite.fixed) + Number(this.otherSelfInvestment.fixed)
+      },
+      sumSaveInvest: function() {
+        return Number(this.save.fixed) + Number(this.investment.fixed) + Number(this.otherInvestment.fixed)
+      },
+      chartData() {
+        return [this.chartDataHeader, ...this.chartDataRows];
+      },
+      sumSpend() {
+        var sum = 0;
+        for (var i = 0; i < 4; i++) { sum +=this.chartDataRows[i][1] } return sum;
+      },
     }
   }
 </script>

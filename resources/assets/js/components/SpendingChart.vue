@@ -12,6 +12,7 @@
             <th class="col-xs-3">固定費</th>
             <td>25%</td>
             <td>{{chartDataRows[0][1]| localeNum}}</td>
+            <!-- <td>{{sumSpending.sumFixed | localeNum}}</td> -->
           </tr>
           <tr>
             <th class="col-xs-3">変動費</th>
@@ -55,6 +56,7 @@
     components: {
       GChart
     },
+    props: ['sumSpending'],
     data(){
       return {
         fixedCost: 0,

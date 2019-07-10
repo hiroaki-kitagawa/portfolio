@@ -35,5 +35,5 @@ Vue.filter( 'localeNum', function ( val )
 
 const app = new Vue({
     el: '#app',
-    
 });
+
