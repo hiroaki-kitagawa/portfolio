@@ -67,32 +67,27 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
-    import SimFuture from './components/SimFuture.vue'
+    // import SimFuture from './components/SimFuture.vue'
 
-    export default {
-        name: 'sim-future',
-        components: { SimFuture },
-        computed: {
-            calculated_FV: function ()
-            {
-                const pv = simfuture_pv;
-                const rate = simfuture_rate;
-                const nper = simfuture_nper;
-                const fv = 0;
+    // export default {
+    //     name: 'sim-future',
+    //     components: { SimFuture },
+    //     computed: {
+    //         calculated_FV: function ()
+    //         {
+    //             const pv = simfuture_pv;
+    //             const rate = simfuture_rate;
+    //             const nper = simfuture_nper;
+    //             var fv = 0;
 
-                for ( i = 1; i <= nper; i++ )
-                {
-                    fv=( fv + pv ) * ( 1 + rate );
-                }
-                return fv
-            }
+    //             for ( i = 1; i <= nper; i++ )
+    //             {
+    //                 fv=( fv + pv ) * ( 1 + rate );
+    //             }
+    //             return fv
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
 </script>

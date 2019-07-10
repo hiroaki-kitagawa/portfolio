@@ -48218,7 +48218,98 @@ module.exports = Component.exports
 /* 58 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: SyntaxError: Only one default export allowed per module. (77:0)\n\n\u001b[0m \u001b[90m 75 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mSimFuture\u001b[39m from \u001b[32m'./components/SimFuture.vue'\u001b[39m\n \u001b[90m 76 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 77 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m {\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 78 | \u001b[39m    name\u001b[33m:\u001b[39m \u001b[32m'sim-future'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 79 | \u001b[39m    components\u001b[33m:\u001b[39m { \u001b[33mSimFuture\u001b[39m }\u001b[33m,\u001b[39m\n \u001b[90m 80 | \u001b[39m    computed\u001b[33m:\u001b[39m {\u001b[0m\n");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// import SimFuture from './components/SimFuture.vue'
+
+// export default {
+//     name: 'sim-future',
+//     components: { SimFuture },
+//     computed: {
+//         calculated_FV: function ()
+//         {
+//             const pv = simfuture_pv;
+//             const rate = simfuture_rate;
+//             const nper = simfuture_nper;
+//             var fv = 0;
+
+//             for ( i = 1; i <= nper; i++ )
+//             {
+//                 fv=( fv + pv ) * ( 1 + rate );
+//             }
+//             return fv
+//         }
+
+//     }
+
+// }
 
 /***/ }),
 /* 59 */
