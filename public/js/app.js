@@ -1271,7 +1271,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(66);
+module.exports = __webpack_require__(63);
 
 
 /***/ }),
@@ -1306,9 +1306,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('example-component', __webpack_require__(42));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('spending', __webpack_require__(45));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('investment', __webpack_require__(48));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-future', __webpack_require__(57));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-monthly', __webpack_require__(60));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-period', __webpack_require__(63));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-future', __webpack_require__(51));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-accumlation', __webpack_require__(54));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-period', __webpack_require__(57));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-return', __webpack_require__(60));
 // 数値をカンマ区切りで表示
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('localeNum', function (val) {
   return Number(val).toLocaleString();
@@ -45274,8 +45275,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       return [this.chartDataHeader].concat(_toConsumableArray(this.chartDataRows));
     },
     sumSpend: function sumSpend() {
-      var sum = 0;
-      sum = this.sumFixed + this.sumVar + this.sumSelfInvest + this.sumSaveInvest;
+      var sum = this.sumFixed + this.sumVar + this.sumSelfInvest + this.sumSaveInvest;
       return sum;
     }
   }
@@ -47420,8 +47420,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       return [this.chartDataHeader].concat(_toConsumableArray(this.chartDataRows));
     },
     sumSaveInvest: function sumSaveInvest() {
-      var sum = 0;
-      sum = this.sumCach + this.sumStocks + this.sumBonds + this.sumOther;
+      var sum = this.sumCach + this.sumStocks + this.sumBonds + this.sumOther;
       return sum;
     }
   }
@@ -48162,21 +48161,15 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(58)
+var __vue_script__ = __webpack_require__(52)
 /* template */
-var __vue_template__ = __webpack_require__(59)
+var __vue_template__ = __webpack_require__(53)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -48215,42 +48208,805 @@ module.exports = Component.exports
 
 
 /***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'sim-future',
+    data: function data() {
+        return {
+            tsumitate: '', // 積立金額
+            totalInvest: '', // 積立合計金額
+            annualRate: '', // 年利回り
+            kikan: '' // 期間
+        };
+    },
+
+    computed: {
+        calculatedValue: function calculatedValue() {
+            var t = this.tsumitate * 10000;
+            var r = this.annualRate / 100 / 12; // 年金終値係数で使う利率に計算
+            var n = this.kikan * 12; //月数に変換
+            var FV = 0;
+
+            // 積立合計金額
+            this.totalInvest = Math.ceil(t * n / 1000) / 10;
+            // 将来価値
+            FV = Math.ceil((Math.pow(1 + r, n) - 1) / r * t / 1000) / 10;
+
+            return isNaN(FV) ? 0 : FV; // 計算前のNull値は0で表示
+        }
+    }
+});
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "tab-pane fade in active", attrs: { id: "sim-future" } },
+    [
+      _c("div", { staticClass: "col-md-6 col-sm-6" }, [
+        _c("form", { staticClass: "form-horizontal" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("毎月の積立金額")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.tsumitate,
+                    expression: "tsumitate"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.tsumitate },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.tsumitate = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("運用利回り(年)")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.annualRate,
+                    expression: "annualRate"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.annualRate },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.annualRate = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("％")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("積立期間")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.kikan,
+                      expression: "kikan"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.kikan = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [_vm._v("▼")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "6" } }, [_vm._v("6")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "7" } }, [_vm._v("7")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "8" } }, [_vm._v("8")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "9" } }, [_vm._v("9")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "11" } }, [_vm._v("11")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "13" } }, [_vm._v("13")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "14" } }, [_vm._v("14")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "16" } }, [_vm._v("16")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "17" } }, [_vm._v("17")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "18" } }, [_vm._v("18")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "19" } }, [_vm._v("19")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "21" } }, [_vm._v("21")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "22" } }, [_vm._v("22")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "23" } }, [_vm._v("23")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "26" } }, [_vm._v("26")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "27" } }, [_vm._v("27")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "28" } }, [_vm._v("28")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "29" } }, [_vm._v("29")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("年")])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
+        [
+          _c("h3", [_vm._v("積立合計額")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "calculatedValue" }, [
+            _vm._v(_vm._s(_vm._f("localeNum")(_vm.totalInvest)) + "万円")
+          ]),
+          _vm._v(" "),
+          _c("h3", [_vm._v("最終積立金額")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "calculatedValue" }, [
+            _vm._v(_vm._s(_vm._f("localeNum")(_vm.calculatedValue)) + "万円")
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v("毎月の積立金額、運用利回り、積立期間をそれぞれ入力し、"),
+      _c("br"),
+      _vm._v("「計算」ボタンをクリックしてください。")
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-dbf1275a", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(55)
+/* template */
+var __vue_template__ = __webpack_require__(56)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/SimAccum.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f09e970e", Component.options)
+  } else {
+    hotAPI.reload("data-v-f09e970e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'sim-accumlation',
+    data: function data() {
+        return {
+            totalInvest: '', // 積立合計金額
+            annualRate: '', // 年利回り
+            kikan: '', // 期間
+            futureValue: '' // 将来価値
+        };
+    },
+
+    computed: {
+        calculatedValue: function calculatedValue() {
+            var t = 0;
+            var totalInvest = 0;
+            var r = this.annualRate / 100 / 12; // 年金終値係数で使う利率に計算
+            var n = this.kikan * 12; //月数に変換
+            var FV = this.futureValue * 10000; // 将来価値 *1000で万単位に変換
+
+            // 積立金額
+            t = (Math.pow(1 + r, n) - 1) / r;
+            t = Math.ceil(FV / t);
+            // 積立合計金額
+            totalInvest = Math.ceil(t * n / 1000) / 10;
+            this.totalInvest = isNaN(totalInvest) ? 0 : totalInvest;
+
+            // 積立金額を万単位に変換
+            t = Math.ceil(t / 1000) / 10;
+
+            return isNaN(t) ? 0 : t; // 計算前のNull値は0で表示
+        }
+    }
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "tab-pane fade", attrs: { id: "sim-accumlation" } },
+    [
+      _c("div", { staticClass: "col-md-6 col-sm-6" }, [
+        _c("form", { staticClass: "form-horizontal" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("目標金額")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.futureValue,
+                    expression: "futureValue"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.futureValue },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.futureValue = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("運用利回り(年)")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.annualRate,
+                    expression: "annualRate"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.annualRate },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.annualRate = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("％")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("積立期間")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.kikan,
+                      expression: "kikan"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.kikan = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [_vm._v("▼")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "6" } }, [_vm._v("6")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "7" } }, [_vm._v("7")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "8" } }, [_vm._v("8")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "9" } }, [_vm._v("9")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "11" } }, [_vm._v("11")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "13" } }, [_vm._v("13")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "14" } }, [_vm._v("14")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "16" } }, [_vm._v("16")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "17" } }, [_vm._v("17")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "18" } }, [_vm._v("18")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "19" } }, [_vm._v("19")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "21" } }, [_vm._v("21")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "22" } }, [_vm._v("22")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "23" } }, [_vm._v("23")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "26" } }, [_vm._v("26")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "27" } }, [_vm._v("27")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "28" } }, [_vm._v("28")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "29" } }, [_vm._v("29")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("年")])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
+        [
+          _c("h3", [_vm._v("積立合計額")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "calculatedValue" }, [
+            _vm._v(_vm._s(_vm._f("localeNum")(_vm.totalInvest)) + "万円")
+          ]),
+          _vm._v(" "),
+          _c("h3", [_vm._v("毎月積立金額")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "calculatedValue" }, [
+            _vm._v(_vm._s(_vm._f("localeNum")(_vm.calculatedValue)) + "万円")
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v("目標金額、運用利回り、積立期間をそれぞれ入力し、"),
+      _c("br"),
+      _vm._v("「計算」ボタンをクリックしてください。")
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f09e970e", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(58)
+/* template */
+var __vue_template__ = __webpack_require__(59)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/SimPeriod.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ee35b55e", Component.options)
+  } else {
+    hotAPI.reload("data-v-ee35b55e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
 /* 58 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
@@ -48287,29 +49043,32 @@ module.exports = Component.exports
 //
 //
 
-// import SimFuture from './components/SimFuture.vue'
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'sim-period',
+    data: function data() {
+        return {
+            tsumitate: '', // 積立金額
+            annualRate: '', // 年利回り
+            kikan: '', // 期間
+            futureValue: '' // 将来価値
+        };
+    },
 
-// export default {
-//     name: 'sim-future',
-//     components: { SimFuture },
-//     computed: {
-//         calculated_FV: function ()
-//         {
-//             const pv = simfuture_pv;
-//             const rate = simfuture_rate;
-//             const nper = simfuture_nper;
-//             var fv = 0;
+    computed: {
+        calculatedValue: function calculatedValue() {
+            var t = this.tsumitate * 10000; // 積立金額
+            var r = this.annualRate / 100 / 12; // 一月あたりの利率に変換
+            var n = 0;
+            var FV = this.futureValue * 10000; // 将来価値
 
-//             for ( i = 1; i <= nper; i++ )
-//             {
-//                 fv=( fv + pv ) * ( 1 + rate );
-//             }
-//             return fv
-//         }
-
-//     }
-
-// }
+            // 積立期間
+            n = Math.log((r * FV + t) / t) / Math.log(1 + r);
+            n = Math.ceil(n / 12 * 10) / 10;
+            // n = n.toFixed(1);
+            return isNaN(n) ? 0 : n; // 計算前のNull値は0で表示
+        }
+    }
+});
 
 /***/ }),
 /* 59 */
@@ -48319,164 +49078,157 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "tab-pane fade", attrs: { id: "sim-period" } },
+    [
+      _c("div", { staticClass: "col-md-6 col-sm-6" }, [
+        _c("form", { staticClass: "form-horizontal" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("毎月の積立金額")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.tsumitate,
+                    expression: "tsumitate"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.tsumitate },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.tsumitate = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("運用利回り(年)")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.annualRate,
+                    expression: "annualRate"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.annualRate },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.annualRate = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("％")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("目標金額")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.futureValue,
+                    expression: "futureValue"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.futureValue },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.futureValue = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
+        [
+          _c("h3", [_vm._v("積立期間")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "calculatedValue" }, [
+            _vm._v(_vm._s(_vm.calculatedValue) + "年")
+          ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade in active", attrs: { id: "sim-future" } },
-      [
-        _c("div", { staticClass: "col-md-6 col-sm-6" }, [
-          _c("form", { staticClass: "form-horizontal" }, [
-            _c("p", [
-              _vm._v("毎月の積立金額、運用利回り、積立期間をそれぞれ入力し、"),
-              _c("br"),
-              _vm._v("「計算」ボタンをクリックしてください。")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("毎月の積立金額")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "number",
-                    min: "1",
-                    step: "any",
-                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("円")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("運用利回り(年)")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "number",
-                    min: "1",
-                    step: "any",
-                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("％")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("積立期間")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c(
-                  "select",
-                  { staticClass: "form-control", attrs: { name: "" } },
-                  [
-                    _c("option", { attrs: { value: "" } }, [_vm._v("▼")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "6" } }, [_vm._v("6")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "7" } }, [_vm._v("7")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "8" } }, [_vm._v("8")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "9" } }, [_vm._v("9")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "11" } }, [_vm._v("11")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "13" } }, [_vm._v("13")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "14" } }, [_vm._v("14")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "16" } }, [_vm._v("16")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "17" } }, [_vm._v("17")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "18" } }, [_vm._v("18")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "19" } }, [_vm._v("19")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "21" } }, [_vm._v("21")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "22" } }, [_vm._v("22")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "23" } }, [_vm._v("23")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "26" } }, [_vm._v("26")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "27" } }, [_vm._v("27")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "28" } }, [_vm._v("28")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "29" } }, [_vm._v("29")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("年")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
-          [
-            _c("h3", [_vm._v("最終積立金額")]),
-            _vm._v(" "),
-            _c("label", { staticClass: "calculatedValue" }, [
-              _vm._v("{2,000}万円")
-            ])
-          ]
-        )
-      ]
-    )
+    return _c("p", [
+      _vm._v("毎月の積立金額、運用利回り、目標金額をそれぞれ入力し、"),
+      _c("br"),
+      _vm._v("「計算」ボタンをクリックしてください。")
+    ])
   }
 ]
 render._withStripped = true
@@ -48484,7 +49236,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-dbf1275a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-ee35b55e", module.exports)
   }
 }
 
@@ -48514,7 +49266,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/SimMonthly.vue"
+Component.options.__file = "resources/assets/js/components/SimReturn.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -48523,9 +49275,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-24e65dad", Component.options)
+    hotAPI.createRecord("data-v-7c9ec580", Component.options)
   } else {
-    hotAPI.reload("data-v-24e65dad", Component.options)
+    hotAPI.reload("data-v-7c9ec580", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -48608,11 +49360,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    name: 'sim-return',
+    data: function data() {
+        return {
+            tsumitate: '', // 積立金額
+            annualRate: '', // 年利回り
+            kikan: '', // 期間
+            futureValue: '', // 目標金額
+            array_r: []
+        };
+    },
+
+    computed: {
+        calculatedValue: function calculatedValue() {
+            if (this.tsumitate == 0 || this.futureValue == 0 || this.kikan == '') {
+                return r = 0;
+            }
+
+            var t = this.tsumitate;
+            var r = void 0;
+            var j = void 0;
+            var n = this.kikan * 12; //月数に変換
+            var FV = this.futureValue; // 将来価値 *1000で万単位に変換
+
+            for (r = 1; r < 999; r++) {
+                for (j = 1; j < n; j++) {
+                    t = t + parseFloat(this.tsumitate);
+                    t = t + t * (r / 10000 / 12);
+                }
+                if (t >= FV) {
+                    break;
+                }
+            }
+
+            r = r / 10;
+
+            // リターン率
+            // r = (Math.pow(FV / t, 1 / n) - 1 ) * this.kikan * 12
+
+            return r; // 計算前のNull値は0で表示
+        }
     }
 });
 
@@ -48624,169 +49413,224 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "tab-pane fade", attrs: { id: "sim-return" } },
+    [
+      _c("div", { staticClass: "col-md-6 col-sm-6" }, [
+        _c("form", { staticClass: "form-horizontal" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("目標金額")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.futureValue,
+                    expression: "futureValue"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.futureValue },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.futureValue = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("毎月の積立金額")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.tsumitate,
+                    expression: "tsumitate"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "1",
+                  step: "any",
+                  pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                },
+                domProps: { value: _vm.tsumitate },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.tsumitate = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
+              [_vm._v("積立期間")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.kikan,
+                      expression: "kikan"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.kikan = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [_vm._v("▼")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "6" } }, [_vm._v("6")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "7" } }, [_vm._v("7")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "8" } }, [_vm._v("8")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "9" } }, [_vm._v("9")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "11" } }, [_vm._v("11")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "13" } }, [_vm._v("13")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "14" } }, [_vm._v("14")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "16" } }, [_vm._v("16")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "17" } }, [_vm._v("17")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "18" } }, [_vm._v("18")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "19" } }, [_vm._v("19")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "21" } }, [_vm._v("21")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "22" } }, [_vm._v("22")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "23" } }, [_vm._v("23")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "26" } }, [_vm._v("26")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "27" } }, [_vm._v("27")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "28" } }, [_vm._v("28")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "29" } }, [_vm._v("29")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "control-label" }, [_vm._v("年")])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
+        [
+          _c("h3", [_vm._v("リターン(年率)")]),
+          _vm._v(" "),
+          _c("label", { staticClass: "calculatedValue" }, [
+            _vm._v(_vm._s(_vm._f("localeNum")(_vm.calculatedValue)) + "%")
+          ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade", attrs: { id: "sim-monthly" } },
-      [
-        _c("div", { staticClass: "col-md-6 col-sm-6" }, [
-          _c("form", { staticClass: "form-horizontal" }, [
-            _c("p", [
-              _vm._v("目標金額、運用利回り、積立期間をそれぞれ入力し、"),
-              _c("br"),
-              _vm._v("「計算」ボタンをクリックしてください。")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("目標金額")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "number",
-                    min: "1",
-                    step: "any",
-                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("運用利回り(年)")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "number",
-                    min: "1",
-                    step: "any",
-                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("％")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("積立期間")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c(
-                  "select",
-                  { staticClass: "form-control", attrs: { name: "" } },
-                  [
-                    _c("option", { attrs: { value: "" } }, [_vm._v("▼")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "6" } }, [_vm._v("6")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "7" } }, [_vm._v("7")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "8" } }, [_vm._v("8")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "9" } }, [_vm._v("9")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "11" } }, [_vm._v("11")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "13" } }, [_vm._v("13")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "14" } }, [_vm._v("14")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "16" } }, [_vm._v("16")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "17" } }, [_vm._v("17")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "18" } }, [_vm._v("18")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "19" } }, [_vm._v("19")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "21" } }, [_vm._v("21")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "22" } }, [_vm._v("22")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "23" } }, [_vm._v("23")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "26" } }, [_vm._v("26")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "27" } }, [_vm._v("27")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "28" } }, [_vm._v("28")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "29" } }, [_vm._v("29")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "30" } }, [_vm._v("30")])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("年")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
-          [
-            _c("h3", [_vm._v("毎月積立金額")]),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "calculatedValue",
-                attrs: { id: "calculatedValue-monthly" }
-              },
-              [_vm._v("{4.3万円}")]
-            )
-          ]
-        )
-      ]
-    )
+    return _c("p", [
+      _vm._v("目標金額、積立金額、積立期間をそれぞれ入力し、"),
+      _c("br"),
+      _vm._v("「計算」ボタンをクリックしてください。")
+    ])
   }
 ]
 render._withStripped = true
@@ -48794,232 +49638,12 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-24e65dad", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7c9ec580", module.exports)
   }
 }
 
 /***/ }),
 /* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(64)
-/* template */
-var __vue_template__ = __webpack_require__(65)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/SimPeriod.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ee35b55e", Component.options)
-  } else {
-    hotAPI.reload("data-v-ee35b55e", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 64 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-});
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade", attrs: { id: "sim-period" } },
-      [
-        _c("div", { staticClass: "col-md-6 col-sm-6" }, [
-          _c("form", { staticClass: "form-horizontal" }, [
-            _c("p", [
-              _vm._v("毎月の積立金額、運用利回り、目標金額をそれぞれ入力し、"),
-              _c("br"),
-              _vm._v("「計算」ボタンをクリックしてください。")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("毎月の積立金額")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "number",
-                    min: "1",
-                    step: "any",
-                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("運用利回り(年)")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "number",
-                    min: "1",
-                    step: "any",
-                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("％")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "col-md-4 col-sm-4 col-xs-12 control-label" },
-                [_vm._v("目標金額")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 col-sm-4 col-xs-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "number",
-                    min: "1",
-                    step: "any",
-                    pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("万円")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1" },
-          [
-            _c("h3", [_vm._v("積立期間")]),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "calculatedValue",
-                attrs: { id: "calculatedValue-period" }
-              },
-              [_vm._v("{19.8}年")]
-            )
-          ]
-        )
-      ]
-    )
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-ee35b55e", module.exports)
-  }
-}
-
-/***/ }),
-/* 66 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

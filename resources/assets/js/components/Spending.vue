@@ -390,8 +390,7 @@
         return [this.chartDataHeader, ...this.chartDataRows];
       },
       sumSpend() {
-        var sum = 0;
-        sum = this.sumFixed + this.sumVar + this.sumSelfInvest +  this.sumSaveInvest;
+        const sum = this.sumFixed + this.sumVar + this.sumSelfInvest +  this.sumSaveInvest;
         return sum;
       },
     }

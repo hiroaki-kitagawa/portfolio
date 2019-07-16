@@ -261,8 +261,7 @@
         return [ this.chartDataHeader, ...this.chartDataRows ];
       },
       sumSaveInvest() {
-        var sum = 0;
-        sum = this.sumCach + this.sumStocks + this.sumBonds + this.sumOther;
+        const sum = this.sumCach + this.sumStocks + this.sumBonds + this.sumOther;
         return sum;
       },
     }

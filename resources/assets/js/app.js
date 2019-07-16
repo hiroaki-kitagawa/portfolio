@@ -22,7 +22,7 @@ Vue.component( 'example-component', require( './components/ExampleComponent.vue'
 Vue.component('spending', require('./components/Spending.vue'));
 Vue.component( 'investment', require( './components/Investment.vue' ) );
 Vue.component('sim-future', require('./components/SimFuture.vue'));
-Vue.component('sim-monthly', require('./components/SimMonthly.vue'));
+Vue.component('sim-accumlation', require('./components/SimAccum.vue'));
 Vue.component( 'sim-period', require( './components/SimPeriod.vue' ) );
 // 数値をカンマ区切りで表示
 Vue.filter( 'localeNum', function ( val )

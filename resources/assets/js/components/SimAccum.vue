@@ -1,26 +1,26 @@
 <template>
-    <div class="tab-pane fade" id="sim-monthly">
+    <div class="tab-pane fade" id="sim-accumlation">
         <div class="col-md-6 col-sm-6">
             <form class="form-horizontal">
                 <p>目標金額、運用利回り、積立期間をそれぞれ入力し、<br>「計算」ボタンをクリックしてください。</p>
                 <div class="form-group">
                     <label class="col-md-4 col-sm-4 col-xs-12 control-label">目標金額</label>
                     <div class="col-md-4 col-sm-4 col-xs-10">
-                        <input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control">
+                        <input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control" v-model="futureValue">
                     </div>
                     <label class="control-label">万円</label>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 col-sm-4 col-xs-12 control-label">運用利回り(年)</label>
                     <div class="col-md-4 col-sm-4 col-xs-10">
-                        <input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control">
+                        <input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control" v-model="annualRate">
                     </div>
                     <label class="control-label">％</label>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 col-sm-4 col-xs-12 control-label">積立期間</label>
                     <div class="col-md-4 col-sm-4 col-xs-10">
-                        <select name="" class="form-control">
+                        <select name="" class="form-control" v-model="kikan">
                             <option value="">▼</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -56,20 +56,49 @@
                     </div>
                     <label class="control-label">年</label>
                 </div>
-                <!-- <button class="btn btn-success btn-block-75" id="calculate-monthly">計算</button> -->
             </form>
         </div>
         <div class="col-md-4 col-sm-4 col-md-offset-1 col-sm-offset-1">
+            <h3>積立合計額</h3>
+            <label class="calculatedValue">{{ totalInvest | localeNum }}万円</label>
             <h3>毎月積立金額</h3>
-            <label class="calculatedValue" id="calculatedValue-monthly">{4.3万円}</label>
+            <label class="calculatedValue">{{calculatedValue | localeNum}}万円</label>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        name: 'sim-accumlation',
+        data() {
+            return {
+                totalInvest: '', // 積立合計金額
+                annualRate: '', // 年利回り
+                kikan: '', // 期間
+                futureValue: '', // 将来価値
+            }
+        },
+        computed: {
+            calculatedValue: function ()
+            {
+                let t = 0;
+                let totalInvest = 0;
+                let r = this.annualRate / 100 / 12; // 年金終値係数で使う利率に計算
+                let n = this.kikan * 12; //月数に変換
+                let FV = this.futureValue * 10000; // 将来価値 *1000で万単位に変換
+
+                // 積立金額
+                t = (Math.pow( 1 + r , n) - 1) / r;
+                t = Math.ceil( FV / t );
+                // 積立合計金額
+                totalInvest = Math.ceil(t * n / 1000) / 10;
+                this.totalInvest = isNaN(totalInvest) ? 0 : totalInvest;
+
+                // 積立金額を万単位に変換
+                t = Math.ceil( t / 1000) / 10;
+
+                return isNaN(t) ? 0 : t // 計算前のNull値は0で表示
+            }
         }
     }
 </script>
