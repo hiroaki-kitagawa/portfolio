@@ -45293,7 +45293,7 @@ var render = function() {
       "form",
       {
         attrs: {
-          action: "action('Admin\\SpendingController@create')",
+          action: "action('Admin\\IncomeController@store')",
           method: "post",
           enctype: "multipart/form-data"
         }
@@ -47436,13 +47436,7 @@ var render = function() {
   return _c("div", [
     _c(
       "form",
-      {
-        attrs: {
-          action: "action('Admin\\SpendingController@create')",
-          method: "post",
-          enctype: "multipart/form-data"
-        }
-      },
+      { attrs: { action: "", method: "post", enctype: "multipart/form-data" } },
       [
         _c(
           "div",

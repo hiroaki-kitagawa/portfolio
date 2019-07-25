@@ -1,6 +1,6 @@
 <template>
 <div>
-  <form action="action('Admin\SpendingController@create')" method="post" enctype="multipart/form-data">
+  <form action="action('Admin\IncomeController@store')" method="post" enctype="multipart/form-data">
     <div class="col-md-8 clearfix" style="margin-top:10px">
         <div class="form-group form-inline">
         <div class="col-md-5 col-sm-5">

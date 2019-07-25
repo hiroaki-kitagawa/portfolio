@@ -17,8 +17,7 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
-    Route::get('spending/create', 'Admin\SpendingController@add');
-    Route::post('spending/create', 'Admin\SpendingController@create');
+    Route::post('income/store', 'Admin\IncomeController@store');
 });
 
 Auth::routes();
