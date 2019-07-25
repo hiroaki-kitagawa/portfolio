@@ -19,9 +19,9 @@ class CreateInvestmentTable extends Migration
             $table->integer('domestic_bonds');
             $table->integer('developed_bonds');
             $table->integer('emerging_bonds');
-            $table->integer('domestic_stock');
-            $table->integer('developed_stock');
-            $table->integer('emerging_stock');
+            $table->integer('domestic_stocks');
+            $table->integer('developed_stocks');
+            $table->integer('emerging_stocks');
             $table->integer('japan_riet');
             $table->integer('oversea_riet');
             $table->integer('other');
