@@ -11,8 +11,8 @@ class InvestmentTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("investment")->insert([
-            "invest_id" => "1",
+        DB::table("investments")->insert([
+            "id" => "1",
             "user_id" => "1",
             "domestic_bonds" => "10000",
             "developed_bonds" => "10000",

@@ -8,7 +8,7 @@
             <label for="手取収入" class="label-font-size">手取収入</label>
           </dt>
           <dd>
-            <input type="number" class="form-control" name="fixed_income" v-model="fixedIncome"><label class="label-font-size">円</label>
+            <input type="number" class="form-control" name="fixed_income" v-model="income.fixed_income"><label class="label-font-size">円</label>
           </dd>
         </div>
         <div class="col-md-5 col-sm-5">
@@ -16,7 +16,7 @@
             <label for="臨時収入" class="label-font-size">臨時収入</label>
           </dt>
           <dd>
-            <input type="number" class="form-control" name="extra_income" v-model="extraIncome"><label class="label-font-size">円</label>
+            <input type="number" class="form-control" name="extra_income" v-model="income.extra_income"><label class="label-font-size">円</label>
           </dd>
         </div>
       </div>
@@ -278,6 +278,7 @@
   import { GChart } from 'vue-google-charts'
   export default {
     components: { GChart },
+    props: ['income'],
     data() {
       return {
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -291,8 +292,6 @@
         chartOptions: {
           chart: { title: '支出配分' }
         },
-        fixedIncome: '',
-        extraIncome: '',
         rent: {
           budget: '', fixed: '', diff: ''
         },

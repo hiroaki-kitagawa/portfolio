@@ -13,8 +13,8 @@ class CreateSpendingTable extends Migration
      */
     public function up()
     {
-        Schema::create('spending', function (Blueprint $table) {
-            $table->increments('spend_id');
+        Schema::create('spendings', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('fixed_rent');
             $table->integer('fixed_insurance');
@@ -48,6 +48,6 @@ class CreateSpendingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('spending');
+        Schema::dropIfExists('spendings');
     }
 }

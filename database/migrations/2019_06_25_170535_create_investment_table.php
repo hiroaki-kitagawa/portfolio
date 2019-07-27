@@ -13,8 +13,8 @@ class CreateInvestmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('investment', function (Blueprint $table) {
-            $table->increments('invest_id');
+        Schema::create('investments', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('domestic_bonds');
             $table->integer('developed_bonds');
@@ -41,6 +41,6 @@ class CreateInvestmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('investment');
+        Schema::dropIfExists('investments');
     }
 }

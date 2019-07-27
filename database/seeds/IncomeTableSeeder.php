@@ -11,8 +11,8 @@ class IncomeTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("income")->insert([
-            "income_id" => "1",
+        DB::table("incomes")->insert([
+            "id" => "1",
             "user_id" => "1",
             "fixed_income" => "210000",
             "extra_income" => "30000"

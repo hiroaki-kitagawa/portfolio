@@ -11,8 +11,8 @@ class SpendingTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("spending")->insert([
-            "spend_id" => "1",
+        DB::table("spendings")->insert([
+            "id" => "1",
             "user_id" => "1",
             "fixed_rent" => "30000",
             "fixed_insurance" => "4000",

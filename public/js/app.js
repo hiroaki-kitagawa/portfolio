@@ -45166,6 +45166,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: { GChart: __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__["GChart"] },
+  props: ['income'],
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -45174,8 +45175,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       chartOptions: {
         chart: { title: '支出配分' }
       },
-      fixedIncome: '',
-      extraIncome: '',
       rent: {
         budget: '', fixed: '', diff: ''
       },
@@ -45316,19 +45315,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.fixedIncome,
-                        expression: "fixedIncome"
+                        value: _vm.income.fixed_income,
+                        expression: "income.fixed_income"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "number", name: "fixed_income" },
-                    domProps: { value: _vm.fixedIncome },
+                    domProps: { value: _vm.income.fixed_income },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.fixedIncome = $event.target.value
+                        _vm.$set(
+                          _vm.income,
+                          "fixed_income",
+                          $event.target.value
+                        )
                       }
                     }
                   }),
@@ -45347,19 +45350,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.extraIncome,
-                        expression: "extraIncome"
+                        value: _vm.income.extra_income,
+                        expression: "income.extra_income"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "number", name: "extra_income" },
-                    domProps: { value: _vm.extraIncome },
+                    domProps: { value: _vm.income.extra_income },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.extraIncome = $event.target.value
+                        _vm.$set(
+                          _vm.income,
+                          "extra_income",
+                          $event.target.value
+                        )
                       }
                     }
                   }),
