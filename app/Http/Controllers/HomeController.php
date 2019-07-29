@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Spending;
+use App\Investment;
 
 class HomeController extends Controller
 {
