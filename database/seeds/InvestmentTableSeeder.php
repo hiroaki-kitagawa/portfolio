@@ -14,14 +14,17 @@ class InvestmentTableSeeder extends Seeder
         DB::table("investments")->insert([
             "id" => "1",
             "user_id" => "1",
-            "domestic_bonds" => "10000",
-            "developed_bonds" => "10000",
+            "total_amout" => "100000",
+            "cash" => "10000",
+            "government_bonds" => "10000",
+            "domestic_stocks" => "15000",
+            "developed_stocks" => "10000",
+            "emerging_stocks" => "10000",
+            "domestic_bonds" => "20000",
+            "developed_bonds" => "30000",
             "emerging_bonds" => "10000",
-            "domestic_stocks" => "5000",
-            "developed_stocks" => "20000",
-            "emerging_stocks" => "5000",
-            "japan_riet" => "25000",
-            "oversea_riet" => "25000",
+            "japan_riet" => "2500",
+            "oversea_riet" => "2500",
             "other" => "0"
         ]);
     }

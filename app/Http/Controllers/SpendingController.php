@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Spending;
+use Auth;
 class SpendingController extends Controller
 {
     public function add()
@@ -18,8 +18,6 @@ class SpendingController extends Controller
 
         $spending = new Spending;
         $form = $request->all();
-
-        
     }
 
     public function edit()
@@ -29,5 +27,14 @@ class SpendingController extends Controller
     public function update()
     {
 
+    }
+
+    public function index()
+    {
+        $user = Auth::user();
+        // $income = Income::where('user_id',$user->id)->first();
+        $spendings = Spending::where('user_id',$user->id)->first();
+        // return view('home')->with('user', $user)->with('income', $income);
+        return view('/home',compact('user','spendings'));
     }
 }
