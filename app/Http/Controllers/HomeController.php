@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Auth;
 use App\Spending;
 use App\Investment;
@@ -26,6 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        $spendings = Spending::where('user_id',$user->id)->first();
+        $investments = Investment::where('user_id',$user->id)->first();
+        // $data = array_merge($spendings, $investments);
+        // return view('home')->with('user', $user)->with('spendings', $spendings)->with('investments', $investments);
+        return view('home',compact('spendings', 'investments'));
     }
 }

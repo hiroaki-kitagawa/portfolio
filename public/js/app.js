@@ -45292,7 +45292,7 @@ var render = function() {
       "form",
       {
         attrs: {
-          action: "action('Admin\\IncomeController@store')",
+          action: "action('Admin\\SpendingController@store')",
           method: "post",
           enctype: "multipart/form-data"
         }
