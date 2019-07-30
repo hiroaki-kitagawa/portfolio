@@ -8,7 +8,7 @@
             <label for="手取収入" class="label-font-size">手取収入</label>
           </dt>
           <dd>
-            <input type="number" class="form-control" name="fixed_income" v-model="spendings.fixed_income"><label class="label-font-size">円</label>
+            <input type="number" class="form-control" name="fixed_income" v-model="param.fixed_income"><label class="label-font-size">円</label>
           </dd>
         </div>
         <div class="col-md-5 col-sm-5">
@@ -16,7 +16,7 @@
             <label for="臨時収入" class="label-font-size">臨時収入</label>
           </dt>
           <dd>
-            <input type="number" class="form-control" name="extra_income" v-model="spendings.extra_income"><label class="label-font-size">円</label>
+            <input type="number" class="form-control" name="extra_income" v-model="param.extra_income"><label class="label-font-size">円</label>
           </dd>
         </div>
       </div>
@@ -34,20 +34,20 @@
             </tr>
             <tr>
               <th class="col-xs-3">住居費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_rent_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_rent"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.fixed_rent_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.fixed_rent"></td>
               <td class="col-xs-2"><label>{{ rent.budget - rent.fixed}}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">保険</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_insurance_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_insurance"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.fixed_insurance_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.fixed_insurance"></td>
               <td class="col-xs-2"><label>{{ insurance.budget - insurance.fixed}}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_other_budget"></td>
-              <td><input type="number" min="1" step="any"spendingspattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.fixed_other_budget"></td>
+              <td><input type="number" min="1" step="any"spendingspattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.fixed_other"></td>
               <td class="col-xs-2"><label>{{ otherFix.budget - otherFix.fixed}}</label></td>
             </tr>
           </tbody>
@@ -66,38 +66,38 @@
             </tr>
             <tr>
               <th class="col-xs-3">水道光熱費費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_utilities_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_utilities"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_utilities_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_utilities"></td>
               <td class="col-xs-2"><label>{{ util.budget - util.fixed}}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">食費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_food_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_food"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_food_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_food"></td>
               <td class="col-xs-2"><label>{{ food.budget - food.fixed}}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">日用品</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_daily_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_daily"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_daily_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_daily"></td>
               <td class="col-xs-2"><label>{{ daily.budget - daily.fixed}}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">交通費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_transportation_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_transportation"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_transportation_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_transportation"></td>
               <td class="col-xs-2"><label>{{ transportation.budget - transportation.fixed}}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">自動車関連</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_automotive_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_automotive"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_automotive_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_automotive"></td>
               <td class="col-xs-2"><label>{{ automotive.budget - automotive.fixed}}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_other_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_other_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.variable_other"></td>
               <td class="col-xs-2">
                 <label>{{ otherVar.budget - otherVar.fixed}}</label>
               </td>
@@ -118,64 +118,64 @@
             </tr>
             <tr>
               <th class="col-xs-3">通信費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_communication_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_communication"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_communication_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_communication"></td>
               <td class="col-xs-2">
                 <label>{{ communication.budget - communication.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">教育費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_education_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_education"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_education_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_education"></td>
               <td class="col-xs-2">
                 <label>{{ education.budget - education.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">医療費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_medical_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_medical"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_medical_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_medical"></td>
               <td class="col-xs-2">
                 <label>{{ medical.budget - medical.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">被服費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_clothing_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_clothing"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_clothing_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_clothing"></td>
               <td class="col-xs-2">
                 <label>{{ cloth.budget - cloth.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">交際費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_allowance_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_allowance"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_allowance_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_allowance"></td>
               <td class="col-xs-2">
                 <label>{{ allowance.budget - allowance.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">小遣い</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_pocketmoney_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_pocketmoney"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_pocketmoney_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_pocketmoney"></td>
               <td class="col-xs-2">
                 <label>{{ pocketmoney.budget - pocketmoney.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">嗜好品</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_favorite_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_favorite"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_favorite_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_favorite"></td>
               <td class="col-xs-2">
                 <label>{{ favorite.budget - favorite.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_other_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_other_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.selfinvest_other"></td>
               <td class="col-xs-2">
                 <label>{{ otherSelfInvestment.budget - otherSelfInvestment.fixed}}</label>
               </td>
@@ -196,24 +196,24 @@
             </tr>
             <tr>
               <th class="col-xs-3">預貯金</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_saving_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_saving"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.storeinvest_saving_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.storeinvest_saving"></td>
               <td class="col-xs-2">
                 <label>{{ save.budget - save.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">投資</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_investment_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_investment"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.storeinvest_investment_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.storeinvest_investment"></td>
               <td class="col-xs-2">
                 <label>{{ investment.budget - investment.fixed}}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_other_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.storeinvest_other_budget"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.storeinvest_other"></td>
               <td class="col-xs-2">
                 <label>{{ otherInvestment.budget - otherInvestment.fixed}}</label>
               </td>
@@ -278,7 +278,7 @@
   import { GChart } from 'vue-google-charts'
   export default {
     components: { GChart },
-    props: ['spendings'],
+    props: ['param'],
     data() {
       return {
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -356,7 +356,7 @@
     },
     computed: {
       sumFixed: function() {
-        const sum = Number(this.rent.fixed) + Number(this.insurance.fixed) + Number(this.otherFix.fixed);
+        const sum = Number(this.param.fixed_rent) + Number(this.param.fixed_insurance) + Number(this.param.other);
         const item = ['固定費', sum];
         this.chartDataRows.splice(0, 1, item);
         return sum;

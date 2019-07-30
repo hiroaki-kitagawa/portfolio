@@ -28,10 +28,9 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $spendings = Spending::where('user_id',$user->id)->first();
-        $investments = Investment::where('user_id',$user->id)->first();
-        // $data = array_merge($spendings, $investments);
-        // return view('home')->with('user', $user)->with('spendings', $spendings)->with('investments', $investments);
-        return view('home',compact('spendings', 'investments'));
+        $spendings = Spending::where('user_id',$user->id)->get();
+        $investments = Investment::where('user_id',$user->id)->get();
+        $param = $spendings->merge($investments);
+        return view('home',compact('param'));
     }
 }

@@ -8,7 +8,7 @@
               <label for="投資・貯蓄額" class="label-font-size">投資・貯蓄額</label>
             </dt>
             <dd>
-              <input type="number" class="form-control" name="save_investment" v-model="investments.total_amount"><label class="label-font-size">円</label>
+              <input type="number" class="form-control" name="save_investment" v-model="param.total_amount"><label class="label-font-size">円</label>
             </dd>
           </div>
         </div>
@@ -26,12 +26,12 @@
               <tr>
                 <th class="col-xs-3">現金</th>
                 <td class="col-xs-3"><label>{{ cash.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.cash"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.cash"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">国債</th>
                 <td class="col-xs-3"><label>{{ bond.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.government_bonds"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.government_bonds"></td>
               </tr>
             </tbody>
           </table>
@@ -49,17 +49,17 @@
               <tr>
                 <th class="col-xs-3">国内株式</th>
                 <td class="col-xs-3"><label>{{ domesticStocks.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.domestic_stocks"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.domestic_stocks"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">先進国株式</th>
                 <td class="col-xs-3"><label>{{ developedStocks.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.developed_stocks"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.developed_stocks"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">新興国株式</th>
                 <td class="col-xs-3"><label>{{ emergingStocks.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.emerging_stocks"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.emerging_stocks"></td>
               </tr>
             </tbody>
           </table>
@@ -77,17 +77,17 @@
               <tr>
                 <th class="col-xs-3">国内債券</th>
                 <td class="col-xs-3"><label>{{ domesticBonds.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.domestic_bonds"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.domestic_bonds"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">先進国債権</th>
                 <td class="col-xs-3"><label>{{ developedBonds.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.developed_bonds"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.developed_bonds"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">新興国債権</th>
                 <td class="col-xs-3"><label>{{ emergingBonds.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.emerging_bonds"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.emerging_bonds"></td>
               </tr>
             </tbody>
           </table>
@@ -105,17 +105,17 @@
               <tr>
                 <th class="col-xs-3">国内RIET</th>
                 <td class="col-xs-3"><label>{{ japanRiet.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.japan_riet"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.japan_riet"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">海外RIET</th>
                 <td class="col-xs-3"><label>{{ overseaRiet.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.oversea_riet"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.oversea_riet"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">その他</th>
                 <td class="col-xs-3"><label>{{ otherInvestment.rate }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investments.other"></td>
+                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="param.other"></td>
               </tr>
             </tbody>
           </table>
@@ -177,7 +177,7 @@
   import { GChart } from 'vue-google-charts'
   export default {
     components: { GChart },
-    props: {investments},
+    props: ['param'],
     data() {
       return {
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
