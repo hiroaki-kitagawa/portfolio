@@ -14,7 +14,7 @@ class InvestmentTableSeeder extends Seeder
         DB::table("investments")->insert([
             "id" => "1",
             "user_id" => "1",
-            "total_amout" => "100000",
+            "total_amount" => "100000",
             "cash" => "10000",
             "government_bonds" => "10000",
             "domestic_stocks" => "15000",

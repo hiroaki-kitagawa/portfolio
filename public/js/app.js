@@ -45166,7 +45166,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: { GChart: __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__["GChart"] },
-  props: ['param'],
+  props: ['spendings'],
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -45175,78 +45175,122 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       chartOptions: {
         chart: { title: '支出配分' }
       },
+      budget: {
+        "fixed_rent": '80000',
+        "fixed_insurance": '',
+        "fixed_other": '',
+        "variable_utilities": '',
+        "variable_food": '',
+        "variable_daily": '',
+        "variable_transportation": '',
+        "variable_automotive": '',
+        "variable_other": '',
+        "selfinvest_communication": '',
+        "selfinvest_education": '',
+        "selfinvest_medical": '',
+        "selfinvest_clothing": '',
+        "selfinvest_allowance": '',
+        "selfinvest_pocketmoney": '',
+        "selfinvest_favorite": '',
+        "selfinvest_other": '',
+        "storeinvest_saving": '',
+        "storeinvest_investment": '',
+        "storeinvest_other": ''
+      },
+      paid: {
+        "fixed_rent": '60000',
+        "fixed_insurance": '',
+        "fixed_other": '',
+        "variable_utilities": '',
+        "variable_food": '',
+        "variable_daily": '',
+        "variable_transportation": '',
+        "variable_automotive": '',
+        "variable_other": '',
+        "selfinvest_communication": '',
+        "selfinvest_education": '',
+        "selfinvest_medical": '',
+        "selfinvest_clothing": '',
+        "selfinvest_allowance": '',
+        "selfinvest_pocketmoney": '',
+        "selfinvest_favorite": '',
+        "selfinvest_other": '',
+        "storeinvest_saving": '',
+        "storeinvest_investment": '',
+        "storeinvest_other": ''
+      },
       rent: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       insurance: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       otherFix: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       util: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       food: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       daily: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       transportation: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       automotive: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       otherVar: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       communication: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       education: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       medical: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       cloth: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       allowance: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       pocketmoney: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       favorite: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       otherSelfInvestment: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       save: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       investment: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       },
       otherInvestment: {
-        budget: '', fixed: '', diff: ''
+        budget: '', fixed: ''
       }
     };
   },
 
   computed: {
     sumFixed: function sumFixed() {
-      var sum = Number(this.param.fixed_rent) + Number(this.param.fixed_insurance) + Number(this.param.other);
+      var sum = Number(this.paid.fixed_rent) + Number(this.paid.fixed_insurance) + Number(this.paid.fixed_other);
       var item = ['固定費', sum];
       this.chartDataRows.splice(0, 1, item);
       return sum;
     },
     sumVar: function sumVar() {
-      var sum = Number(this.util.fixed) + Number(this.food.fixed) + Number(this.daily.fixed) + Number(this.transportation.fixed) + Number(this.automotive.fixed) + Number(this.otherVar.fixed);
+      var sum = Number(this.paid.variable_utilities) + Number(this.paid.variable_food) + Number(this.paid.variable_daily) + Number(this.paid.variable_transportation) + Number(this.paid.variable_automotive) + Number(this.paid.variable_other);
       if (this.chartDataRows[1][1] != sum) {
         var item = ['変動費', sum];
         this.chartDataRows.splice(1, 1, item);
@@ -45254,7 +45298,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       return sum;
     },
     sumSelfInvest: function sumSelfInvest() {
-      var sum = Number(this.communication.fixed) + Number(this.education.fixed) + Number(this.medical.fixed) + Number(this.cloth.fixed) + Number(this.allowance.fixed) + Number(this.pocketmoney.fixed) + Number(this.favorite.fixed) + Number(this.otherSelfInvestment.fixed);
+      var sum = Number(this.paid.selfinvest_communication) + Number(this.paid.selfinvest_communication) + Number(this.paid.selfinvest_communication) + Number(this.paid.selfinvest_clothing) + Number(this.paid.selfinvest_allowance) + Number(this.paid.selfinvest_pocketmoney) + Number(this.paid.selfinvest_favorite) + Number(this.paid.selfinvest_other);
       if (this.chartDataRows[2][1] != sum) {
         var item = ['自己投資', sum];
         this.chartDataRows.splice(2, 1, item);
@@ -45262,7 +45306,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       return sum;
     },
     sumSaveInvest: function sumSaveInvest() {
-      var sum = Number(this.save.fixed) + Number(this.investment.fixed) + Number(this.otherInvestment.fixed);
+      var sum = Number(this.paid.storeinvest_saving) + Number(this.paid.storeinvest_investment) + Number(this.paid.storeinvest_other);
       if (this.chartDataRows[3][1] != sum) {
         var item = ['貯蓄・投資', sum];
         this.chartDataRows.splice(3, 1, item);
@@ -45315,19 +45359,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.param.fixed_income,
-                        expression: "param.fixed_income"
+                        value: _vm.spendings.fixed_income,
+                        expression: "spendings.fixed_income"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "number", name: "fixed_income" },
-                    domProps: { value: _vm.param.fixed_income },
+                    domProps: { value: _vm.spendings.fixed_income },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.param, "fixed_income", $event.target.value)
+                        _vm.$set(
+                          _vm.spendings,
+                          "fixed_income",
+                          $event.target.value
+                        )
                       }
                     }
                   }),
@@ -45346,19 +45394,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.param.extra_income,
-                        expression: "param.extra_income"
+                        value: _vm.spendings.extra_income,
+                        expression: "spendings.extra_income"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "number", name: "extra_income" },
-                    domProps: { value: _vm.param.extra_income },
+                    domProps: { value: _vm.spendings.extra_income },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.param, "extra_income", $event.target.value)
+                        _vm.$set(
+                          _vm.spendings,
+                          "extra_income",
+                          $event.target.value
+                        )
                       }
                     }
                   }),
@@ -45394,8 +45446,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.fixed_rent_budget,
-                            expression: "param.fixed_rent_budget"
+                            value: _vm.spendings.fixed_rent_budget,
+                            expression: "spendings.fixed_rent_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45405,14 +45457,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.fixed_rent_budget },
+                        domProps: { value: _vm.spendings.fixed_rent_budget },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "fixed_rent_budget",
                               $event.target.value
                             )
@@ -45427,8 +45479,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.fixed_rent,
-                            expression: "param.fixed_rent"
+                            value: _vm.spendings.fixed_rent,
+                            expression: "spendings.fixed_rent"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45438,14 +45490,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.fixed_rent },
+                        domProps: { value: _vm.spendings.fixed_rent },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "fixed_rent",
                               $event.target.value
                             )
@@ -45456,7 +45508,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.rent.budget - _vm.rent.fixed))
+                        _vm._v(
+                          _vm._s(_vm.budget.fixed_rent - _vm.paid.fixed_rent)
+                        )
                       ])
                     ])
                   ]),
@@ -45470,8 +45524,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.fixed_insurance_budget,
-                            expression: "param.fixed_insurance_budget"
+                            value: _vm.spendings.fixed_insurance_budget,
+                            expression: "spendings.fixed_insurance_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45481,14 +45535,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.fixed_insurance_budget },
+                        domProps: {
+                          value: _vm.spendings.fixed_insurance_budget
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "fixed_insurance_budget",
                               $event.target.value
                             )
@@ -45503,8 +45559,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.fixed_insurance,
-                            expression: "param.fixed_insurance"
+                            value: _vm.spendings.fixed_insurance,
+                            expression: "spendings.fixed_insurance"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45514,14 +45570,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.fixed_insurance },
+                        domProps: { value: _vm.spendings.fixed_insurance },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "fixed_insurance",
                               $event.target.value
                             )
@@ -45533,7 +45589,10 @@ var render = function() {
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
                         _vm._v(
-                          _vm._s(_vm.insurance.budget - _vm.insurance.fixed)
+                          _vm._s(
+                            _vm.budget.fixed_insurance -
+                              _vm.paid.fixed_insurance
+                          )
                         )
                       ])
                     ])
@@ -45548,8 +45607,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.fixed_other_budget,
-                            expression: "param.fixed_other_budget"
+                            value: _vm.spendings.fixed_other_budget,
+                            expression: "spendings.fixed_other_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45559,14 +45618,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.fixed_other_budget },
+                        domProps: { value: _vm.spendings.fixed_other_budget },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "fixed_other_budget",
                               $event.target.value
                             )
@@ -45581,8 +45640,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.fixed_other,
-                            expression: "param.fixed_other"
+                            value: _vm.spendings.fixed_other,
+                            expression: "spendings.fixed_other"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45590,16 +45649,16 @@ var render = function() {
                           type: "number",
                           min: "1",
                           step: "any",
-                          spendingspattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.fixed_other },
+                        domProps: { value: _vm.spendings.fixed_other },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "fixed_other",
                               $event.target.value
                             )
@@ -45610,7 +45669,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.otherFix.budget - _vm.otherFix.fixed))
+                        _vm._v(
+                          _vm._s(_vm.budget.fixed_other - _vm.paid.fixed_other)
+                        )
                       ])
                     ])
                   ])
@@ -45636,8 +45697,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_utilities_budget,
-                            expression: "param.variable_utilities_budget"
+                            value: _vm.spendings.variable_utilities_budget,
+                            expression: "spendings.variable_utilities_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45648,7 +45709,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.variable_utilities_budget
+                          value: _vm.spendings.variable_utilities_budget
                         },
                         on: {
                           input: function($event) {
@@ -45656,7 +45717,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_utilities_budget",
                               $event.target.value
                             )
@@ -45671,8 +45732,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_utilities,
-                            expression: "param.variable_utilities"
+                            value: _vm.spendings.variable_utilities,
+                            expression: "spendings.variable_utilities"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45682,14 +45743,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_utilities },
+                        domProps: { value: _vm.spendings.variable_utilities },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_utilities",
                               $event.target.value
                             )
@@ -45700,7 +45761,12 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.util.budget - _vm.util.fixed))
+                        _vm._v(
+                          _vm._s(
+                            _vm.budget.variable_utilities -
+                              _vm.paid.variable_utilities
+                          )
+                        )
                       ])
                     ])
                   ]),
@@ -45714,8 +45780,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_food_budget,
-                            expression: "param.variable_food_budget"
+                            value: _vm.spendings.variable_food_budget,
+                            expression: "spendings.variable_food_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45725,14 +45791,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_food_budget },
+                        domProps: { value: _vm.spendings.variable_food_budget },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_food_budget",
                               $event.target.value
                             )
@@ -45747,8 +45813,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_food,
-                            expression: "param.variable_food"
+                            value: _vm.spendings.variable_food,
+                            expression: "spendings.variable_food"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45758,14 +45824,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_food },
+                        domProps: { value: _vm.spendings.variable_food },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_food",
                               $event.target.value
                             )
@@ -45776,7 +45842,11 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.food.budget - _vm.food.fixed))
+                        _vm._v(
+                          _vm._s(
+                            _vm.budget.variable_food - _vm.paid.variable_food
+                          )
+                        )
                       ])
                     ])
                   ]),
@@ -45790,8 +45860,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_daily_budget,
-                            expression: "param.variable_daily_budget"
+                            value: _vm.spendings.variable_daily_budget,
+                            expression: "spendings.variable_daily_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45801,14 +45871,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_daily_budget },
+                        domProps: {
+                          value: _vm.spendings.variable_daily_budget
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_daily_budget",
                               $event.target.value
                             )
@@ -45823,8 +45895,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_daily,
-                            expression: "param.variable_daily"
+                            value: _vm.spendings.variable_daily,
+                            expression: "spendings.variable_daily"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45834,14 +45906,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_daily },
+                        domProps: { value: _vm.spendings.variable_daily },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_daily",
                               $event.target.value
                             )
@@ -45852,7 +45924,11 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.daily.budget - _vm.daily.fixed))
+                        _vm._v(
+                          _vm._s(
+                            _vm.budget.variable_daily - _vm.paid.variable_daily
+                          )
+                        )
                       ])
                     ])
                   ]),
@@ -45866,8 +45942,9 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_transportation_budget,
-                            expression: "param.variable_transportation_budget"
+                            value: _vm.spendings.variable_transportation_budget,
+                            expression:
+                              "spendings.variable_transportation_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45878,7 +45955,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.variable_transportation_budget
+                          value: _vm.spendings.variable_transportation_budget
                         },
                         on: {
                           input: function($event) {
@@ -45886,7 +45963,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_transportation_budget",
                               $event.target.value
                             )
@@ -45901,8 +45978,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_transportation,
-                            expression: "param.variable_transportation"
+                            value: _vm.spendings.variable_transportation,
+                            expression: "spendings.variable_transportation"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45912,14 +45989,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_transportation },
+                        domProps: {
+                          value: _vm.spendings.variable_transportation
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_transportation",
                               $event.target.value
                             )
@@ -45932,7 +46011,8 @@ var render = function() {
                       _c("label", [
                         _vm._v(
                           _vm._s(
-                            _vm.transportation.budget - _vm.transportation.fixed
+                            _vm.budget.variable_transportation -
+                              _vm.paid.variable_transportation
                           )
                         )
                       ])
@@ -45950,8 +46030,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_automotive_budget,
-                            expression: "param.variable_automotive_budget"
+                            value: _vm.spendings.variable_automotive_budget,
+                            expression: "spendings.variable_automotive_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45962,7 +46042,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.variable_automotive_budget
+                          value: _vm.spendings.variable_automotive_budget
                         },
                         on: {
                           input: function($event) {
@@ -45970,7 +46050,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_automotive_budget",
                               $event.target.value
                             )
@@ -45985,8 +46065,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_automotive,
-                            expression: "param.variable_automotive"
+                            value: _vm.spendings.variable_automotive,
+                            expression: "spendings.variable_automotive"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -45996,14 +46076,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_automotive },
+                        domProps: { value: _vm.spendings.variable_automotive },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_automotive",
                               $event.target.value
                             )
@@ -46015,7 +46095,10 @@ var render = function() {
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
                         _vm._v(
-                          _vm._s(_vm.automotive.budget - _vm.automotive.fixed)
+                          _vm._s(
+                            _vm.budget.variable_automotive -
+                              _vm.paid.variable_automotive
+                          )
                         )
                       ])
                     ])
@@ -46030,8 +46113,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_other_budget,
-                            expression: "param.variable_other_budget"
+                            value: _vm.spendings.variable_other_budget,
+                            expression: "spendings.variable_other_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46041,14 +46124,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_other_budget },
+                        domProps: {
+                          value: _vm.spendings.variable_other_budget
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_other_budget",
                               $event.target.value
                             )
@@ -46063,8 +46148,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.variable_other,
-                            expression: "param.variable_other"
+                            value: _vm.spendings.variable_other,
+                            expression: "spendings.variable_other"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46074,14 +46159,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.variable_other },
+                        domProps: { value: _vm.spendings.variable_other },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "variable_other",
                               $event.target.value
                             )
@@ -46092,7 +46177,11 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.otherVar.budget - _vm.otherVar.fixed))
+                        _vm._v(
+                          _vm._s(
+                            _vm.budget.variable_other - _vm.paid.variable_other
+                          )
+                        )
                       ])
                     ])
                   ])
@@ -46116,8 +46205,10 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_communication_budget,
-                            expression: "param.selfinvest_communication_budget"
+                            value:
+                              _vm.spendings.selfinvest_communication_budget,
+                            expression:
+                              "spendings.selfinvest_communication_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46128,7 +46219,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.selfinvest_communication_budget
+                          value: _vm.spendings.selfinvest_communication_budget
                         },
                         on: {
                           input: function($event) {
@@ -46136,7 +46227,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_communication_budget",
                               $event.target.value
                             )
@@ -46151,8 +46242,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_communication,
-                            expression: "param.selfinvest_communication"
+                            value: _vm.spendings.selfinvest_communication,
+                            expression: "spendings.selfinvest_communication"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46162,14 +46253,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_communication },
+                        domProps: {
+                          value: _vm.spendings.selfinvest_communication
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_communication",
                               $event.target.value
                             )
@@ -46182,7 +46275,8 @@ var render = function() {
                       _c("label", [
                         _vm._v(
                           _vm._s(
-                            _vm.communication.budget - _vm.communication.fixed
+                            _vm.budget.selfinvest_communication -
+                              _vm.paid.selfinvest_communication
                           )
                         )
                       ])
@@ -46198,8 +46292,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_education_budget,
-                            expression: "param.selfinvest_education_budget"
+                            value: _vm.spendings.selfinvest_education_budget,
+                            expression: "spendings.selfinvest_education_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46210,7 +46304,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.selfinvest_education_budget
+                          value: _vm.spendings.selfinvest_education_budget
                         },
                         on: {
                           input: function($event) {
@@ -46218,7 +46312,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_education_budget",
                               $event.target.value
                             )
@@ -46233,8 +46327,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_education,
-                            expression: "param.selfinvest_education"
+                            value: _vm.spendings.selfinvest_education,
+                            expression: "spendings.selfinvest_education"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46244,14 +46338,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_education },
+                        domProps: { value: _vm.spendings.selfinvest_education },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_education",
                               $event.target.value
                             )
@@ -46263,7 +46357,10 @@ var render = function() {
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
                         _vm._v(
-                          _vm._s(_vm.education.budget - _vm.education.fixed)
+                          _vm._s(
+                            _vm.budget.selfinvest_education -
+                              _vm.paid.selfinvest_education
+                          )
                         )
                       ])
                     ])
@@ -46278,8 +46375,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_medical_budget,
-                            expression: "param.selfinvest_medical_budget"
+                            value: _vm.spendings.selfinvest_medical_budget,
+                            expression: "spendings.selfinvest_medical_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46290,7 +46387,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.selfinvest_medical_budget
+                          value: _vm.spendings.selfinvest_medical_budget
                         },
                         on: {
                           input: function($event) {
@@ -46298,7 +46395,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_medical_budget",
                               $event.target.value
                             )
@@ -46313,8 +46410,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_medical,
-                            expression: "param.selfinvest_medical"
+                            value: _vm.spendings.selfinvest_medical,
+                            expression: "spendings.selfinvest_medical"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46324,14 +46421,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_medical },
+                        domProps: { value: _vm.spendings.selfinvest_medical },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_medical",
                               $event.target.value
                             )
@@ -46342,7 +46439,12 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.medical.budget - _vm.medical.fixed))
+                        _vm._v(
+                          _vm._s(
+                            _vm.budget.selfinvest_medical -
+                              _vm.paid.selfinvest_medical
+                          )
+                        )
                       ])
                     ])
                   ]),
@@ -46356,8 +46458,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_clothing_budget,
-                            expression: "param.selfinvest_clothing_budget"
+                            value: _vm.spendings.selfinvest_clothing_budget,
+                            expression: "spendings.selfinvest_clothing_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46368,7 +46470,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.selfinvest_clothing_budget
+                          value: _vm.spendings.selfinvest_clothing_budget
                         },
                         on: {
                           input: function($event) {
@@ -46376,7 +46478,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_clothing_budget",
                               $event.target.value
                             )
@@ -46391,8 +46493,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_clothing,
-                            expression: "param.selfinvest_clothing"
+                            value: _vm.spendings.selfinvest_clothing,
+                            expression: "spendings.selfinvest_clothing"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46402,14 +46504,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_clothing },
+                        domProps: { value: _vm.spendings.selfinvest_clothing },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_clothing",
                               $event.target.value
                             )
@@ -46420,7 +46522,12 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.cloth.budget - _vm.cloth.fixed))
+                        _vm._v(
+                          _vm._s(
+                            _vm.budget.selfinvest_clothing -
+                              _vm.paid.selfinvest_clothing
+                          )
+                        )
                       ])
                     ])
                   ]),
@@ -46434,8 +46541,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_allowance_budget,
-                            expression: "param.selfinvest_allowance_budget"
+                            value: _vm.spendings.selfinvest_allowance_budget,
+                            expression: "spendings.selfinvest_allowance_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46446,7 +46553,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.selfinvest_allowance_budget
+                          value: _vm.spendings.selfinvest_allowance_budget
                         },
                         on: {
                           input: function($event) {
@@ -46454,7 +46561,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_allowance_budget",
                               $event.target.value
                             )
@@ -46469,8 +46576,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_allowance,
-                            expression: "param.selfinvest_allowance"
+                            value: _vm.spendings.selfinvest_allowance,
+                            expression: "spendings.selfinvest_allowance"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46480,14 +46587,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_allowance },
+                        domProps: { value: _vm.spendings.selfinvest_allowance },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_allowance",
                               $event.target.value
                             )
@@ -46499,7 +46606,10 @@ var render = function() {
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
                         _vm._v(
-                          _vm._s(_vm.allowance.budget - _vm.allowance.fixed)
+                          _vm._s(
+                            _vm.budget.selfinvest_allowance -
+                              _vm.paid.selfinvest_allowance
+                          )
                         )
                       ])
                     ])
@@ -46514,8 +46624,9 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_pocketmoney_budget,
-                            expression: "param.selfinvest_pocketmoney_budget"
+                            value: _vm.spendings.selfinvest_pocketmoney_budget,
+                            expression:
+                              "spendings.selfinvest_pocketmoney_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46526,7 +46637,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.selfinvest_pocketmoney_budget
+                          value: _vm.spendings.selfinvest_pocketmoney_budget
                         },
                         on: {
                           input: function($event) {
@@ -46534,7 +46645,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_pocketmoney_budget",
                               $event.target.value
                             )
@@ -46549,8 +46660,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_pocketmoney,
-                            expression: "param.selfinvest_pocketmoney"
+                            value: _vm.spendings.selfinvest_pocketmoney,
+                            expression: "spendings.selfinvest_pocketmoney"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46560,14 +46671,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_pocketmoney },
+                        domProps: {
+                          value: _vm.spendings.selfinvest_pocketmoney
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_pocketmoney",
                               $event.target.value
                             )
@@ -46579,7 +46692,10 @@ var render = function() {
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
                         _vm._v(
-                          _vm._s(_vm.pocketmoney.budget - _vm.pocketmoney.fixed)
+                          _vm._s(
+                            _vm.budget.selfinvest_pocketmoney -
+                              _vm.paid.selfinvest_pocketmoney
+                          )
                         )
                       ])
                     ])
@@ -46594,8 +46710,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_favorite_budget,
-                            expression: "param.selfinvest_favorite_budget"
+                            value: _vm.spendings.selfinvest_favorite_budget,
+                            expression: "spendings.selfinvest_favorite_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46606,7 +46722,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.selfinvest_favorite_budget
+                          value: _vm.spendings.selfinvest_favorite_budget
                         },
                         on: {
                           input: function($event) {
@@ -46614,7 +46730,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_favorite_budget",
                               $event.target.value
                             )
@@ -46629,8 +46745,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_favorite,
-                            expression: "param.selfinvest_favorite"
+                            value: _vm.spendings.selfinvest_favorite,
+                            expression: "spendings.selfinvest_favorite"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46640,14 +46756,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_favorite },
+                        domProps: { value: _vm.spendings.selfinvest_favorite },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_favorite",
                               $event.target.value
                             )
@@ -46658,7 +46774,12 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.favorite.budget - _vm.favorite.fixed))
+                        _vm._v(
+                          _vm._s(
+                            _vm.budget.selfinvest_favorite -
+                              _vm.paid.selfinvest_favorite
+                          )
+                        )
                       ])
                     ])
                   ]),
@@ -46672,8 +46793,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_other_budget,
-                            expression: "param.selfinvest_other_budget"
+                            value: _vm.spendings.selfinvest_other_budget,
+                            expression: "spendings.selfinvest_other_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46683,14 +46804,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_other_budget },
+                        domProps: {
+                          value: _vm.spendings.selfinvest_other_budget
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_other_budget",
                               $event.target.value
                             )
@@ -46705,8 +46828,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.selfinvest_other,
-                            expression: "param.selfinvest_other"
+                            value: _vm.spendings.selfinvest_other,
+                            expression: "spendings.selfinvest_other"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46716,14 +46839,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.selfinvest_other },
+                        domProps: { value: _vm.spendings.selfinvest_other },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "selfinvest_other",
                               $event.target.value
                             )
@@ -46736,8 +46859,8 @@ var render = function() {
                       _c("label", [
                         _vm._v(
                           _vm._s(
-                            _vm.otherSelfInvestment.budget -
-                              _vm.otherSelfInvestment.fixed
+                            _vm.budget.selfinvest_other -
+                              _vm.paid.selfinvest_other
                           )
                         )
                       ])
@@ -46763,8 +46886,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.storeinvest_saving_budget,
-                            expression: "param.storeinvest_saving_budget"
+                            value: _vm.spendings.storeinvest_saving_budget,
+                            expression: "spendings.storeinvest_saving_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46775,7 +46898,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.storeinvest_saving_budget
+                          value: _vm.spendings.storeinvest_saving_budget
                         },
                         on: {
                           input: function($event) {
@@ -46783,7 +46906,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "storeinvest_saving_budget",
                               $event.target.value
                             )
@@ -46798,8 +46921,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.storeinvest_saving,
-                            expression: "param.storeinvest_saving"
+                            value: _vm.spendings.storeinvest_saving,
+                            expression: "spendings.storeinvest_saving"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46809,14 +46932,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.storeinvest_saving },
+                        domProps: { value: _vm.spendings.storeinvest_saving },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "storeinvest_saving",
                               $event.target.value
                             )
@@ -46827,7 +46950,12 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
-                        _vm._v(_vm._s(_vm.save.budget - _vm.save.fixed))
+                        _vm._v(
+                          _vm._s(
+                            _vm.budget.storeinvest_saving -
+                              _vm.paid.storeinvest_saving
+                          )
+                        )
                       ])
                     ])
                   ]),
@@ -46841,8 +46969,9 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.storeinvest_investment_budget,
-                            expression: "param.storeinvest_investment_budget"
+                            value: _vm.spendings.storeinvest_investment_budget,
+                            expression:
+                              "spendings.storeinvest_investment_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46853,7 +46982,7 @@ var render = function() {
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
                         domProps: {
-                          value: _vm.param.storeinvest_investment_budget
+                          value: _vm.spendings.storeinvest_investment_budget
                         },
                         on: {
                           input: function($event) {
@@ -46861,7 +46990,7 @@ var render = function() {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "storeinvest_investment_budget",
                               $event.target.value
                             )
@@ -46876,8 +47005,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.storeinvest_investment,
-                            expression: "param.storeinvest_investment"
+                            value: _vm.spendings.storeinvest_investment,
+                            expression: "spendings.storeinvest_investment"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46887,14 +47016,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.storeinvest_investment },
+                        domProps: {
+                          value: _vm.spendings.storeinvest_investment
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "storeinvest_investment",
                               $event.target.value
                             )
@@ -46906,7 +47037,10 @@ var render = function() {
                     _c("td", { staticClass: "col-xs-2" }, [
                       _c("label", [
                         _vm._v(
-                          _vm._s(_vm.investment.budget - _vm.investment.fixed)
+                          _vm._s(
+                            _vm.budget.storeinvest_investment -
+                              _vm.paid.storeinvest_investment
+                          )
                         )
                       ])
                     ])
@@ -46921,8 +47055,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.storeinvest_other_budget,
-                            expression: "param.storeinvest_other_budget"
+                            value: _vm.spendings.storeinvest_other_budget,
+                            expression: "spendings.storeinvest_other_budget"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46932,14 +47066,16 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.storeinvest_other_budget },
+                        domProps: {
+                          value: _vm.spendings.storeinvest_other_budget
+                        },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "storeinvest_other_budget",
                               $event.target.value
                             )
@@ -46954,8 +47090,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.storeinvest_other,
-                            expression: "param.storeinvest_other"
+                            value: _vm.spendings.storeinvest_other,
+                            expression: "spendings.storeinvest_other"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -46965,14 +47101,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.storeinvest_other },
+                        domProps: { value: _vm.spendings.storeinvest_other },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.spendings,
                               "storeinvest_other",
                               $event.target.value
                             )
@@ -46985,8 +47121,8 @@ var render = function() {
                       _c("label", [
                         _vm._v(
                           _vm._s(
-                            _vm.otherInvestment.budget -
-                              _vm.otherInvestment.fixed
+                            _vm.budget.storeinvest_other -
+                              _vm.paid.storeinvest_other
                           )
                         )
                       ])
@@ -47426,11 +47562,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: { GChart: __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__["GChart"] },
-  props: ['param'],
+  props: ['investments'],
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -47547,19 +47686,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.param.total_amount,
-                        expression: "param.total_amount"
+                        value: _vm.investments.total_amount,
+                        expression: "investments.total_amount"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "number", name: "save_investment" },
-                    domProps: { value: _vm.param.total_amount },
+                    domProps: { value: _vm.investments.total_amount },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.param, "total_amount", $event.target.value)
+                        _vm.$set(
+                          _vm.investments,
+                          "total_amount",
+                          $event.target.value
+                        )
                       }
                     }
                   }),
@@ -47571,6 +47714,8 @@ var render = function() {
             ])
           ]
         ),
+        _vm._v(" "),
+        _c("div"),
         _vm._v(" "),
         _c(
           "div",
@@ -47599,8 +47744,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.cash,
-                            expression: "param.cash"
+                            value: _vm.investments.cash,
+                            expression: "investments.cash"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47610,13 +47755,17 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.cash },
+                        domProps: { value: _vm.investments.cash },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.param, "cash", $event.target.value)
+                            _vm.$set(
+                              _vm.investments,
+                              "cash",
+                              $event.target.value
+                            )
                           }
                         }
                       })
@@ -47636,8 +47785,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.government_bonds,
-                            expression: "param.government_bonds"
+                            value: _vm.investments.government_bonds,
+                            expression: "investments.government_bonds"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47647,14 +47796,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.government_bonds },
+                        domProps: { value: _vm.investments.government_bonds },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "government_bonds",
                               $event.target.value
                             )
@@ -47687,8 +47836,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.domestic_stocks,
-                            expression: "param.domestic_stocks"
+                            value: _vm.investments.domestic_stocks,
+                            expression: "investments.domestic_stocks"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47698,14 +47847,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.domestic_stocks },
+                        domProps: { value: _vm.investments.domestic_stocks },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "domestic_stocks",
                               $event.target.value
                             )
@@ -47730,8 +47879,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.developed_stocks,
-                            expression: "param.developed_stocks"
+                            value: _vm.investments.developed_stocks,
+                            expression: "investments.developed_stocks"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47741,14 +47890,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.developed_stocks },
+                        domProps: { value: _vm.investments.developed_stocks },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "developed_stocks",
                               $event.target.value
                             )
@@ -47773,8 +47922,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.emerging_stocks,
-                            expression: "param.emerging_stocks"
+                            value: _vm.investments.emerging_stocks,
+                            expression: "investments.emerging_stocks"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47784,14 +47933,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.emerging_stocks },
+                        domProps: { value: _vm.investments.emerging_stocks },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "emerging_stocks",
                               $event.target.value
                             )
@@ -47824,8 +47973,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.domestic_bonds,
-                            expression: "param.domestic_bonds"
+                            value: _vm.investments.domestic_bonds,
+                            expression: "investments.domestic_bonds"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47835,14 +47984,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.domestic_bonds },
+                        domProps: { value: _vm.investments.domestic_bonds },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "domestic_bonds",
                               $event.target.value
                             )
@@ -47867,8 +48016,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.developed_bonds,
-                            expression: "param.developed_bonds"
+                            value: _vm.investments.developed_bonds,
+                            expression: "investments.developed_bonds"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47878,14 +48027,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.developed_bonds },
+                        domProps: { value: _vm.investments.developed_bonds },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "developed_bonds",
                               $event.target.value
                             )
@@ -47910,8 +48059,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.emerging_bonds,
-                            expression: "param.emerging_bonds"
+                            value: _vm.investments.emerging_bonds,
+                            expression: "investments.emerging_bonds"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47921,14 +48070,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.emerging_bonds },
+                        domProps: { value: _vm.investments.emerging_bonds },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "emerging_bonds",
                               $event.target.value
                             )
@@ -47961,8 +48110,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.japan_riet,
-                            expression: "param.japan_riet"
+                            value: _vm.investments.japan_riet,
+                            expression: "investments.japan_riet"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -47972,14 +48121,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.japan_riet },
+                        domProps: { value: _vm.investments.japan_riet },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "japan_riet",
                               $event.target.value
                             )
@@ -48002,8 +48151,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.oversea_riet,
-                            expression: "param.oversea_riet"
+                            value: _vm.investments.oversea_riet,
+                            expression: "investments.oversea_riet"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -48013,14 +48162,14 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.oversea_riet },
+                        domProps: { value: _vm.investments.oversea_riet },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
                             _vm.$set(
-                              _vm.param,
+                              _vm.investments,
                               "oversea_riet",
                               $event.target.value
                             )
@@ -48043,8 +48192,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.param.other,
-                            expression: "param.other"
+                            value: _vm.investments.other,
+                            expression: "investments.other"
                           }
                         ],
                         staticClass: "form-control input-sm",
@@ -48054,13 +48203,17 @@ var render = function() {
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
-                        domProps: { value: _vm.param.other },
+                        domProps: { value: _vm.investments.other },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.param, "other", $event.target.value)
+                            _vm.$set(
+                              _vm.investments,
+                              "other",
+                              $event.target.value
+                            )
                           }
                         }
                       })

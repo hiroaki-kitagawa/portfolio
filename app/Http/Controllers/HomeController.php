@@ -30,7 +30,6 @@ class HomeController extends Controller
         $user = Auth::user();
         $spendings = Spending::where('user_id',$user->id)->get();
         $investments = Investment::where('user_id',$user->id)->get();
-        $param = $spendings->merge($investments);
-        return view('home',compact('param'));
+        return view('home',compact('spendings', 'investments'));
     }
 }
