@@ -54,10 +54,10 @@ class SpendingTableSeeder extends Seeder
             "selfinvest_other_budget" => "0",
             "selfinvest_other" => "0",
             // 貯蓄・投資
-            "storeinvest_saving_budget" => "20000",
-            "storeinvest_saving" => "20000",
-            "storeinvest_investment_budget" => "80000",
-            "storeinvest_investment" => "80000",
+            "storeinvest_saving_budget" => "15000",
+            "storeinvest_saving" => "15000",
+            "storeinvest_investment_budget" => "85000",
+            "storeinvest_investment" => "85000",
             "storeinvest_other_budget" => "0",
             "storeinvest_other" => "0",
         ]);

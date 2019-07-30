@@ -1,6 +1,6 @@
 <template>
 <div>
-  <form action="action('Admin\SpendingController@store')" method="post" enctype="multipart/form-data">
+  <form action="" method="post" enctype="multipart/form-data">
     <div class="col-md-8 clearfix" style="margin-top:10px">
         <div class="form-group form-inline">
         <div class="col-md-5 col-sm-5">
@@ -8,7 +8,7 @@
             <label for="手取収入" class="label-font-size">手取収入</label>
           </dt>
           <dd>
-            <input type="number" class="form-control" name="fixed_income" v-model="spendings.fixed_income"><label class="label-font-size">円</label>
+            <input type="number" class="form-control" name="fixed_income" v-model="income.fixed_income"><label class="label-font-size">円</label>
           </dd>
         </div>
         <div class="col-md-5 col-sm-5">
@@ -16,7 +16,7 @@
             <label for="臨時収入" class="label-font-size">臨時収入</label>
           </dt>
           <dd>
-            <input type="number" class="form-control" name="extra_income" v-model="spendings.extra_income"><label class="label-font-size">円</label>
+            <input type="number" class="form-control" name="extra_income" v-model="income.extra_income"><label class="label-font-size">円</label>
           </dd>
         </div>
       </div>
@@ -34,21 +34,21 @@
             </tr>
             <tr>
               <th class="col-xs-3">住居費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_rent_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_rent"></td>
-              <td class="col-xs-2"><label>{{ budget.fixed_rent - paid.fixed_rent }}</label></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.fixed_rent"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.fixed_rent"></td>
+              <td class="col-xs-2"><label>{{ budget.fixed_rent - paid.fixed_rent | localeNum }}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">保険</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_insurance_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_insurance"></td>
-              <td class="col-xs-2"><label>{{ budget.fixed_insurance - paid.fixed_insurance }}</label></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.fixed_insurance"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.fixed_insurance"></td>
+              <td class="col-xs-2"><label>{{ budget.fixed_insurance - paid.fixed_insurance | localeNum }}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_other_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.fixed_other"></td>
-              <td class="col-xs-2"><label>{{ budget.fixed_other - paid.fixed_other }}</label></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.fixed_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.fixed_other"></td>
+              <td class="col-xs-2"><label>{{ budget.fixed_other - paid.fixed_other | localeNum }}</label></td>
             </tr>
           </tbody>
         </table>
@@ -66,40 +66,40 @@
             </tr>
             <tr>
               <th class="col-xs-3">水道光熱費費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_utilities_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_utilities"></td>
-              <td class="col-xs-2"><label>{{ budget.variable_utilities - paid.variable_utilities }}</label></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.variable_utilities"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.variable_utilities"></td>
+              <td class="col-xs-2"><label>{{ budget.variable_utilities - paid.variable_utilities | localeNum }}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">食費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_food_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_food"></td>
-              <td class="col-xs-2"><label>{{ budget.variable_food - paid.variable_food}}</label></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.variable_food"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.variable_food"></td>
+              <td class="col-xs-2"><label>{{ budget.variable_food - paid.variable_food | localeNum }}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">日用品</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_daily_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_daily"></td>
-              <td class="col-xs-2"><label>{{ budget.variable_daily - paid.variable_daily}}</label></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.variable_daily"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.variable_daily"></td>
+              <td class="col-xs-2"><label>{{ budget.variable_daily - paid.variable_daily | localeNum }}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">交通費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_transportation_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_transportation"></td>
-              <td class="col-xs-2"><label>{{ budget.variable_transportation - paid.variable_transportation }}</label></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.variable_transportation"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.variable_transportation"></td>
+              <td class="col-xs-2"><label>{{ budget.variable_transportation - paid.variable_transportation | localeNum }}<</label> </td>
             </tr>
             <tr>
               <th class="col-xs-3">自動車関連</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_automotive_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_automotive"></td>
-              <td class="col-xs-2"><label>{{ budget.variable_automotive - paid.variable_automotive }}</label></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.variable_automotive"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.variable_automotive"></td>
+              <td class="col-xs-2"><label>{{ budget.variable_automotive - paid.variable_automotive | localeNum }}</label></td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_other_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.variable_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.variable_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.variable_other"></td>
               <td class="col-xs-2">
-                <label>{{ budget.variable_other - paid.variable_other }}</label>
+                <label>{{ budget.variable_other - paid.variable_other | localeNum }}</label>
               </td>
             </tr>
           </tbody>
@@ -118,66 +118,66 @@
             </tr>
             <tr>
               <th class="col-xs-3">通信費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_communication_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_communication"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.selfinvest_communication"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.selfinvest_communication"></td>
               <td class="col-xs-2">
-                <label>{{ budget.selfinvest_communication - paid.selfinvest_communication }}</label>
+                <label>{{ budget.selfinvest_communication - paid.selfinvest_communication | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">教育費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_education_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_education"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.selfinvest_education"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.selfinvest_education"></td>
               <td class="col-xs-2">
-                <label>{{ budget.selfinvest_education - paid.selfinvest_education }}</label>
+                <label>{{ budget.selfinvest_education - paid.selfinvest_education | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">医療費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_medical_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_medical"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.selfinvest_medical"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.selfinvest_medical"></td>
               <td class="col-xs-2">
-                <label>{{ budget.selfinvest_medical - paid.selfinvest_medical}}</label>
+                <label>{{ budget.selfinvest_medical - paid.selfinvest_medical | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">被服費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_clothing_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_clothing"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.selfinvest_clothing"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.selfinvest_clothing"></td>
               <td class="col-xs-2">
-                <label>{{ budget.selfinvest_clothing - paid.selfinvest_clothing}}</label>
+                <label>{{ budget.selfinvest_clothing - paid.selfinvest_clothing | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">交際費</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_allowance_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_allowance"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.selfinvest_allowance"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.selfinvest_allowance"></td>
               <td class="col-xs-2">
-                <label>{{ budget.selfinvest_allowance - paid.selfinvest_allowance}}</label>
+                <label>{{ budget.selfinvest_allowance - paid.selfinvest_allowance | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">小遣い</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_pocketmoney_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_pocketmoney"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.selfinvest_pocketmoney"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.selfinvest_pocketmoney"></td>
               <td class="col-xs-2">
-                <label>{{ budget.selfinvest_pocketmoney - paid.selfinvest_pocketmoney}}</label>
+                <label>{{ budget.selfinvest_pocketmoney - paid.selfinvest_pocketmoney | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">嗜好品</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_favorite_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_favorite"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.selfinvest_favorite"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.selfinvest_favorite"></td>
               <td class="col-xs-2">
-                <label>{{ budget.selfinvest_favorite - paid.selfinvest_favorite}}</label>
+                <label>{{ budget.selfinvest_favorite - paid.selfinvest_favorite | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_other_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.selfinvest_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.selfinvest_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.selfinvest_other"></td>
               <td class="col-xs-2">
-                <label>{{ budget.selfinvest_other - paid.selfinvest_other}}</label>
+                <label>{{ budget.selfinvest_other - paid.selfinvest_other | localeNum }}</label>
               </td>
             </tr>
           </tbody>
@@ -196,26 +196,26 @@
             </tr>
             <tr>
               <th class="col-xs-3">預貯金</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_saving_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_saving"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.storeinvest_saving"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.storeinvest_saving"></td>
               <td class="col-xs-2">
-                <label>{{ budget.storeinvest_saving - paid.storeinvest_saving}}</label>
+                <label>{{ budget.storeinvest_saving - paid.storeinvest_saving | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">投資</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_investment_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_investment"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.storeinvest_investment"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.storeinvest_investment"></td>
               <td class="col-xs-2">
-                <label>{{ budget.storeinvest_investment - paid.storeinvest_investment}}</label>
+                <label>{{ budget.storeinvest_investment - paid.storeinvest_investment | localeNum }}</label>
               </td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_other_budget"></td>
-              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="spendings.storeinvest_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.storeinvest_other"></td>
+              <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.storeinvest_other"></td>
               <td class="col-xs-2">
-                <label>{{ budget.storeinvest_other - paid.storeinvest_other}}</label>
+                <label>{{ budget.storeinvest_other - paid.storeinvest_other | localeNum }}</label>
               </td>
             </tr>
           </tbody>
@@ -284,69 +284,72 @@
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         chartDataHeader: ["種類", "小計"],
         chartDataRows: [
-          ['固定費', 50000],
-          ['変動費', 50000],
-          ['自己投資', 50000],
-          ['貯蓄・投資', 50000]
+          ['固定費', this.sumFixed],
+          ['変動費', this.sumVar],
+          ['自己投資', this.sumSelfInvest],
+          ['貯蓄・投資', this.sumSaveInvest]
         ],
         chartOptions: {
           chart: { title: '支出配分' }
         },
+        income: {
+          "fixed_income": this.spendings.fixed_income,
+          "extra_income": this.spendings.extra_income
+        },
         budget: {
-          "fixed_rent": '',
-          "fixed_insurance": '',
-          "fixed_other": '',
-          "variable_utilities": '',
-          "variable_food": '',
-          "variable_daily": '',
-          "variable_transportation": '',
-          "variable_automotive": '',
-          "variable_other": '',
-          "selfinvest_communication": '',
-          "selfinvest_education": '',
-          "selfinvest_medical": '',
-          "selfinvest_clothing": '',
-          "selfinvest_allowance": '',
-          "selfinvest_pocketmoney": '',
-          "selfinvest_favorite": '',
-          "selfinvest_other": '',
-          "storeinvest_saving": '',
-          "storeinvest_investment": '',
-          "storeinvest_other": ''
+          "fixed_rent": this.spendings.fixed_rent_budget,
+          "fixed_insurance": this.spendings.fixed_insurance_budget,
+          "fixed_other": this.spendings.fixed_other_budget,
+          "variable_utilities": this.spendings.variable_utilities_budget,
+          "variable_food": this.spendings.variable_food_budget,
+          "variable_daily": this.spendings.variable_daily_budget,
+          "variable_transportation": this.spendings.variable_transportation_budget,
+          "variable_automotive": this.spendings.variable_automotive_budget,
+          "variable_other": this.spendings.variable_other_budget,
+          "selfinvest_communication": this.spendings.selfinvest_communication_budget,
+          "selfinvest_education": this.spendings.selfinvest_education_budget,
+          "selfinvest_medical": this.spendings.selfinvest_medical_budget,
+          "selfinvest_clothing": this.spendings.selfinvest_clothing_budget,
+          "selfinvest_allowance": this.spendings.selfinvest_allowance_budget,
+          "selfinvest_pocketmoney": this.spendings.selfinvest_pocketmoney_budget,
+          "selfinvest_favorite": this.spendings.selfinvest_favorite_budget,
+          "selfinvest_other": this.spendings.selfinvest_other_budget,
+          "storeinvest_saving": this.spendings.storeinvest_saving_budget,
+          "storeinvest_investment": this.spendings.storeinvest_investment_budget,
+          "storeinvest_other": this.spendings.storeinvest_other_budget
         },
         paid: {
-          "fixed_rent": '',
-          "fixed_insurance": '',
-          "fixed_other": '',
-          "variable_utilities": '',
-          "variable_food": '',
-          "variable_daily": '',
-          "variable_transportation": '',
-          "variable_automotive": '',
-          "variable_other": '',
-          "selfinvest_communication": '',
-          "selfinvest_education": '',
-          "selfinvest_medical": '',
-          "selfinvest_clothing": '',
-          "selfinvest_allowance": '',
-          "selfinvest_pocketmoney": '',
-          "selfinvest_favorite": '',
-          "selfinvest_other": '',
-          "storeinvest_saving": '',
-          "storeinvest_investment": '',
-          "storeinvest_other": ''
+          "fixed_rent": this.spendings.fixed_rent,
+          "fixed_insurance": this.spendings.fixed_insurance,
+          "fixed_other": this.spendings.fixed_other,
+          "variable_utilities": this.spendings.variable_utilities,
+          "variable_food": this.spendings.variable_food,
+          "variable_daily": this.spendings.variable_daily,
+          "variable_transportation": this.spendings.variable_transportation,
+          "variable_automotive": this.spendings.variable_automotive,
+          "variable_other": this.spendings.variable_other,
+          "selfinvest_communication": this.spendings.selfinvest_communication,
+          "selfinvest_education": this.spendings.selfinvest_education,
+          "selfinvest_medical": this.spendings.selfinvest_medical,
+          "selfinvest_clothing": this.spendings.selfinvest_clothing,
+          "selfinvest_allowance": this.spendings.selfinvest_allowance,
+          "selfinvest_pocketmoney": this.spendings.selfinvest_pocketmoney,
+          "selfinvest_favorite": this.spendings.selfinvest_favorite,
+          "selfinvest_other": this.spendings.selfinvest_other,
+          "storeinvest_saving": this.spendings.storeinvest_saving,
+          "storeinvest_investment": this.spendings.storeinvest_investment,
+          "storeinvest_other": this.spendings.storeinvest_other
         },
-
      }
     },
     computed: {
-      sumFixed: function() {
+      sumFixed() {
         const sum = Number(this.paid.fixed_rent) + Number(this.paid.fixed_insurance) + Number(this.paid.fixed_other);
         const item = ['固定費', sum];
         this.chartDataRows.splice(0, 1, item);
         return sum;
       },
-      sumVar: function() {
+      sumVar() {
         const sum = Number(this.paid.variable_utilities) + Number(this.paid.variable_food) + Number(this.paid.variable_daily) + Number(this.paid.variable_transportation) + Number(this.paid.variable_automotive) + Number(this.paid.variable_other);
         if (this.chartDataRows[1][1] != sum) {
           const item = ['変動費', sum];
@@ -354,7 +357,7 @@
         }
         return sum;
       },
-      sumSelfInvest: function() {
+      sumSelfInvest() {
         const sum = Number(this.paid.selfinvest_communication) + Number(this.paid.selfinvest_communication) + Number(this.paid.selfinvest_communication) + Number(this.paid.selfinvest_clothing) + Number(this.paid.selfinvest_allowance) + Number(this.paid.selfinvest_pocketmoney) + Number(this.paid.selfinvest_favorite) + Number(this.paid.selfinvest_other)
         if (this.chartDataRows[2][1] != sum) {
           const item = ['自己投資', sum];
@@ -362,7 +365,7 @@
         }
         return sum;
       },
-      sumSaveInvest: function() {
+      sumSaveInvest() {
         const sum = Number(this.paid.storeinvest_saving) + Number(this.paid.storeinvest_investment) + Number(this.paid.storeinvest_other)
         if (this.chartDataRows[3][1] != sum) {
           const item = ['貯蓄・投資', sum];
