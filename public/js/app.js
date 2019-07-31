@@ -45162,6 +45162,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45256,6 +45257,30 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         this.chartDataRows.splice(3, 1, item);
       }
       return sum;
+    },
+    rateFixed: function rateFixed() {
+      if (this.sumFixed > 0) {
+        return Math.round(this.sumFixed * 1000 / this.sumSpend / 10);
+      }
+      return 0;
+    },
+    rateVar: function rateVar() {
+      if (this.sumVar > 0) {
+        return Math.round(this.sumVar * 1000 / this.sumSpend / 10);
+      }
+      return 0;
+    },
+    rateSelfInvest: function rateSelfInvest() {
+      if (this.sumSelfInvest > 0) {
+        return Math.round(this.sumSelfInvest * 1000 / this.sumSpend / 10);
+      }
+      return 0;
+    },
+    rateSaveInvest: function rateSaveInvest() {
+      if (this.sumSaveInvest > 0) {
+        return Math.round(this.sumSaveInvest * 1000 / this.sumSpend / 10);
+      }
+      return 0;
     },
     chartData: function chartData() {
       return [this.chartDataHeader].concat(_toConsumableArray(this.chartDataRows));
@@ -47092,10 +47117,11 @@ var render = function() {
         _c("table", { staticClass: "table" }, [
           _c("tbody", [
             _vm._m(6),
+            _vm._v(" "),
             _c("tr", [
               _c("th", { staticClass: "col-xs-3" }, [_vm._v("固定費")]),
               _vm._v(" "),
-              _c("td", [_vm._v("25%")]),
+              _c("td", [_vm._v(_vm._s(_vm.rateFixed) + "%")]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumFixed)))])
             ]),
@@ -47103,7 +47129,7 @@ var render = function() {
             _c("tr", [
               _c("th", { staticClass: "col-xs-3" }, [_vm._v("変動費")]),
               _vm._v(" "),
-              _c("td", [_vm._v("25%")]),
+              _c("td", [_vm._v(_vm._s(_vm.rateVar) + "%")]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumVar)))])
             ]),
@@ -47111,7 +47137,7 @@ var render = function() {
             _c("tr", [
               _c("th", { staticClass: "col-xs-3" }, [_vm._v("自己投資")]),
               _vm._v(" "),
-              _c("td", [_vm._v("25%")]),
+              _c("td", [_vm._v(_vm._s(_vm.rateSelfInvest) + "%")]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumSelfInvest)))])
             ]),
@@ -47119,7 +47145,7 @@ var render = function() {
             _c("tr", [
               _c("th", { staticClass: "col-xs-3" }, [_vm._v("貯蓄・投資")]),
               _vm._v(" "),
-              _c("td", [_vm._v("25%")]),
+              _c("td", [_vm._v(_vm._s(_vm.rateSaveInvest) + "%")]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumSaveInvest)))])
             ]),
@@ -47324,10 +47350,12 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_google_charts__ = __webpack_require__(3);
+var _computed;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-//
-//
 //
 //
 //
@@ -47534,11 +47562,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         "other": this.investments.other
       },
       rate: {
-        "cash": '',
-        "government_bonds": '',
-        "domestic_stocks": '',
-        "developed_stocks": '',
-        "emerging_stocks": '',
+        "cash": 0,
+        "government_bonds": 0,
+        "domestic_stocks": 0,
+        "developed_stocks": 0,
+        "emerging_stocks": 0,
         "domestic_bonds": '',
         "developed_bonds": '',
         "emerging_bonds": '',
@@ -47551,8 +47579,74 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     };
   },
 
-  computed: {
-    sumCach: function sumCach() {
+  computed: (_computed = {
+    rateCash: function rateCash() {
+      if (this.investData.cash > 0) {
+        return Math.round(this.investData.cash * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateGvnBonds: function rateGvnBonds() {
+      if (this.investData.government_bonds > 0) {
+        return Math.round(this.investData.government_bonds * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateDomStocks: function rateDomStocks() {
+      if (this.investData.domestic_stocks > 0) {
+        return Math.round(this.investData.domestic_stocks * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateDevStocks: function rateDevStocks() {
+      if (this.investData.developed_stocks > 0) {
+        return Math.round(this.investData.developed_stocks * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateEmrStocks: function rateEmrStocks() {
+      if (this.investData.emerging_stocks > 0) {
+        return Math.round(this.investData.emerging_stocks * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateDomBonds: function rateDomBonds() {
+      if (this.investData.domestic_bonds > 0) {
+        return Math.round(this.investData.domestic_bonds * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateDevBonds: function rateDevBonds() {
+      if (this.investData.developed_bonds > 0) {
+        return Math.round(this.investData.developed_bonds * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateEmrBonds: function rateEmrBonds() {
+      if (this.investData.emerging_bonds > 0) {
+        return Math.round(this.investData.emerging_bonds * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateJpRiet: function rateJpRiet() {
+      if (this.investData.japan_riet > 0) {
+        return Math.round(this.investData.japan_riet * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateOvsRiet: function rateOvsRiet() {
+      if (this.investData.oversea_riet > 0) {
+        return Math.round(this.investData.oversea_riet * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    rateOther: function rateOther() {
+      if (this.investData.other > 0) {
+        return Math.round(this.investData.other * 1000 / this.sumSaveInvest / 10);
+      }
+      return 0;
+    },
+    sumCash: function sumCash() {
       var sum = Number(this.investData.cash) + Number(this.investData.government_bonds);
       var item = ['安全資産', sum];
       this.chartDataRows.splice(0, 1, item);
@@ -47581,15 +47675,33 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         this.chartDataRows.splice(3, 1, item);
       }
       return sum;
-    },
-    chartData: function chartData() {
-      return [this.chartDataHeader].concat(_toConsumableArray(this.chartDataRows));
-    },
-    sumSaveInvest: function sumSaveInvest() {
-      var sum = this.sumCach + this.sumStocks + this.sumBonds + this.sumOther;
-      return sum;
     }
-  }
+  }, _defineProperty(_computed, 'rateCash', function rateCash() {
+    if (this.sumCash > 0) {
+      return Math.round(this.sumCash * 1000 / this.sumSaveInvest / 10);
+    }
+    return 0;
+  }), _defineProperty(_computed, 'rateStocks', function rateStocks() {
+    if (this.sumStocks > 0) {
+      return Math.round(this.sumStocks * 1000 / this.sumSaveInvest / 10);
+    }
+    return 0;
+  }), _defineProperty(_computed, 'rateBonds', function rateBonds() {
+    if (this.sumBonds > 0) {
+      return Math.round(this.sumBonds * 1000 / this.sumSaveInvest / 10);
+    }
+    return 0;
+  }), _defineProperty(_computed, 'rateOther', function rateOther() {
+    if (this.sumOther > 0) {
+      return Math.round(this.sumOther * 1000 / this.sumSaveInvest / 10);
+    }
+    return 0;
+  }), _defineProperty(_computed, 'chartData', function chartData() {
+    return [this.chartDataHeader].concat(_toConsumableArray(this.chartDataRows));
+  }), _defineProperty(_computed, 'sumSaveInvest', function sumSaveInvest() {
+    var sum = this.sumCash + this.sumStocks + this.sumBonds + this.sumOther;
+    return sum;
+  }), _computed)
 });
 
 /***/ }),
@@ -47651,8 +47763,6 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("div"),
-        _vm._v(" "),
         _c(
           "div",
           {
@@ -47671,7 +47781,7 @@ var render = function() {
                     _c("th", { staticClass: "col-xs-3" }, [_vm._v("現金")]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.cach))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateCash) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -47712,7 +47822,7 @@ var render = function() {
                     _c("th", { staticClass: "col-xs-3" }, [_vm._v("国債")]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.government_bonds))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateGvnBonds) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -47763,7 +47873,7 @@ var render = function() {
                     _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内株式")]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.domestic_stocks))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateDomStocks) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -47806,7 +47916,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.developed_stocks))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateDevStocks) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -47849,7 +47959,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.emerging_stocks))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateEmrStocks) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -47900,7 +48010,7 @@ var render = function() {
                     _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内債券")]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.domestic_bonds))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateDomBonds) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -47943,7 +48053,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.developed_bonds))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateDevBonds) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -47986,7 +48096,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.emerging_bonds))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateEmrBonds) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -48037,7 +48147,7 @@ var render = function() {
                     _c("th", { staticClass: "col-xs-3" }, [_vm._v("国内RIET")]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.japan_riet))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateJpRiet) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -48078,7 +48188,7 @@ var render = function() {
                     _c("th", { staticClass: "col-xs-3" }, [_vm._v("海外RIET")]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.oversea_riet))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateOvsRiet) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -48119,7 +48229,7 @@ var render = function() {
                     _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rate.other))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateOther))])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -48180,18 +48290,19 @@ var render = function() {
         _c("table", { staticClass: "table" }, [
           _c("tbody", [
             _vm._m(5),
+            _vm._v(" "),
             _c("tr", [
               _c("th", { staticClass: "col-xs-3" }, [_vm._v("安全資産")]),
               _vm._v(" "),
-              _c("td", [_vm._v("25%")]),
+              _c("td", [_vm._v(_vm._s(_vm.rateCash) + "%")]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumCach)))])
+              _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumCash)))])
             ]),
             _vm._v(" "),
             _c("tr", [
               _c("th", { staticClass: "col-xs-3" }, [_vm._v("株式")]),
               _vm._v(" "),
-              _c("td", [_vm._v("25%")]),
+              _c("td", [_vm._v(_vm._s(_vm.rateStocks) + "%")]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumStocks)))])
             ]),
@@ -48199,7 +48310,7 @@ var render = function() {
             _c("tr", [
               _c("th", { staticClass: "col-xs-3" }, [_vm._v("債券")]),
               _vm._v(" "),
-              _c("td", [_vm._v("25%")]),
+              _c("td", [_vm._v(_vm._s(_vm.rateBonds) + "%")]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumBonds)))])
             ]),
@@ -48207,7 +48318,7 @@ var render = function() {
             _c("tr", [
               _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
               _vm._v(" "),
-              _c("td", [_vm._v("25%")]),
+              _c("td", [_vm._v(_vm._s(_vm.rateOther) + "%")]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(_vm._f("localeNum")(_vm.sumOther)))])
             ]),

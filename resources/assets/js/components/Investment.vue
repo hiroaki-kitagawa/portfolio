@@ -13,9 +13,6 @@
           </div>
         </div>
       </div>
-
-      <div>
-      </div>
       <div class="col-md-7 clearfix" style="margin-bottom:20px">
         <h3>安全資産</h3>
         <div>
@@ -28,12 +25,12 @@
               </tr>
               <tr>
                 <th class="col-xs-3">現金</th>
-                <td class="col-xs-3"><label>{{ rate.cach }}</label></td>
+                <td class="col-xs-3"><label>{{ rateCash }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.cash"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">国債</th>
-                <td class="col-xs-3"><label>{{ rate.government_bonds }}</label></td>
+                <td class="col-xs-3"><label>{{ rateGvnBonds }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.government_bonds"></td>
               </tr>
             </tbody>
@@ -51,17 +48,17 @@
               </tr>
               <tr>
                 <th class="col-xs-3">国内株式</th>
-                <td class="col-xs-3"><label>{{ rate.domestic_stocks }}</label></td>
+                <td class="col-xs-3"><label>{{ rateDomStocks }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.domestic_stocks"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">先進国株式</th>
-                <td class="col-xs-3"><label>{{ rate.developed_stocks }}</label></td>
+                <td class="col-xs-3"><label>{{ rateDevStocks }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.developed_stocks"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">新興国株式</th>
-                <td class="col-xs-3"><label>{{ rate.emerging_stocks }}</label></td>
+                <td class="col-xs-3"><label>{{ rateEmrStocks }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.emerging_stocks"></td>
               </tr>
             </tbody>
@@ -79,17 +76,17 @@
               </tr>
               <tr>
                 <th class="col-xs-3">国内債券</th>
-                <td class="col-xs-3"><label>{{ rate.domestic_bonds }}</label></td>
+                <td class="col-xs-3"><label>{{ rateDomBonds }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.domestic_bonds"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">先進国債権</th>
-                <td class="col-xs-3"><label>{{ rate.developed_bonds }}</label></td>
+                <td class="col-xs-3"><label>{{ rateDevBonds }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.developed_bonds"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">新興国債権</th>
-                <td class="col-xs-3"><label>{{ rate.emerging_bonds }}</label></td>
+                <td class="col-xs-3"><label>{{ rateEmrBonds }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.emerging_bonds"></td>
               </tr>
             </tbody>
@@ -107,17 +104,17 @@
               </tr>
               <tr>
                 <th class="col-xs-3">国内RIET</th>
-                <td class="col-xs-3"><label>{{ rate.japan_riet }}</label></td>
+                <td class="col-xs-3"><label>{{ rateJpRiet }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.japan_riet"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">海外RIET</th>
-                <td class="col-xs-3"><label>{{ rate.oversea_riet }}</label></td>
+                <td class="col-xs-3"><label>{{ rateOvsRiet }}%</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.oversea_riet"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">その他</th>
-                <td class="col-xs-3"><label>{{ rate.other }}</label></td>
+                <td class="col-xs-3"><label>{{ rateOther }}</label></td>
                 <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.other"></td>
               </tr>
             </tbody>
@@ -136,24 +133,25 @@
               <th>項目</th>
               <th>割合</th>
               <th>合計</th>
+            </tr>
             <tr>
               <th class="col-xs-3">安全資産</th>
-              <td>25%</td>
-              <td>{{ sumCach | localeNum}}</td>
+              <td>{{ rateCash }}%</td>
+              <td>{{ sumCash | localeNum}}</td>
             </tr>
             <tr>
               <th class="col-xs-3">株式</th>
-              <td>25%</td>
+              <td>{{ rateStocks }}%</td>
               <td>{{ sumStocks | localeNum}}</td>
             </tr>
             <tr>
               <th class="col-xs-3">債券</th>
-              <td>25%</td>
+              <td>{{ rateBonds }}%</td>
               <td>{{ sumBonds | localeNum}}</td>
             </tr>
             <tr>
               <th class="col-xs-3">その他</th>
-              <td>25%</td>
+              <td>{{ rateOther }}%</td>
               <td>{{ sumOther | localeNum}}</td>
             </tr>
             <tr>
@@ -211,11 +209,11 @@
           "other": this.investments.other,
         },
         rate: {
-          "cash": '',
-          "government_bonds": '',
-          "domestic_stocks": '',
-          "developed_stocks": '',
-          "emerging_stocks": '',
+          "cash": 0,
+          "government_bonds": 0,
+          "domestic_stocks": 0,
+          "developed_stocks": 0,
+          "emerging_stocks": 0,
           "domestic_bonds": '',
           "developed_bonds": '',
           "emerging_bonds": '',
@@ -228,7 +226,73 @@
       }
     },
     computed: {
-      sumCach() {
+      rateCash() {
+        if(this.investData.cash > 0){
+          return Math.round((this.investData.cash * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateGvnBonds() {
+        if(this.investData.government_bonds > 0){
+          return Math.round((this.investData.government_bonds * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateDomStocks() {
+        if(this.investData.domestic_stocks > 0){
+          return Math.round((this.investData.domestic_stocks * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateDevStocks() {
+        if(this.investData.developed_stocks > 0){
+          return  Math.round((this.investData.developed_stocks * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateEmrStocks() {
+        if(this.investData.emerging_stocks > 0){
+          return Math.round((this.investData.emerging_stocks * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateDomBonds() {
+        if(this.investData.domestic_bonds > 0){
+          return Math.round((this.investData.domestic_bonds * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateDevBonds() {
+        if(this.investData.developed_bonds > 0){
+          return  Math.round((this.investData.developed_bonds * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateEmrBonds() {
+        if(this.investData.emerging_bonds > 0){
+          return Math.round((this.investData.emerging_bonds * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateJpRiet() {
+        if(this.investData.japan_riet > 0){
+          return Math.round((this.investData.japan_riet * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateOvsRiet() {
+        if(this.investData.oversea_riet > 0){
+          return  Math.round((this.investData.oversea_riet * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateOther() {
+        if(this.investData.other > 0){
+          return Math.round((this.investData.other * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      sumCash() {
         const sum = Number(this.investData.cash) + Number(this.investData.government_bonds)
         const item = ['安全資産', sum];
         this.chartDataRows.splice(0, 1, item);
@@ -258,11 +322,35 @@
         }
         return sum;
       },
+      rateCash() {
+        if(this.sumCash > 0){
+          return Math.round((this.sumCash * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateStocks() {
+        if(this.sumStocks > 0){
+          return Math.round((this.sumStocks * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateBonds() {
+        if(this.sumBonds > 0){
+          return Math.round((this.sumBonds * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
+      rateOther() {
+        if(this.sumOther > 0){
+          return Math.round((this.sumOther * 1000 / this.sumSaveInvest) / 10)
+        }
+        return 0
+      },
       chartData() {
         return [ this.chartDataHeader, ...this.chartDataRows ];
       },
       sumSaveInvest() {
-        const sum = this.sumCach + this.sumStocks + this.sumBonds + this.sumOther;
+        const sum = this.sumCash + this.sumStocks + this.sumBonds + this.sumOther;
         return sum;
       },
     }

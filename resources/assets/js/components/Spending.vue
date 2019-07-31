@@ -2,7 +2,7 @@
 <div>
   <form action="" method="post" enctype="multipart/form-data">
     <div class="col-md-8 clearfix" style="margin-top:10px">
-        <div class="form-group form-inline">
+      <div class="form-group form-inline">
         <div class="col-md-5 col-sm-5">
           <dt>
             <label for="手取収入" class="label-font-size">手取収入</label>
@@ -86,7 +86,7 @@
               <th class="col-xs-3">交通費</th>
               <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="budget.variable_transportation"></td>
               <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="paid.variable_transportation"></td>
-              <td class="col-xs-2"><label>{{ budget.variable_transportation - paid.variable_transportation | localeNum }}<</label> </td>
+              <td class="col-xs-2"><label>{{ budget.variable_transportation - paid.variable_transportation | localeNum }}</label> </td>
             </tr>
             <tr>
               <th class="col-xs-3">自動車関連</th>
@@ -234,24 +234,25 @@
             <th>項目</th>
             <th>割合</th>
             <th>合計</th>
+          </tr>
           <tr>
             <th class="col-xs-3">固定費</th>
-            <td>25%</td>
+            <td>{{ rateFixed }}%</td>
             <td>{{ sumFixed | localeNum}}</td>
           </tr>
           <tr>
             <th class="col-xs-3">変動費</th>
-            <td>25%</td>
+            <td>{{ rateVar }}%</td>
             <td>{{ sumVar | localeNum}}</td>
           </tr>
           <tr>
             <th class="col-xs-3">自己投資</th>
-            <td>25%</td>
+            <td>{{ rateSelfInvest }}%</td>
             <td>{{ sumSelfInvest | localeNum}}</td>
           </tr>
           <tr>
             <th class="col-xs-3">貯蓄・投資</th>
-            <td>25%</td>
+            <td>{{ rateSaveInvest }}%</td>
             <td>{{ sumSaveInvest | localeNum}}</td>
           </tr>
           <tr>
@@ -372,6 +373,30 @@
           this.chartDataRows.splice(3, 1, item);
         }
         return sum;
+      },
+      rateFixed() {
+        if(this.sumFixed > 0){
+          return Math.round((this.sumFixed * 1000 / this.sumSpend) / 10)
+      }
+        return 0
+      },
+      rateVar() {
+        if(this.sumVar > 0){
+          return Math.round((this.sumVar * 1000 / this.sumSpend) / 10)
+      }
+        return 0
+      },
+      rateSelfInvest() {
+        if(this.sumSelfInvest > 0){
+          return Math.round((this.sumSelfInvest * 1000 / this.sumSpend) / 10)
+      }
+        return 0
+      },
+      rateSaveInvest() {
+        if(this.sumSaveInvest > 0){
+          return Math.round((this.sumSaveInvest * 1000 / this.sumSpend) / 10)
+      }
+        return 0
       },
       chartData() {
         return [this.chartDataHeader, ...this.chartDataRows];
