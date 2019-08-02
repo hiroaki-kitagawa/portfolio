@@ -45303,7 +45303,13 @@ var render = function() {
   return _c("div", [
     _c(
       "form",
-      { attrs: { action: "", method: "post", enctype: "multipart/form-data" } },
+      {
+        attrs: {
+          action: "action('SpendingController@create')",
+          method: "post",
+          enctype: "multipart/form-data"
+        }
+      },
       [
         _c(
           "div",
@@ -45416,7 +45422,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45449,7 +45455,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45498,7 +45504,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45531,7 +45537,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45581,7 +45587,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45614,7 +45620,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45675,7 +45681,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45708,7 +45714,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45758,7 +45764,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45791,7 +45797,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45840,7 +45846,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45873,7 +45879,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45923,7 +45929,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45956,7 +45962,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -45984,7 +45990,7 @@ var render = function() {
                               _vm.budget.variable_transportation -
                                 _vm.paid.variable_transportation
                             )
-                          ) + "<"
+                          )
                         )
                       ])
                     ])
@@ -46008,7 +46014,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46041,7 +46047,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46091,7 +46097,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46124,7 +46130,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46184,7 +46190,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46219,7 +46225,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46269,7 +46275,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46302,7 +46308,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46352,7 +46358,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46385,7 +46391,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46435,7 +46441,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46468,7 +46474,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46518,7 +46524,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46551,7 +46557,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46601,7 +46607,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46634,7 +46640,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46684,7 +46690,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46717,7 +46723,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46767,7 +46773,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46800,7 +46806,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46860,7 +46866,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46893,7 +46899,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46943,7 +46949,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -46976,7 +46982,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -47026,7 +47032,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -47059,7 +47065,7 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
+                          min: "0",
                           step: "any",
                           pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
                         },
@@ -47532,6 +47538,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47546,8 +47553,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         chart: { title: '貯蓄・投資配分' }
       },
       investData: {
-        "id": '',
-        "user_id": '',
+        "id": this.investments.id,
+        "user_id": this.investments.user_id,
         "total_amount": this.investments.total_amount,
         "cash": this.investments.cash,
         "government_bonds": this.investments.government_bonds,
@@ -47715,8 +47722,19 @@ var render = function() {
   return _c("div", [
     _c(
       "form",
-      { attrs: { action: "", method: "post", enctype: "multipart/form-data" } },
+      {
+        attrs: {
+          action: "submitInvest",
+          method: "post",
+          enctype: "multipart/form-data"
+        }
+      },
       [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
         _c(
           "div",
           {
@@ -47739,7 +47757,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "number", name: "save_investment" },
+                    attrs: { type: "number", name: "total_amount" },
                     domProps: { value: _vm.investData.total_amount },
                     on: {
                       input: function($event) {
@@ -47797,9 +47815,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "cash"
                         },
                         domProps: { value: _vm.investData.cash },
                         on: {
@@ -47838,9 +47856,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "government_bonds"
                         },
                         domProps: { value: _vm.investData.government_bonds },
                         on: {
@@ -47889,9 +47907,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "domestic_stocks"
                         },
                         domProps: { value: _vm.investData.domestic_stocks },
                         on: {
@@ -47932,9 +47950,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "developed_stocks"
                         },
                         domProps: { value: _vm.investData.developed_stocks },
                         on: {
@@ -47975,9 +47993,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "emerging_stocks"
                         },
                         domProps: { value: _vm.investData.emerging_stocks },
                         on: {
@@ -48026,9 +48044,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "domestic_bonds"
                         },
                         domProps: { value: _vm.investData.domestic_bonds },
                         on: {
@@ -48069,9 +48087,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "developed_bonds"
                         },
                         domProps: { value: _vm.investData.developed_bonds },
                         on: {
@@ -48112,9 +48130,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "emerging_bonds"
                         },
                         domProps: { value: _vm.investData.emerging_bonds },
                         on: {
@@ -48163,9 +48181,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "japan_riet"
                         },
                         domProps: { value: _vm.investData.japan_riet },
                         on: {
@@ -48204,9 +48222,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "oversea_riet"
                         },
                         domProps: { value: _vm.investData.oversea_riet },
                         on: {
@@ -48229,7 +48247,7 @@ var render = function() {
                     _c("th", { staticClass: "col-xs-3" }, [_vm._v("その他")]),
                     _vm._v(" "),
                     _c("td", { staticClass: "col-xs-3" }, [
-                      _c("label", [_vm._v(_vm._s(_vm.rateOther))])
+                      _c("label", [_vm._v(_vm._s(_vm.rateOther) + "%")])
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -48245,9 +48263,9 @@ var render = function() {
                         staticClass: "form-control input-sm",
                         attrs: {
                           type: "number",
-                          min: "1",
-                          step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          step: "100",
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "other"
                         },
                         domProps: { value: _vm.investData.other },
                         on: {
@@ -48268,11 +48286,6 @@ var render = function() {
                 ])
               ])
             ]),
-            _vm._v(" "),
-            _c("input", {
-              attrs: { type: "hidden", name: "_token" },
-              domProps: { value: _vm.csrf }
-            }),
             _vm._v(" "),
             _c("input", {
               staticClass: "btn btn-success pull-right btn-block",

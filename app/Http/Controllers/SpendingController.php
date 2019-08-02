@@ -18,6 +18,11 @@ class SpendingController extends Controller
 
         $spending = new Spending;
         $form = $request->all();
+        unset($form['_token']);
+        $spending->fill($form)->save();
+
+        return view('home');
+
     }
 
     public function edit()
@@ -32,9 +37,7 @@ class SpendingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // $income = Income::where('user_id',$user->id)->first();
         $spendings = Spending::where('user_id',$user->id)->first();
-        // return view('home')->with('user', $user)->with('income', $income);
         return view('/home',compact('user','spendings'));
     }
 }

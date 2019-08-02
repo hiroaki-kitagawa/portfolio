@@ -15,12 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
-
-});
-Route::get('home', 'HomeController@index')->name('home')->middleware('auth');
-// Route::get('home', 'SpendingController@index')->middleware('auth');
-// Route::get('home', 'InvestmentController@index')->middleware('auth');
-
 Auth::routes();
+Route::get('home', 'HomeController@index')->name('home');
+Route::post('home', 'SpendingController@create');
+Route::post('submitInvest', 'InvestmentController@create');

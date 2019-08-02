@@ -1,6 +1,7 @@
 <template>
   <div>
-    <form action="" method="post" enctype="multipart/form-data">
+      <form action="submitInvest" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="_token" :value="csrf">
       <div class="col-md-8 clearfix" style="margin-top:10px">
         <div class="form-group form-inline">
           <div class="col-md-5 col-sm-5">
@@ -8,7 +9,7 @@
               <label for="投資・貯蓄額" class="label-font-size">投資・貯蓄額</label>
             </dt>
             <dd>
-              <input type="number" class="form-control" name="save_investment" v-model="investData.total_amount"><label class="label-font-size">円</label>
+              <input type="number" class="form-control" name="total_amount" v-model="investData.total_amount"><label class="label-font-size">円</label>
             </dd>
           </div>
         </div>
@@ -26,12 +27,12 @@
               <tr>
                 <th class="col-xs-3">現金</th>
                 <td class="col-xs-3"><label>{{ rateCash }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.cash"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="cash" v-model="investData.cash"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">国債</th>
                 <td class="col-xs-3"><label>{{ rateGvnBonds }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.government_bonds"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="government_bonds" v-model="investData.government_bonds"></td>
               </tr>
             </tbody>
           </table>
@@ -49,17 +50,17 @@
               <tr>
                 <th class="col-xs-3">国内株式</th>
                 <td class="col-xs-3"><label>{{ rateDomStocks }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.domestic_stocks"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="domestic_stocks" v-model="investData.domestic_stocks"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">先進国株式</th>
                 <td class="col-xs-3"><label>{{ rateDevStocks }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.developed_stocks"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="developed_stocks" v-model="investData.developed_stocks"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">新興国株式</th>
                 <td class="col-xs-3"><label>{{ rateEmrStocks }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.emerging_stocks"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="emerging_stocks" v-model="investData.emerging_stocks"></td>
               </tr>
             </tbody>
           </table>
@@ -77,17 +78,17 @@
               <tr>
                 <th class="col-xs-3">国内債券</th>
                 <td class="col-xs-3"><label>{{ rateDomBonds }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.domestic_bonds"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="domestic_bonds" v-model="investData.domestic_bonds"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">先進国債権</th>
                 <td class="col-xs-3"><label>{{ rateDevBonds }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.developed_bonds"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="developed_bonds" v-model="investData.developed_bonds"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">新興国債権</th>
                 <td class="col-xs-3"><label>{{ rateEmrBonds }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.emerging_bonds"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="emerging_bonds" v-model="investData.emerging_bonds"></td>
               </tr>
             </tbody>
           </table>
@@ -105,22 +106,22 @@
               <tr>
                 <th class="col-xs-3">国内RIET</th>
                 <td class="col-xs-3"><label>{{ rateJpRiet }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.japan_riet"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="japan_riet" v-model="investData.japan_riet"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">海外RIET</th>
                 <td class="col-xs-3"><label>{{ rateOvsRiet }}%</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.oversea_riet"></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="oversea_riet" v-model="investData.oversea_riet"></td>
               </tr>
               <tr>
                 <th class="col-xs-3">その他</th>
-                <td class="col-xs-3"><label>{{ rateOther }}</label></td>
-                <td><input type="number" min="1" step="any" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" v-model="investData.other"></td>
+                <td class="col-xs-3"><label>{{ rateOther }}%</label></td>
+                <td><input type="number" step="100" pattern="(^\d+(\.|\,)\d{2}$)" class="form-control input-sm" name="other" v-model="investData.other"></td>
               </tr>
             </tbody>
           </table>
         </div>
-        <input type="hidden" name="_token" :value="csrf">
+
         <input type="submit" class="btn btn-success pull-right btn-block" value="保存">
       </div>
     </form>
@@ -193,8 +194,8 @@
           chart: { title: '貯蓄・投資配分' }
         },
         investData: {
-          "id": '',
-          "user_id": '',
+          "id": this.investments.id,
+          "user_id": this.investments.user_id,
           "total_amount": this.investments.total_amount,
           "cash": this.investments.cash,
           "government_bonds": this.investments.government_bonds,
