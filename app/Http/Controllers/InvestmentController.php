@@ -15,11 +15,10 @@ class InvestmentController extends Controller
         $this->validate($request, Investment::$rules);
         $investment = new Investment;
         $form = $request->all();
-        // $investments = Investment::where('user_id',Auth::user()->id)->first();
-        // dd($investment);
-        // $form->put('id',Auth::user()->id);
-        // $form->put('user_id',Auth::user()->user_id);
-        dd($form);
+        // ユーザIDと投資情報IDを追加する
+        $form['user_id'] = Auth::user()->id;
+        $form['id'] = Investment::where('user_id',$form['user_id'])->first()->id;
+        // dd($form);
         unset($form['_token']);
         $investment->fill($form)->save();
 
