@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Investment extends Model
 {
     protected $fillable = [
-        'id',
         'user_id',
         'total_amount',
         'cash',

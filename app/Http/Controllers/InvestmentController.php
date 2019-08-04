@@ -10,19 +10,17 @@ use Auth;
 
 class InvestmentController extends Controller
 {
-    public function create(Request $request)
+
+    public function update(Request $request)
     {
         $this->validate($request, Investment::$rules);
-        $investment = new Investment;
+        $investment = Investment::find(Auth::user()->id);
         $form = $request->all();
-        // ユーザIDと投資情報IDを追加する
-        $form['user_id'] = Auth::user()->id;
-        $form['id'] = Investment::where('user_id',$form['user_id'])->first()->id;
-        // dd($form);
+        // dd($investment,$form);
         unset($form['_token']);
         $investment->fill($form)->save();
 
-        return view('home');
+        return redirect()->to('home')->with('flashmessage', '貯蓄・投資配分を保存しました。');
     }
 
     public function index()

@@ -18,4 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('home', 'HomeController@index')->name('home');
 Route::post('home', 'SpendingController@create');
-Route::post('submitInvest', 'InvestmentController@create');
+Route::post('submitInvest', 'InvestmentController@update');
+Route::post('submitSpending', 'SpendingController@update');

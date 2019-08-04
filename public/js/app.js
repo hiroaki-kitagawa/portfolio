@@ -45305,12 +45305,17 @@ var render = function() {
       "form",
       {
         attrs: {
-          action: "action('SpendingController@create')",
+          action: "submitSpending",
           method: "post",
           enctype: "multipart/form-data"
         }
       },
       [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
         _c(
           "div",
           {
@@ -45424,7 +45429,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "fixed_rent_budget"
                         },
                         domProps: { value: _vm.budget.fixed_rent },
                         on: {
@@ -45457,7 +45463,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "fixed_rent"
                         },
                         domProps: { value: _vm.paid.fixed_rent },
                         on: {
@@ -45506,7 +45513,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "fixed_insurance_budget"
                         },
                         domProps: { value: _vm.budget.fixed_insurance },
                         on: {
@@ -45539,7 +45547,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "fixed_insurance"
                         },
                         domProps: { value: _vm.paid.fixed_insurance },
                         on: {
@@ -45589,7 +45598,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "fixed_other_budget"
                         },
                         domProps: { value: _vm.budget.fixed_other },
                         on: {
@@ -45622,7 +45632,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "fixed_other"
                         },
                         domProps: { value: _vm.paid.fixed_other },
                         on: {
@@ -45683,7 +45694,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_utilities_budget"
                         },
                         domProps: { value: _vm.budget.variable_utilities },
                         on: {
@@ -45716,7 +45728,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_utilities"
                         },
                         domProps: { value: _vm.paid.variable_utilities },
                         on: {
@@ -45766,7 +45779,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_food_budget"
                         },
                         domProps: { value: _vm.budget.variable_food },
                         on: {
@@ -45799,7 +45813,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_food"
                         },
                         domProps: { value: _vm.paid.variable_food },
                         on: {
@@ -45848,7 +45863,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_daily_budget"
                         },
                         domProps: { value: _vm.budget.variable_daily },
                         on: {
@@ -45881,7 +45897,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_daily"
                         },
                         domProps: { value: _vm.paid.variable_daily },
                         on: {
@@ -45931,7 +45948,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_transportation_budget"
                         },
                         domProps: { value: _vm.budget.variable_transportation },
                         on: {
@@ -45964,7 +45982,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_transportation"
                         },
                         domProps: { value: _vm.paid.variable_transportation },
                         on: {
@@ -46016,7 +46035,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_automotive_budget"
                         },
                         domProps: { value: _vm.budget.variable_automotive },
                         on: {
@@ -46049,7 +46069,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_automotive"
                         },
                         domProps: { value: _vm.paid.variable_automotive },
                         on: {
@@ -46099,7 +46120,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_other_budget"
                         },
                         domProps: { value: _vm.budget.variable_other },
                         on: {
@@ -46132,7 +46154,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "variable_other"
                         },
                         domProps: { value: _vm.paid.variable_other },
                         on: {
@@ -46192,7 +46215,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_communication_budget"
                         },
                         domProps: {
                           value: _vm.budget.selfinvest_communication
@@ -46227,7 +46251,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_communication"
                         },
                         domProps: { value: _vm.paid.selfinvest_communication },
                         on: {
@@ -46277,7 +46302,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_education_budget"
                         },
                         domProps: { value: _vm.budget.selfinvest_education },
                         on: {
@@ -46310,7 +46336,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_education"
                         },
                         domProps: { value: _vm.paid.selfinvest_education },
                         on: {
@@ -46360,7 +46387,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_medical_budget"
                         },
                         domProps: { value: _vm.budget.selfinvest_medical },
                         on: {
@@ -46393,7 +46421,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_medical"
                         },
                         domProps: { value: _vm.paid.selfinvest_medical },
                         on: {
@@ -46443,7 +46472,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_medical_budget"
                         },
                         domProps: { value: _vm.budget.selfinvest_clothing },
                         on: {
@@ -46476,7 +46506,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_medical"
                         },
                         domProps: { value: _vm.paid.selfinvest_clothing },
                         on: {
@@ -46526,7 +46557,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_allowance_budget"
                         },
                         domProps: { value: _vm.budget.selfinvest_allowance },
                         on: {
@@ -46559,7 +46591,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_allowance"
                         },
                         domProps: { value: _vm.paid.selfinvest_allowance },
                         on: {
@@ -46609,7 +46642,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_pocketmoney_budget"
                         },
                         domProps: { value: _vm.budget.selfinvest_pocketmoney },
                         on: {
@@ -46642,7 +46676,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_pocketmoney"
                         },
                         domProps: { value: _vm.paid.selfinvest_pocketmoney },
                         on: {
@@ -46692,7 +46727,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_favorite_budget"
                         },
                         domProps: { value: _vm.budget.selfinvest_favorite },
                         on: {
@@ -46725,7 +46761,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_favorite"
                         },
                         domProps: { value: _vm.paid.selfinvest_favorite },
                         on: {
@@ -46775,7 +46812,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_other_budget"
                         },
                         domProps: { value: _vm.budget.selfinvest_other },
                         on: {
@@ -46808,7 +46846,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "selfinvest_other"
                         },
                         domProps: { value: _vm.paid.selfinvest_other },
                         on: {
@@ -46868,7 +46907,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "storeinvest_saving_budget"
                         },
                         domProps: { value: _vm.budget.storeinvest_saving },
                         on: {
@@ -46901,7 +46941,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "storeinvest_saving"
                         },
                         domProps: { value: _vm.paid.storeinvest_saving },
                         on: {
@@ -46951,7 +46992,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "storeinvest_investment_budget"
                         },
                         domProps: { value: _vm.budget.storeinvest_investment },
                         on: {
@@ -46984,7 +47026,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "storeinvest_investment"
                         },
                         domProps: { value: _vm.paid.storeinvest_investment },
                         on: {
@@ -47034,7 +47077,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "storeinvest_other_budget"
                         },
                         domProps: { value: _vm.budget.storeinvest_other },
                         on: {
@@ -47067,7 +47111,8 @@ var render = function() {
                           type: "number",
                           min: "0",
                           step: "any",
-                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)"
+                          pattern: "(^\\d+(\\.|\\,)\\d{2}$)",
+                          name: "storeinvest_other"
                         },
                         domProps: { value: _vm.paid.storeinvest_other },
                         on: {
@@ -47101,11 +47146,6 @@ var render = function() {
                 ])
               ])
             ]),
-            _vm._v(" "),
-            _c("input", {
-              attrs: { type: "hidden", name: "_token" },
-              domProps: { value: _vm.csrf }
-            }),
             _vm._v(" "),
             _c("input", {
               staticClass: "btn btn-success pull-right btn-block",
