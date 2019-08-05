@@ -16,7 +16,13 @@ class SpendingController extends Controller
         unset($form['_token']);
         $spending->fill($form)->save();
 
-        return redirect()->to('home')->with('flashmessage', '支出配分を保存しました。');
+        // フラッシュメッセージの表示内容を設定する
+        $notification = array (
+            'message' => '支出配分を保存しました。',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->to('home')->with($notification);
     }
 
     public function index()

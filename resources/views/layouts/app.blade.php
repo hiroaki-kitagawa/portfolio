@@ -21,6 +21,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
+
             <div class="container">
                 <div class="navbar-header">
 
@@ -80,7 +81,28 @@
     </div>
 
     <!-- Scripts -->
+    <script>
+        @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        switch(type){
+            case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
 
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+            }
+        @endif
+        </script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
