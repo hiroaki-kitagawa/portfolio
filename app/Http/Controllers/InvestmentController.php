@@ -20,7 +20,9 @@ class InvestmentController extends Controller
         unset($form['_token']);
         $investment->fill($form)->save();
 
-        return redirect()->to('home')->with('flashmessage', '貯蓄・投資配分を保存しました。');
+        // \Session::flash('flash_message_ok', '保存しました');
+        // return redirect('home')->with('flash_message', '保存しました');
+        // return redirect()->to('home')->with('flashmessage', '貯蓄・投資配分を保存しました。');
     }
 
     public function index()
