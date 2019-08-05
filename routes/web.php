@@ -16,7 +16,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('firstinput', 'FirstInputController@index')->name('firstinput');
+Route::post('firstinput', 'FirstInputController@add')->name('firstinput');
 Route::get('home', 'HomeController@index')->name('home');
-Route::post('home', 'SpendingController@create');
-Route::post('submitInvest', 'InvestmentController@update');
-Route::post('submitSpending', 'SpendingController@update');
+Route::post('home', 'SpendingController@create')->name('home');
+Route::post('submitInvest', 'InvestmentController@update')->name('submitInvest');
+Route::post('submitSpending', 'SpendingController@update')->name('submitSpending');
