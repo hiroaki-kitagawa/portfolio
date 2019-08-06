@@ -6,20 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Investment extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'total_amount',
-        'cash',
-        'government_bonds',
-        'domestic_stocks',
-        'developed_stocks',
-        'emerging_stocks',
-        'domestic_bonds',
-        'developed_bonds',
-        'emerging_bonds',
-        'japan_riet',
-        'oversea_riet',
-        'other'
+    protected $guarded = [
+        'id'
+    ];
+
+    protected $attributes = [
+        'user_id' => 0,
+        'total_amount' => 0,
+        'cash' => 0,
+        'government_bonds' => 0,
+        'domestic_stocks' => 0,
+        'developed_stocks' => 0,
+        'emerging_stocks' => 0,
+        'domestic_bonds' => 0,
+        'developed_bonds' => 0,
+        'emerging_bonds' => 0,
+        'japan_riet' => 0,
+        'oversea_riet' => 0,
+        'other' => 0
     ];
 
     public static $rules = array(
