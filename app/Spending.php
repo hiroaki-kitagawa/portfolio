@@ -9,9 +9,9 @@ class Spending extends Model
     protected $guarded = [
         'id'
     ];
-    //
+
     protected $attributes = [
-        'user_id' => 0,
+        'user_id' => '',
         'fixed_income' => 0,
         'extra_income' => 0,
         'fixed_rent_budget' => 0,

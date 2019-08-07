@@ -11,7 +11,7 @@ class Investment extends Model
     ];
 
     protected $attributes = [
-        'user_id' => 0,
+        'user_id' => '',
         'total_amount' => 0,
         'cash' => 0,
         'government_bonds' => 0,

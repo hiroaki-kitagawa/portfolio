@@ -8,6 +8,7 @@
                 <div class="panel-heading">{{ __('BasicInfo') }}</div>
 
                 <div class="panel-body">
+                    {{Auth::user()->id}}
                     <p>手取収入（月額）と貯蓄・投資額（月額）を入力して、「次へ」ボタンを押してください。</p>
                     <form class="form-horizontal" method="POST" action="{{ route('firstinput') }}">
                         {{ csrf_field() }}
