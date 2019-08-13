@@ -16,7 +16,6 @@ class InvestmentController extends Controller
         $this->validate($request, Investment::$rules);
         $investment = Investment::find(Auth::user()->id);
         $form = $request->all();
-        // dd($investment,$form);
         unset($form['_token']);
         $investment->fill($form)->save();
 
