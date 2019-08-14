@@ -48,8 +48,12 @@ html, body, .tooltip, .opoover {
   width: 75%;
 }
 
- .calculatedValue {
+.calculatedValue {
     border-bottom: 1px solid #7da6d6;
     font-size: 30px;
     font-weight: 700;
+}
+
+.loading {
+  display: none;
 }

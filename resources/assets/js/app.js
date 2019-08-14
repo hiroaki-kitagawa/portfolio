@@ -32,4 +32,11 @@ Vue.filter( 'localeNum', function ( val )
 
 const app = new Vue({
     el: '#app',
+} );
+
+$(function (){
+    $( '.btn-show' ).on( 'click', function (){
+        $( '.btn-show' ).hide();
+        $( '.loading' ).show();
+    });
 });

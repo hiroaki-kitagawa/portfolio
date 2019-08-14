@@ -63,7 +63,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <img class="loading" src="/img/SpinnerBlue-1s-60px.gif">
+                                <button type="submit" class="btn btn-primary btn-show">
                                     {{__('Register')}}
                                 </button>
                             </div>

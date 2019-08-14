@@ -121,8 +121,8 @@
             </tbody>
           </table>
         </div>
-
-        <input type="submit" class="btn btn-success pull-right btn-block" value="保存">
+        <input v-on:click="change_invest_show" v-show="show_invest_btn" type="submit" class="btn btn-success pull-right btn-block" value="保存">
+        <img v-show="show_invest_load" class="center-block" :src="img_src" alt="">
       </div>
     </form>
     <div class="col-xs-12 col-md-5 top-buffer pull-right">
@@ -182,6 +182,9 @@
     props: ['investments'],
     data() {
       return {
+        show_invest_btn: true,
+        show_invest_load: false,
+        img_src: '/img/SpinnerGreen-1s-60px.gif',
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         chartDataHeader: ["種類", "小計"],
         chartDataRows: [
@@ -224,6 +227,12 @@
           "created_at": '',
           "updated_at": ''
         },
+      }
+    },
+    methods: {
+      change_invest_show: function() {
+        this.show_invest_btn = false;
+        this.show_invest_load = true;
       }
     },
     computed: {

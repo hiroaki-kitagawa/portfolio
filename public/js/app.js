@@ -1311,11 +1311,18 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-accumlation', __webpa
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sim-period', __webpack_require__(57));
 // 数値をカンマ区切りで表示
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('localeNum', function (val) {
-  return Number(val).toLocaleString();
+    return Number(val).toLocaleString();
 });
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
-  el: '#app'
+    el: '#app'
+});
+
+$(function () {
+    $('.btn-show').on('click', function () {
+        $('.btn-show').hide();
+        $('.loading').show();
+    });
 });
 
 /***/ }),
@@ -45163,6 +45170,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45170,6 +45178,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   props: ['spendings'],
   data: function data() {
     return {
+      show_spend_btn: true,
+      show_spend_load: false,
+      img_src: '/img/SpinnerGreen-1s-60px.gif',
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       chartDataHeader: ["種類", "小計"],
       chartDataRows: [['固定費', this.sumFixed], ['変動費', this.sumVar], ['自己投資', this.sumSelfInvest], ['貯蓄・投資', this.sumSaveInvest]],
@@ -45227,6 +45238,12 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     };
   },
 
+  methods: {
+    change_spend_show: function change_spend_show() {
+      this.show_spend_btn = false;
+      this.show_spend_load = true;
+    }
+  },
   computed: {
     sumFixed: function sumFixed() {
       var sum = Number(this.paid.fixed_rent) + Number(this.paid.fixed_insurance) + Number(this.paid.fixed_other);
@@ -47148,8 +47165,30 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show_spend_btn,
+                  expression: "show_spend_btn"
+                }
+              ],
               staticClass: "btn btn-success pull-right btn-block",
-              attrs: { type: "submit", value: "保存" }
+              attrs: { type: "submit", value: "保存" },
+              on: { click: _vm.change_spend_show }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show_spend_load,
+                  expression: "show_spend_load"
+                }
+              ],
+              staticClass: "center-block",
+              attrs: { src: _vm.img_src, alt: "" }
             })
           ]
         )
@@ -47586,6 +47625,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   props: ['investments'],
   data: function data() {
     return {
+      show_invest_btn: true,
+      show_invest_load: false,
+      img_src: '/img/SpinnerGreen-1s-60px.gif',
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       chartDataHeader: ["種類", "小計"],
       chartDataRows: [['安全資産', this.sumCach], ['株式', this.sumStocks], ['債券', this.sumBonds], ['その他', this.sumOther]],
@@ -47626,6 +47668,12 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     };
   },
 
+  methods: {
+    change_invest_show: function change_invest_show() {
+      this.show_invest_btn = false;
+      this.show_invest_load = true;
+    }
+  },
   computed: (_computed = {
     rateCash: function rateCash() {
       if (this.investData.cash > 0) {
@@ -48328,8 +48376,30 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show_invest_btn,
+                  expression: "show_invest_btn"
+                }
+              ],
               staticClass: "btn btn-success pull-right btn-block",
-              attrs: { type: "submit", value: "保存" }
+              attrs: { type: "submit", value: "保存" },
+              on: { click: _vm.change_invest_show }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show_invest_load,
+                  expression: "show_invest_load"
+                }
+              ],
+              staticClass: "center-block",
+              attrs: { src: _vm.img_src, alt: "" }
             })
           ]
         )

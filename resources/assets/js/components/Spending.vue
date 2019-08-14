@@ -222,7 +222,8 @@
           </tbody>
         </table>
       </div>
-      <input type="submit" class="btn btn-success pull-right btn-block" value="保存">
+      <input v-on:click="change_spend_show" v-show="show_spend_btn" type="submit" class="btn btn-success pull-right btn-block" value="保存">
+      <img v-show="show_spend_load" class="center-block" :src="img_src" alt="">
     </div>
   </form>
   <div class="col-xs-12 col-md-5 top-buffer pull-right">
@@ -282,6 +283,9 @@
     props: ['spendings'],
     data() {
       return {
+        show_spend_btn: true,
+        show_spend_load: false,
+        img_src: '/img/SpinnerGreen-1s-60px.gif',
         csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         chartDataHeader: ["種類", "小計"],
         chartDataRows: [
@@ -342,6 +346,12 @@
           "storeinvest_other": this.spendings.storeinvest_other
         },
      }
+    },
+    methods: {
+      change_spend_show: function() {
+        this.show_spend_btn = false;
+        this.show_spend_load = true;
+      }
     },
     computed: {
       sumFixed() {

@@ -51,7 +51,8 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <img class="loading" src="/img/SpinnerBlue-1s-60px.gif">
+                                <button type="submit" class="btn btn-primary btn-show">
                                     {{ __('Login') }}
                                 </button>
 
