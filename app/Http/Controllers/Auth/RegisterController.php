@@ -52,7 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|
-                            min:8|
+                            min:8|max:128|
                             regex:/^(?=.*?[a-zA-Z])(?=.*?\d)[a-z\d]+$/i|
                             confirmed',
         ]);
