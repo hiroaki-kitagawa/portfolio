@@ -18,12 +18,11 @@ class CustomResetPassword extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param string $token
      * @return void
      */
-    public function __construct($token)
+    public function __construct()
     {
-        $this->token = $token;
+        //
     }
 
     /**
@@ -46,14 +45,9 @@ class CustomResetPassword extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    // ->line('The introduction to the notification.')
-                    // ->action('Notification Action', url('/'))
-                    // ->line('Thank you for using our application!');
-                    ->from('hirock17l@gmail.com', config('app.name'))
-                    ->subject('パスワード再設定')
-                    ->line('下のボタンをクリックしてパスワードを再設定してください。')
-                    ->action('パスワード再設定', url(config('app,url').route('password.reset', $this->token, false)))
-                    ->line('もし心当たりがない場合は、本メッセージは破棄してください。');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
